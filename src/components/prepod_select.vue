@@ -15,9 +15,11 @@ import {
     mapGetters,
 	mapMutations
 } from 'vuex'
+import mixins from '@/components/mixins.vue'
 
 export default {
     props: ['content'],
+	mixins: [mixins],
     data() {
         return {
             search: ""
@@ -39,15 +41,8 @@ export default {
 			'prepods'
 		]),
 		searched () {
-			return this.prepods.filter(prepod => {
-				let finded = false || !this.search.length
-				for (var prop in prepod) {
-					if (prepod.hasOwnProperty(prop)) {
-						if (prepod[prop].toString().indexOf(this.search) + 1) finded = true
-					}
-				}
-				return finded
-			})
+			if (!this.search.length) return this.prepods
+			return this.prepods.filter(el => this.searchFn(el, this.search))
         },
 		selectedPrepod () {
 			return this.prepods.find(el => el.id == this.content)
