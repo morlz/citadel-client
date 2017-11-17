@@ -9,7 +9,7 @@ var config = {
 		curtains: ['./curtains.js']
 	},
     output: {
-        path: path.join(__dirname, 'assets'),
+        path: path.join(__dirname, process.env.NODE_ENV == 'dev' ? 'assets' : 'dist'),
         filename: '[name].js'
     },
     plugins: [

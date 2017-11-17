@@ -69,8 +69,8 @@ export default {
 .user_prev {
 	text-decoration: none;
     background-color: #fff;
-	background-size: 100%;
 	background-repeat: no-repeat;
+	background-size: 100%;
     transition: all 0.2s ease-in-out;
 	color:#666;
 	overflow: hidden;

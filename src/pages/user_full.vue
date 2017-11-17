@@ -7,7 +7,7 @@
 				</div>
 				<h2>{{data.name}}</h2>
 				<div class="photoS"><img :src="data.photo"></div>
-				<div class="description" v-html="data.content"></div>
+				<div class="description" v-html="data.description"></div>
 				<h3>Роль</h3>
 				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
 				<h3>Контакты</h3>
@@ -35,24 +35,25 @@
 				</div>
 				<input type="text" class="title" v-model="editFields.name">
 				<photoSelect class="photoS" :content="editFields.photo" @save="changePhoto"></photoSelect>
-				<quill-editor v-if="isAdmin || isWorker" :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+				<quill-editor v-if="isAdmin || isWorker" :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
 
 				<h3>Контакты</h3>
 				<div class="contacts">
 					Телефон:
 					<input type="text" v-model="editFields.phone" placeholder="Телефон">
 					Email:
-					<input type="text" v-model="editFields.email" placeholder="Email">
+					<input type="text" v-model="editFields.email" placeholder="Email" :disabled="!isAdmin">
 					Логин:
-					<input type="text" v-model="editFields.login" placeholder="Логин">
+					<input type="text" v-model="editFields.login" placeholder="Логин" :disabled="!isAdmin">
 				</div>
 
 				<h3>Пароль</h3>
 				<div class="password">
 					Пароль:
-					<input type="password" v-model="editFields.password" placeholder="Пароль (not work)">
+					<input type="password" v-model="editFields.password" placeholder="Пароль">
 					Пароль ещё раз:
-					<input type="password" v-model="editFields.password2" placeholder="Пароль (not work)">
+					<input type="password" v-model="editFields.password2" placeholder="Пароль ещё раз">
+					<div class="passConfirmErr" v-show="editFields.password != editFields.password2 && editFields.password2.length">Пароли не совпадают</div>
 				</div>
 			</section>
 			<section class="small">
@@ -124,9 +125,10 @@ export default {
 		]),
 		data () {
 			let data = this.currentUser
-			this.editFields = Object.assign({}, data)
-			this.editFields.password = ""
-			this.editFields.password2 = ""
+			this.editFields = Object.assign({
+				password: "",
+				password2: ""
+			}, data)
 			return data
 		}
 	},

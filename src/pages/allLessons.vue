@@ -16,8 +16,10 @@
 				</div>
 				<div class="lesson mather" v-for="lesson, index in searched" :class="{ old: new Date(lesson.date).valueOf() < new Date().valueOf() }">
 					<div class="title">{{ lesson.title }}</div>
-					<router-link class="cource" :to="{ path: `/cource/${lesson.cource.id}` }">{{ lesson.cource.title }}</router-link>
-					<router-link class="center" :to="{ path: `/centers/${lesson.center.id}` }">{{ lesson.center.title }}</router-link>
+					<router-link class="cource" :to="{ path: `/cource/${lesson.cource.id}` }" v-if="lesson.cource">{{ lesson.cource.title }}</router-link>
+					<div v-else="lesson.cource">...</div>
+					<router-link class="center" :to="{ path: `/centers/${lesson.center.id}` }" v-if="lesson.center">{{ lesson.center.title }}</router-link>
+					<div v-else="lesson.center">...</div>
 					<div class="duration">{{ lesson.duration }}</div>
 					<div class="date">{{ lesson.date }}</div>
 					<div class="price">{{ lesson.price }}</div>
@@ -69,7 +71,10 @@ export default {
 			}
 
 
-			if (!this.search.length) return this.lessons.sort(sortByDate).reverse()
+			if (!this.search.length) {
+				console.log(this.lessons.sort(sortByDate).reverse());
+				return this.lessons.sort(sortByDate).reverse()
+			}
 			return this.lessons.filter(el => search(el, this.search)).sort(sortByDate).reverse()
 		}
 	},

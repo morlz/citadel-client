@@ -42,13 +42,13 @@ export default {
 								if (el[prop][prop2] && el[prop].hasOwnProperty(prop2)) {
 									 if (
 										 typeof el[prop][prop2].indexOf == 'function' &&
-										 el[prop][prop2].indexOf(search) + 1
+										 el[prop][prop2].toLowerCase().indexOf(search.toLowerCase()) + 1
 									 ) finded = true
 								}
 							}
 						} else if (
 							typeof el[prop].indexOf == 'function' &&
-							el[prop].indexOf(search) + 1
+							el[prop].toLowerCase().indexOf(search.toLowerCase()) + 1
 						) finded = true
 					}
 				}

@@ -13,7 +13,12 @@ export default {
         //let apiResponce = await _emitApiFunction(data)
 
 
-		let apiResponce = await axios[data.method](`${serverAddr}/${data.data.type}${data.data.id ? '/' + data.data.id : ''}`, {
+		let url = `${serverAddr}/${data.data.type}${data.data.id ? '/' + data.data.id : ''}`
+
+		delete(data.data.id)
+		delete(data.data.type)
+
+		let apiResponce = await axios[data.method](url, {
 			params: data.data
 		})
 

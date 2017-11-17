@@ -25,14 +25,13 @@ const actions = {
 			})
         })
     },
-    signup({ commit, dispatch }, options) {
+    signup({ commit, dispatch }, data) {
+		data.type = 'signup'
         api.invoke({
             method: 'get',
-            data: {
-                type: 'signup',
-                options
-            }
+            data
         }).then(data => {
+			console.log(data);
             commit('receive_user', data)
         }).catch(err => dispatch('handleCode', err))
     },

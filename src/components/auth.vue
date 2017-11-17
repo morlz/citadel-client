@@ -34,8 +34,9 @@
 				<input type="text" placeholder="Имя" v-model="signupFrom.name">
 				<input type="text" placeholder="Логин" v-model="signupFrom.login">
 				<input type="text" placeholder="email" v-model="signupFrom.email">
-				<input type="password" placeholder="Пароль" v-model="signupFrom.pass">
-				<input type="password" placeholder="Пароль (ещё раз)" v-model="signupFrom.pass">
+				<input type="password" placeholder="Пароль" v-model="signupFrom.password">
+				<input type="password" placeholder="Пароль (ещё раз)" v-model="signupFrom.confirmPassword">
+				<div class="passwordCompareError" v-if="signupFrom.password != signupFrom.confirmPassword && signupFrom.confirmPassword.length">Пароли не совпадают!</div>
 				<vue-recaptcha
 					:sitekey="reCaptchaKey"
 					@verify="reOnVerify"
@@ -111,13 +112,23 @@ export default {
 			})
 
 			this.signinForm.open = false
+			this.$refs.recaptcha.reset()
 		},
 		signUpClose(){
 			this.signupFrom.open = false
 			this.$refs.recaptcha.reset()
 		},
 		signUpHandler(){
+			this.signup({
+				name: this.signupFrom.name,
+				email: this.signupFrom.email,
+				login: this.signupFrom.login,
+				pass: this.signupFrom.password,
+				'g-recaptcha-response': this.reToken
+			})
 
+			this.signupFrom.open = false
+			this.$refs.recaptcha.reset()
 		}
 	},
 	mounted () {
