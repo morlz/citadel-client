@@ -57,7 +57,6 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
 import VueRecaptcha from 'vue-recaptcha'
 
 export default {

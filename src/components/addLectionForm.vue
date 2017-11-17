@@ -28,18 +28,10 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
-import {
-    default as prepod_select
-} from '@/components/prepod_select.vue'
-
-import {
-    default as center_select
-} from '@/components/center_select.vue'
-
+import prepod_select from '@/components/prepod_select.vue'
+import center_select from '@/components/center_select.vue'
 import vueSlider from 'vue-slider-component'
 import dateFormat from 'dateformat'
-
 import flatPickr from 'vue-flatpickr-component'
 
 export default {

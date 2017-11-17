@@ -9,22 +9,22 @@ import { sync } from 'vuex-router-sync'
 
 import store from '@/store/index'
 
-import { default as quill } from 'vue-quill'
-import { default as Quill } from 'vue-quill-editor'
+import quill from 'vue-quill'
+import Quill from 'vue-quill-editor'
 
-import { default as main_header } from '@/components/header.vue'
-import { default as main_footer } from '@/components/footer.vue'
-import { default as main_styles } from '@/components/mainStyles.vue'
-import { default as alert } from '@/components/alert.vue'
+import main_header from '@/components/header.vue'
+import main_footer from '@/components/footer.vue'
+import main_styles from '@/components/mainStyles.vue'
+import alert from '@/components/alert.vue'
 
-import { default as discipline } from '@/pages/discipline.vue'
-import { default as centers } from '@/pages/centers.vue'
-import { default as user } from '@/pages/user_full.vue'
-import { default as users } from '@/pages/userList.vue'
-import { default as page404 } from '@/pages/404.vue'
-import { default as pages } from '@/pages/textPage.vue'
-import { default as cat } from '@/pages/categories.vue'
-import { default as allLessons } from '@/pages/allLessons.vue'
+import discipline from '@/pages/discipline.vue'
+import centers from '@/pages/centers.vue'
+import user from '@/pages/user_full.vue'
+import users from '@/pages/userList.vue'
+import page404 from '@/pages/404.vue'
+import pages from '@/pages/textPage.vue'
+import cat from '@/pages/categories.vue'
+import allLessons from '@/pages/allLessons.vue'
 
 Vue.use( quill )
 Vue.use( VueRes )

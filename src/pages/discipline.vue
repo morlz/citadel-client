@@ -84,41 +84,16 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
 import Quill from 'vue-quill-editor'
 import flatPickr from 'vue-flatpickr-component'
-
-import {
-    default as gallery
-} from '@/components/gallery.vue'
-
-import {
-    default as user_prev
-} from '@/components/user_prev.vue'
-
-import {
-    default as prepod_select
-} from '@/components/prepod_select.vue'
-
-import {
-    default as photoSelect
-} from '@/components/photoSelect.vue'
-
-import {
-    default as lection
-} from '@/components/lection.vue'
-
-import {
-    default as addLectionForm
-} from '@/components/addLectionForm.vue'
-
-import {
-    default as regForm
-} from '@/components/regForm.vue'
-
-import {
-    default as recordedUsers
-} from '@/components/recordedUsers.vue'
+import gallery from '@/components/gallery.vue'
+import user_prev from '@/components/user_prev.vue'
+import prepod_select from '@/components/prepod_select.vue'
+import photoSelect from '@/components/photoSelect.vue'
+import lection from '@/components/lection.vue'
+import addLectionForm from '@/components/addLectionForm.vue'
+import regForm from '@/components/regForm.vue'
+import recordedUsers from '@/components/recordedUsers.vue'
 
 
 

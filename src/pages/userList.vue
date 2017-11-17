@@ -20,14 +20,8 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
-import {
-    default as user_prev
-} from '@/components/user_prev.vue'
-
-import {
-    default as mixins
-} from '@/components/mixins.vue'
+import user_prev from '@/components/user_prev.vue'
+import mixins from '@/components/mixins.vue'
 
 export default {
 	data () {

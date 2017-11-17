@@ -11,16 +11,15 @@
 		</div>
 		<img :src="previewSrc" alt="preview" v-show="previewSrc" class="preview">
 
-		<div class="buttonTRb" @click="save">Сохранить</div>
+		<div class="buttonTRb" v-if="addbtn" @click="save">Добавить</div>
 	</div>
 </template>
 
 <script>
 
 
-
 export default {
-	props: ['content'],
+	props: ['content', 'addbtn'],
     data() {
         return {
             thisTab: "url",
@@ -34,15 +33,14 @@ export default {
 		},
 		save () {
 			this.$emit("save", this.localUrl)
-			this.localUrl = ""
 		}
 	},
 	watch: {
 		localUrl (newVal) {
 			this.previewSrc = newVal
+			if (!this.addbtn) this.save()
 		},
 		content (newVal) {
-			console.log(this.content);
 			this.localUrl = this.content
 		}
 	},

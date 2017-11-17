@@ -25,10 +25,7 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
-import {
-    default as mixins
-} from '@/components/mixins.vue'
+import mixins from '@/components/mixins.vue'
 
 export default {
     props: ['id', 'width', 'user'],
@@ -73,6 +70,7 @@ export default {
 	text-decoration: none;
     background-color: #fff;
 	background-size: 100%;
+	background-repeat: no-repeat;
     transition: all 0.2s ease-in-out;
 	color:#666;
 	overflow: hidden;

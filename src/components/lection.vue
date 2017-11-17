@@ -19,7 +19,7 @@
 				<div class="buttonTRb" @click="localEdit = !localEdit" v-if="isAdmin && regButton" >Редактировать</div>
 				<div class="buttonTRb" v-if="isAdmin && edit" @click="copy">Провести</div>
 				<div class="buttonTRb register" v-if="isAdmin && edit" @click="deleteLesson($event, data.id)">Удалить</div>
-				<div class="buttonTRb register" v-if="!edit && isUser && !data.registred" @click="openRegFormHandler" >Записаться</div>
+				<div class="buttonTRb register" v-if="!edit && isUser && !data.registred && new Date(data.date).valueOf() > new Date().valueOf()" @click="openRegFormHandler" >Записаться</div>
 				<div class="buttonTR register" v-if="data.registred">Вы записаны</div>
 			</div>
 		</div>
@@ -65,7 +65,6 @@ import {
 
 import vueSlider from 'vue-slider-component'
 import flatPickr from 'vue-flatpickr-component'
-
 import dateFormat from 'dateformat'
 
 export default {
@@ -110,7 +109,7 @@ export default {
 			return dateFormat(new Date(this.data.date), "yyyy-mm-dd")
 		},
 		timeFormat () {
-			return dateFormat(new Date(this.data.date), "HH:mm")
+			return dateFormat(new Date(this.data.date), "HH:MM")
 		},
 		durationFormatE () {
 			let time = this.editFields.duration

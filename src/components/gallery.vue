@@ -27,7 +27,7 @@
 
 		<div v-if="edit">
 			<h3>Добавить изображение</h3>
-			<photoSelect :content="addImageSrc" @save="addImage"></photoSelect>
+			<photoSelect :content="addImageSrc" @save="addImage" :addbtn="1"></photoSelect>
 		</div>
 
 	</div>
@@ -35,19 +35,12 @@
 </template>
 
 <script>
-import {
-    default as VueGallery
-} from 'vue-gallery'
-
-import {
-    default as photoSelect
-} from '@/components/photoSelect.vue'
-
+import VueGallery from 'vue-gallery'
+import photoSelect from '@/components/photoSelect.vue'
 import {
     mapActions,
     mapGetters
 } from 'vuex'
-
 import { Carousel, Slide } from 'vue-carousel';
 
 export default {

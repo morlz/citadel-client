@@ -29624,7 +29624,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_re
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i]}return arr2}else{return Array.from(arr)}}var state={cached:[],current:{}};var actions={getPages:function getPages(_ref,ids){var commit=_ref.commit;_index2.default.invoke({method:'get',data:{type:'page',ids:ids}}).then(function(_ref2){var data=_ref2.data;commit('receive_pages',data)})},setCurrent:function setCurrent(state,id){var finded=state.getters.pages.find(function(page){return page.id==id});if(finded){state.commit('receive_currentPage',finded);return}_index2.default.invoke({method:'get',data:{type:'page',id:id}}).then(function(_ref3){var data=_ref3.data;state.commit('addPageToChache',[data]);state.commit('receive_currentPage',data)})},handleCode:function handleCode(_ref4,req){var dispatch=_ref4.dispatch;var response=req.response;if(!response)console.error(req);if(response.status==401){dispatch('alert',{content:'\u0412\u044B \u043D\u0435 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u044B'});return}if(response.status==403){dispatch('alert',{content:'\u041E\u0442\u043A\u0430\u0437\u0430\u043D\u043E \u0432 \u0434\u043E\u0441\u0442\u0443\u043F\u0435'});return}if(response.status==404){router.push({path:'/404'});return}if(response.status==500){dispatch('alert',{content:'\u0412\u043D\u0443\u0442\u0440\u0435\u043D\u044F\u044F \u043E\u0448\u0438\u0431\u043A\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0430'});return}dispatch('alert',{content:'\u041D\u0435\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u043D\u0430\u044F \u043E\u0448\u0438\u0431\u043A\u0430, \u043F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435 \u0432 \u043A\u043E\u043D\u0441\u043E\u043B\u0435'})},updatePage:function updatePage(_ref5,data){var commit=_ref5.commit,dispatch=_ref5.dispatch;data.type='page';_index2.default.invoke({method:'put',data:data}).then(function(_ref6){var data=_ref6.data;commit('removePageFromCache',data.id);commit('addPageToChache',[data]);commit('receive_currentPage',data);commit('toggleEditMutation',false)}).catch(function(err){return dispatch('handleCode',err)})}};var mutations={removePageFromCache:function removePageFromCache(state,data){},addPageToChache:function addPageToChache(state,data){var toCache=data.filter(function(dta){return!state.cached.find(function(cached){return cached.id==dta.id})});state.cached=[].concat(_toConsumableArray(state.cached),_toConsumableArray(toCache))},receive_pages:function receive_pages(state,data){state.cached=data},receive_currentPage:function receive_currentPage(state,data){state.current=data},open404page:function open404page(state){router.push({path:'/404'})}};var getters={pages:function pages(state){return state.cached||{}},currentPage:function currentPage(state){return state.current||{}}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
+Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i]}return arr2}else{return Array.from(arr)}}var state={cached:[],current:{}};var actions={getPages:function getPages(_ref,ids){var commit=_ref.commit;_index2.default.invoke({method:'get',data:{type:'page',ids:ids}}).then(function(_ref2){var data=_ref2.data;commit('receive_pages',data)})},setCurrent:function setCurrent(state,id){var finded=state.getters.pages.find(function(page){return page.id==id});if(finded){state.commit('receive_currentPage',finded);return}_index2.default.invoke({method:'get',data:{type:'page',id:id}}).then(function(_ref3){var data=_ref3.data;state.commit('addPageToChache',[data]);state.commit('receive_currentPage',data)})},handleCode:function handleCode(_ref4,req){var dispatch=_ref4.dispatch;var response=req.response;if(!response)console.error(req);if(response.data.error){dispatch('alert',{content:response.data.error.message});return}if(response.status==401){dispatch('alert',{content:'\u0412\u044B \u043D\u0435 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u044B'});return}if(response.status==403){dispatch('alert',{content:'\u041E\u0442\u043A\u0430\u0437\u0430\u043D\u043E \u0432 \u0434\u043E\u0441\u0442\u0443\u043F\u0435'});return}if(response.status==404){router.push({path:'/404'});return}if(response.status==500){dispatch('alert',{content:'\u0412\u043D\u0443\u0442\u0440\u0435\u043D\u044F\u044F \u043E\u0448\u0438\u0431\u043A\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0430'});return}dispatch('alert',{content:'\u041D\u0435\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u043D\u0430\u044F \u043E\u0448\u0438\u0431\u043A\u0430, \u043F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435 \u0432 \u043A\u043E\u043D\u0441\u043E\u043B\u0435'})},updatePage:function updatePage(_ref5,data){var commit=_ref5.commit,dispatch=_ref5.dispatch;data.type='page';_index2.default.invoke({method:'put',data:data}).then(function(_ref6){var data=_ref6.data;commit('removePageFromCache',data.id);commit('addPageToChache',[data]);commit('receive_currentPage',data);commit('toggleEditMutation',false)}).catch(function(err){return dispatch('handleCode',err)})}};var mutations={removePageFromCache:function removePageFromCache(state,data){},addPageToChache:function addPageToChache(state,data){var toCache=data.filter(function(dta){return!state.cached.find(function(cached){return cached.id==dta.id})});state.cached=[].concat(_toConsumableArray(state.cached),_toConsumableArray(toCache))},receive_pages:function receive_pages(state,data){state.cached=data},receive_currentPage:function receive_currentPage(state,data){state.current=data},open404page:function open404page(state){router.push({path:'/404'})}};var getters={pages:function pages(state){return state.cached||{}},currentPage:function currentPage(state){return state.current||{}}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
 
 /***/ }),
 /* 436 */
@@ -34417,7 +34417,7 @@ exports.push([module.i, "\n.photoSelect {\n  padding: 10px;\n  background: #fff;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports,"__esModule",{value:true});//
+Object.defineProperty(exports,'__esModule',{value:true});//
 //
 //
 //
@@ -34434,7 +34434,7 @@ Object.defineProperty(exports,"__esModule",{value:true});//
 //
 //
 //
-exports.default={props:["content"],data:function data(){return{thisTab:"url",localUrl:"",previewSrc:""}},methods:{changeFile:function changeFile(e){this.localUrl=window.URL.createObjectURL(e.target.files[0])},save:function save(){this.$emit("save",this.localUrl);this.localUrl=""}},watch:{localUrl:function localUrl(newVal){this.previewSrc=newVal},content:function content(newVal){console.log(this.content);this.localUrl=this.content}},mounted:function mounted(){this.localUrl=this.content}};
+exports.default={props:['content','addbtn'],data:function data(){return{thisTab:'url',localUrl:'',previewSrc:''}},methods:{changeFile:function changeFile(e){this.localUrl=window.URL.createObjectURL(e.target.files[0])},save:function save(){this.$emit('save',this.localUrl)}},watch:{localUrl:function localUrl(newVal){this.previewSrc=newVal;if(!this.addbtn)this.save()},content:function content(newVal){this.localUrl=this.content}},mounted:function mounted(){this.localUrl=this.content}};
 
 /***/ }),
 /* 592 */
@@ -34531,9 +34531,11 @@ var render = function() {
       attrs: { src: _vm.previewSrc, alt: "preview" }
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "buttonTRb", on: { click: _vm.save } }, [
-      _vm._v("Сохранить")
-    ])
+    _vm.addbtn
+      ? _c("div", { staticClass: "buttonTRb", on: { click: _vm.save } }, [
+          _vm._v("Добавить")
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -34644,7 +34646,7 @@ var render = function() {
                 _c("h3", [_vm._v("Добавить изображение")]),
                 _vm._v(" "),
                 _c("photoSelect", {
-                  attrs: { content: _vm.addImageSrc },
+                  attrs: { content: _vm.addImageSrc, addbtn: 1 },
                   on: { save: _vm.addImage }
                 })
               ],
@@ -34707,7 +34709,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\n.user_prev {\n  text-decoration: none;\n  background-color: #fff;\n  background-size: 100%;\n  transition: all 0.2s ease-in-out;\n  color: #666;\n  overflow: hidden;\n}\n.user_prev .name {\n  margin: 350px 0 0 0;\n  font-size: 26px;\n  line-height: 26px;\n  padding: 10px;\n  background: #fff;\n  white-space: nowrap;\n}\n.user_prev .contacts {\n  line-height: 40px;\n}\n.user_prev .contacts > div {\n  width: 100%;\n  box-sizing: border-box;\n  min-height: 40px;\n}\n.user_prev .contactsWrapper {\n  background: white;\n  padding: 10px;\n  display: grid;\n  grid-gap: 10px;\n  grid-template-columns: 1fr;\n  grid-auto-flow: row;\n}\n.user_prev .contactsWrapper .editButtons {\n  display: flex;\n  justify-content: flex-end;\n  flex-direction: row;\n}\n.user_prev .b1 {\n  justify-self: center;\n}\n.user_prev .fadeContent-enter-active {\n  transition: margin-top 0.3s ease-in-out, opacity 0.2s ease-in-out 0.15s;\n}\n.user_prev .fadeContent-leave-active {\n  transition: margin-top 0.3s ease-in-out 0.1s, opacity 0.2s ease-in-out;\n}\n.user_prev .fadeContent-enter,\n.user_prev .fadeContent-leave-to {\n  opacity: 0;\n  margin-top: -100%;\n}\n", ""]);
+exports.push([module.i, "\n.user_prev {\n  text-decoration: none;\n  background-color: #fff;\n  background-size: 100%;\n  background-repeat: no-repeat;\n  transition: all 0.2s ease-in-out;\n  color: #666;\n  overflow: hidden;\n}\n.user_prev .name {\n  margin: 350px 0 0 0;\n  font-size: 26px;\n  line-height: 26px;\n  padding: 10px;\n  background: #fff;\n  white-space: nowrap;\n}\n.user_prev .contacts {\n  line-height: 40px;\n}\n.user_prev .contacts > div {\n  width: 100%;\n  box-sizing: border-box;\n  min-height: 40px;\n}\n.user_prev .contactsWrapper {\n  background: white;\n  padding: 10px;\n  display: grid;\n  grid-gap: 10px;\n  grid-template-columns: 1fr;\n  grid-auto-flow: row;\n}\n.user_prev .contactsWrapper .editButtons {\n  display: flex;\n  justify-content: flex-end;\n  flex-direction: row;\n}\n.user_prev .b1 {\n  justify-self: center;\n}\n.user_prev .fadeContent-enter-active {\n  transition: margin-top 0.3s ease-in-out, opacity 0.2s ease-in-out 0.15s;\n}\n.user_prev .fadeContent-leave-active {\n  transition: margin-top 0.3s ease-in-out 0.1s, opacity 0.2s ease-in-out;\n}\n.user_prev .fadeContent-enter,\n.user_prev .fadeContent-leave-to {\n  opacity: 0;\n  margin-top: -100%;\n}\n", ""]);
 
 // exports
 
@@ -35150,7 +35152,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-var _vuex=__webpack_require__(9);var _vueSliderComponent=__webpack_require__(194);var _vueSliderComponent2=_interopRequireDefault(_vueSliderComponent);var _vueFlatpickrComponent=__webpack_require__(123);var _vueFlatpickrComponent2=_interopRequireDefault(_vueFlatpickrComponent);var _dateformat=__webpack_require__(195);var _dateformat2=_interopRequireDefault(_dateformat);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={props:['content'],data:function data(){return{opened:false,localEdit:false,editFields:{}}},components:{vueSlider:_vueSliderComponent2.default,flatPickr:_vueFlatpickrComponent2.default},computed:_extends({},(0,_vuex.mapGetters)(['isWorker','isAdmin','FP','edit','quillOptions','logined','isUser']),{data:function data(){var data=this.content||{};this.editFields=Object.assign({},data);return data},filled:function filled(){return this.data.space-1},durationFormat:function durationFormat(){var time=this.data.duration;var h=Math.floor(time/60);var m=time%60;return h+' \u0447. '+m+' \u043C\u0438\u043D.'},dateFormat:function dateFormat(){return(0,_dateformat2.default)(new Date(this.data.date),'yyyy-mm-dd')},timeFormat:function timeFormat(){return(0,_dateformat2.default)(new Date(this.data.date),'HH:mm')},durationFormatE:function durationFormatE(){var time=this.editFields.duration;var h=Math.floor(time/60);var m=time%60;return h+' \u0447. '+m+' \u043C\u0438\u043D.'},regButton:function regButton(){return new Date().valueOf()<new Date(this.data.date).valueOf()}}),methods:_extends({},(0,_vuex.mapActions)(['showRegForm','addLectionDataSet','updateLection','remove','getRegistredUsersForCurrentLesson']),(0,_vuex.mapMutations)(['showCurrentUsers']),{openRegFormHandler:function openRegFormHandler(e){e.stopPropagation();this.showRegForm(this.data)},save:function save(){this.updateLection(this.editFields);this.localEdit=!1},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.description=html},copy:function copy(e){e.stopPropagation();this.addLectionDataSet(this.editFields)},deleteLesson:function deleteLesson(e,id){e.stopPropagation();this.remove({type:'lesson',id:id,redirect:false})},showRegistredUsers:function showRegistredUsers(e,lessonId){e.stopPropagation();if(!this.isAdmin)return;this.showCurrentUsers();this.getRegistredUsersForCurrentLesson(lessonId)}})};
+var _vuex=__webpack_require__(9);var _vueSliderComponent=__webpack_require__(194);var _vueSliderComponent2=_interopRequireDefault(_vueSliderComponent);var _vueFlatpickrComponent=__webpack_require__(123);var _vueFlatpickrComponent2=_interopRequireDefault(_vueFlatpickrComponent);var _dateformat=__webpack_require__(195);var _dateformat2=_interopRequireDefault(_dateformat);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={props:['content'],data:function data(){return{opened:false,localEdit:false,editFields:{}}},components:{vueSlider:_vueSliderComponent2.default,flatPickr:_vueFlatpickrComponent2.default},computed:_extends({},(0,_vuex.mapGetters)(['isWorker','isAdmin','FP','edit','quillOptions','logined','isUser']),{data:function data(){var data=this.content||{};this.editFields=Object.assign({},data);return data},filled:function filled(){return this.data.space-1},durationFormat:function durationFormat(){var time=this.data.duration;var h=Math.floor(time/60);var m=time%60;return h+' \u0447. '+m+' \u043C\u0438\u043D.'},dateFormat:function dateFormat(){return(0,_dateformat2.default)(new Date(this.data.date),'yyyy-mm-dd')},timeFormat:function timeFormat(){return(0,_dateformat2.default)(new Date(this.data.date),'HH:MM')},durationFormatE:function durationFormatE(){var time=this.editFields.duration;var h=Math.floor(time/60);var m=time%60;return h+' \u0447. '+m+' \u043C\u0438\u043D.'},regButton:function regButton(){return new Date().valueOf()<new Date(this.data.date).valueOf()}}),methods:_extends({},(0,_vuex.mapActions)(['showRegForm','addLectionDataSet','updateLection','remove','getRegistredUsersForCurrentLesson']),(0,_vuex.mapMutations)(['showCurrentUsers']),{openRegFormHandler:function openRegFormHandler(e){e.stopPropagation();this.showRegForm(this.data)},save:function save(){this.updateLection(this.editFields);this.localEdit=!1},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.description=html},copy:function copy(e){e.stopPropagation();this.addLectionDataSet(this.editFields)},deleteLesson:function deleteLesson(e,id){e.stopPropagation();this.remove({type:'lesson',id:id,redirect:false})},showRegistredUsers:function showRegistredUsers(e,lessonId){e.stopPropagation();if(!this.isAdmin)return;this.showCurrentUsers();this.getRegistredUsersForCurrentLesson(lessonId)}})};
 
 /***/ }),
 /* 608 */
@@ -35256,7 +35258,10 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              !_vm.edit && _vm.isUser && !_vm.data.registred
+              !_vm.edit &&
+              _vm.isUser &&
+              !_vm.data.registred &&
+              new Date(_vm.data.date).valueOf() > new Date().valueOf()
                 ? _c(
                     "div",
                     {
@@ -37841,7 +37846,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\n.user_fullWrapper {\n  padding-bottom: 20px;\n}\n.user_fullWrapper > .button {\n  display: inline;\n  text-align: center;\n  margin-left: 20%;\n}\n.edit .title {\n  width: 100%;\n  box-sizing: border-box;\n  font-family: \"Roboto Slab\", Arial, sans-serif;\n  font-size: 46px;\n  font-weight: 300;\n  letter-spacing: -2px;\n  line-height: 58px;\n  color: #444;\n  margin: 10px 0;\n  padding: 0;\n}\n.edit .images {\n  width: 100%;\n  min-height: 200px;\n}\n.edit .photoB {\n  width: 100%;\n}\n.edit .logo {\n  width: 100%;\n}\n.user_full {\n  box-sizing: border-box;\n  display: grid;\n  grid-gap: 20px;\n  grid-template: \"big small\" auto / 65% 35%;\n}\n.user_full .role {\n  line-height: 30px;\n}\n.user_full .images .gallery {\n  display: grid;\n  grid-gap: 20px;\n  grid-template-columns: repeat(4, 1fr);\n  align-items: center;\n}\n.user_full .images .gallery .image {\n  width: 100%;\n}\n.user_full .contacts,\n.user_full .password {\n  display: grid;\n  grid-auto-flow: row;\n  line-height: 30px;\n  grid-gap: 10px;\n}\n.user_full .photoB img {\n  width: 100%;\n}\n.user_full .photoS {\n  display: none;\n  text-align: center;\n  max-width: 100%;\n}\n.user_full .photoS img {\n  width: 100%;\n  margin: 0 auto;\n}\n.user_full .regs .reg {\n  padding: 20px;\n  background: #fff;\n}\n.user_full .regs .reg .title {\n  margin: 10px 0;\n  color: #444;\n  font-size: 24px;\n  font-weight: 400;\n  line-height: 20px;\n}\n.user_full .regs .reg .buttons {\n  display: grid;\n  grid-auto-flow: column;\n  justify-content: end;\n}\n@media (max-width: 1100px) {\n.user_full {\n    grid-template: \"big\" auto \"small\" auto / 60% 40%;\n}\n}\n@media (max-width: 800px) {\n.user_full {\n    grid-template: \"big\" auto \"small\" auto;\n}\n.user_full .photoB {\n    display: none;\n}\n.user_full .photoS {\n    display: block;\n}\n.user_full .images .gallery {\n    grid-template-columns: repeat(2, 1fr);\n}\n}\n", ""]);
+exports.push([module.i, "\n.user_fullWrapper {\n  padding-bottom: 20px;\n}\n.user_fullWrapper > .button {\n  display: inline;\n  text-align: center;\n  margin-left: 20%;\n}\n.edit .title {\n  width: 100%;\n  box-sizing: border-box;\n  font-family: \"Roboto Slab\", Arial, sans-serif;\n  font-size: 46px;\n  font-weight: 300;\n  letter-spacing: -2px;\n  line-height: 58px;\n  color: #444;\n  margin: 10px 0;\n  padding: 0;\n}\n.edit .images {\n  width: 100%;\n  min-height: 200px;\n}\n.edit .photoB {\n  width: 100%;\n}\n.edit .logo {\n  width: 100%;\n}\n.user_full {\n  box-sizing: border-box;\n  display: grid;\n  grid-gap: 20px;\n  grid-template: \"big small\" auto / 65% 35%;\n}\n.user_full .role {\n  line-height: 30px;\n}\n.user_full .images .gallery {\n  display: grid;\n  grid-gap: 20px;\n  grid-template-columns: repeat(4, 1fr);\n  align-items: center;\n}\n.user_full .images .gallery .image {\n  width: 100%;\n}\n.user_full .contacts,\n.user_full .password {\n  display: grid;\n  grid-auto-flow: row;\n  line-height: 30px;\n  grid-gap: 10px;\n}\n.user_full .photoB img {\n  width: 100%;\n}\n.user_full .photoS {\n  display: none;\n  text-align: center;\n  max-width: 100%;\n}\n.user_full .photoS img {\n  width: 100%;\n  margin: 0 auto;\n}\n@media (max-width: 1100px) {\n.user_full {\n    grid-template: \"big\" auto \"small\" auto / 60% 40%;\n}\n}\n@media (max-width: 800px) {\n.user_full {\n    grid-template: \"big\" auto \"small\" auto;\n}\n.user_full .photoB {\n    display: none;\n}\n.user_full .photoS {\n    display: block;\n}\n.user_full .images .gallery {\n    grid-template-columns: repeat(2, 1fr);\n}\n}\n", ""]);
 
 // exports
 
@@ -37916,23 +37921,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _vuex=__webpack_require__(9);var _photoSelect=__webpack_require__(88);var _photoSelect2=_interopRequireDefault(_photoSelect);var _mixins=__webpack_require__(66);var _mixins2=_interopRequireDefault(_mixins);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{localEdit:false,editFields:{}}},mixins:[_mixins2.default],components:{photoSelect:_photoSelect2.default},methods:_extends({},(0,_vuex.mapActions)(['setCurrentUser','updateUser','getUserRegs','removeRecordUser']),{changePhoto:function changePhoto(newPhoto){this.editFields.photo=newPhoto},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.content=html}}),computed:_extends({},(0,_vuex.mapGetters)(['currentUser','quillOptions','edit','isAdmin','isWorker','user','logined','currentUserRegs']),{data:function data(){var data=this.currentUser;this.editFields=Object.assign({},data);this.editFields.password='';this.editFields.password2='';return data}}),watch:{user:function user(){if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}},mounted:function mounted(){this.setCurrentUser(this.$route.params.id);if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}};
+var _vuex=__webpack_require__(9);var _photoSelect=__webpack_require__(88);var _photoSelect2=_interopRequireDefault(_photoSelect);var _reg=__webpack_require__(677);var _reg2=_interopRequireDefault(_reg);var _mixins=__webpack_require__(66);var _mixins2=_interopRequireDefault(_mixins);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{localEdit:false,editFields:{}}},mixins:[_mixins2.default],components:{photoSelect:_photoSelect2.default,reg:_reg2.default},methods:_extends({},(0,_vuex.mapActions)(['setCurrentUser','updateUser','getUserRegs']),(0,_vuex.mapMutations)(['toggleEditMutation']),{changePhoto:function changePhoto(newPhoto){this.editFields.photo=newPhoto},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.description=html},updateUserHandler:function updateUserHandler(){this.updateUser(this.editFields);this.toggleEditMutation(false);this.localEdit=false}}),computed:_extends({},(0,_vuex.mapGetters)(['currentUser','quillOptions','edit','isAdmin','isWorker','user','logined','currentUserRegs']),{data:function data(){var data=this.currentUser;this.editFields=Object.assign({},data);this.editFields.password='';this.editFields.password2='';return data}}),watch:{user:function user(){if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}},mounted:function mounted(){this.setCurrentUser(this.$route.params.id);if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}};
 
 /***/ }),
 /* 649 */
@@ -38008,73 +37997,12 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _vm._l(_vm.currentUserRegs, function(reg, index) {
-                return _c("div", { staticClass: "regs" }, [
-                  _c("div", { staticClass: "reg mather" }, [
-                    _c("div", { staticClass: "title" }, [
-                      _vm._v(_vm._s(reg.lesson.title))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "description" }, [
-                      _vm._v(
-                        "\n\t\t\t\t\t\tДата и время занятия: " +
-                          _vm._s(reg.lesson.date) +
-                          " "
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n\t\t\t\t\t\tЦена: " +
-                          _vm._s(reg.lesson.price) +
-                          "\n\t\t\t\t\t"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "status" }, [
-                      _vm._v(
-                        "\n\t\t\t\t\t\tСтатус: " +
-                          _vm._s(reg.status.title) +
-                          "\n\t\t\t\t\t"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "buttons" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "buttonTRb",
-                            on: {
-                              click: function($event) {
-                                _vm.removeRecordUser({
-                                  id: reg.id,
-                                  id_lesson: reg.lesson.id
-                                })
-                              }
-                            }
-                          },
-                          [_vm._v("Отменить")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "buttonTRb" }, [
-                          _vm._v("Оплатить")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "buttonTRb",
-                            attrs: {
-                              to: { path: "/cource/" + reg.lesson.id_cource }
-                            }
-                          },
-                          [_vm._v("Подробнее о курсе")]
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ])
+                return _c(
+                  "div",
+                  { staticClass: "regs" },
+                  [_c("reg", { key: index, attrs: { content: reg } })],
+                  1
+                )
               })
             ],
             2
@@ -38116,11 +38044,7 @@ var render = function() {
                   "div",
                   {
                     staticClass: "button",
-                    on: {
-                      click: function($event) {
-                        _vm.updateUser(_vm.editFields)
-                      }
-                    }
+                    on: { click: _vm.updateUserHandler }
                   },
                   [_vm._v("Сохранить изменения")]
                 )
@@ -38147,10 +38071,6 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" "),
-              _c("div", { staticClass: "photoS" }, [
-                _c("img", { attrs: { src: _vm.data.photo } })
-              ]),
               _vm._v(" "),
               _c("photoSelect", {
                 staticClass: "photoS",
@@ -38253,7 +38173,7 @@ var render = function() {
                       expression: "editFields.password"
                     }
                   ],
-                  attrs: { type: "password", placeholder: "Пароль" },
+                  attrs: { type: "password", placeholder: "Пароль (not work)" },
                   domProps: { value: _vm.editFields.password },
                   on: {
                     input: function($event) {
@@ -38274,7 +38194,7 @@ var render = function() {
                       expression: "editFields.password2"
                     }
                   ],
-                  attrs: { type: "password", placeholder: "Пароль" },
+                  attrs: { type: "password", placeholder: "Пароль (not work)" },
                   domProps: { value: _vm.editFields.password2 },
                   on: {
                     input: function($event) {
@@ -38294,10 +38214,6 @@ var render = function() {
             "section",
             { staticClass: "small" },
             [
-              _c("div", { staticClass: "photoB" }, [
-                _c("img", { attrs: { src: _vm.editFields.photo } })
-              ]),
-              _vm._v(" "),
               _c("photoSelect", {
                 staticClass: "photoB",
                 attrs: { content: _vm.editFields.photo },
@@ -39318,7 +39234,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\n.lessonListWrapper article {\n  display: grid;\n  justify-content: stretch;\n}\n.lessonListWrapper article .search {\n  background-image: url(" + __webpack_require__(125) + ");\n  background-position: 97% 50%;\n  background-repeat: no-repeat;\n  padding: 15px 40px 15px 20px;\n  justify-self: center;\n  margin: 10px;\n  width: 300px;\n  background-color: #fff;\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .search:focus {\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .searchWrapper {\n  display: grid;\n  grid-auto-flow: column;\n  grid-gap: 10px;\n  justify-content: center;\n}\n.lessonListWrapper article .searchWrapper .tooltip {\n  width: 45px;\n  height: 45px;\n  background-color: #fff;\n  background-position: center;\n  padding: 0;\n  margin: 10px 0;\n}\n.lessonListWrapper .lessonList {\n  width: 100%;\n}\n.lessonListWrapper .lessonList .lesson {\n  padding: 5px 10px;\n  align-items: center;\n  display: grid;\n  grid-auto-flow: column;\n  grid-template-columns: 1fr 1fr 1fr 120px 100px 60px;\n  margin-bottom: 5px;\n  background: #fff;\n}\n.lessonListWrapper .lessonList .lesson > div {\n  overflow: hidden;\n}\n.lessonListWrapper .lessonList .lesson a {\n  color: inherit;\n}\n", ""]);
+exports.push([module.i, "\n.lessonListWrapper article {\n  display: grid;\n  justify-content: stretch;\n}\n.lessonListWrapper article .search {\n  background-image: url(" + __webpack_require__(125) + ");\n  background-position: 97% 50%;\n  background-repeat: no-repeat;\n  padding: 15px 40px 15px 20px;\n  justify-self: center;\n  margin: 10px;\n  width: 300px;\n  background-color: #fff;\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .search:focus {\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .searchWrapper {\n  display: grid;\n  grid-auto-flow: column;\n  grid-gap: 10px;\n  justify-content: center;\n}\n.lessonListWrapper article .searchWrapper .tooltip {\n  width: 45px;\n  height: 45px;\n  background-color: #fff;\n  background-position: center;\n  padding: 0;\n  margin: 10px 0;\n}\n.lessonListWrapper .lessonList {\n  width: 100%;\n}\n.lessonListWrapper .lessonList .lesson {\n  padding: 5px 10px;\n  align-items: center;\n  display: grid;\n  grid-auto-flow: column;\n  grid-template-columns: 1fr 1fr 1fr 120px 100px 60px;\n  margin-bottom: 5px;\n  background: #fff;\n}\n.lessonListWrapper .lessonList .lesson > div {\n  overflow: hidden;\n}\n.lessonListWrapper .lessonList .lesson a {\n  color: inherit;\n}\n.lessonListWrapper .lessonList .old {\n  opacity: 0.6;\n  transition: all 0.3s ease-in-out;\n}\n.lessonListWrapper .lessonList .old:hover {\n  opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -39357,7 +39273,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-var _vuex=__webpack_require__(9);var _mixins=__webpack_require__(66);var _mixins2=_interopRequireDefault(_mixins);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{search:''}},mixins:[_mixins2.default],components:{},methods:_extends({},(0,_vuex.mapActions)(['getAllLessons'])),computed:_extends({},(0,_vuex.mapGetters)(['edit','quillOptions','lessons']),{searched:function searched(){var _this=this;var search=function search(el,q){return _this.searchFn(el,q)};if(!this.search.length)return this.lessons;return this.lessons.filter(function(el){return search(el,_this.search)})}}),mounted:function mounted(){this.getAllLessons()}};
+var _vuex=__webpack_require__(9);var _mixins=__webpack_require__(66);var _mixins2=_interopRequireDefault(_mixins);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{search:''}},mixins:[_mixins2.default],components:{},methods:_extends({},(0,_vuex.mapActions)(['getAllLessons'])),computed:_extends({},(0,_vuex.mapGetters)(['edit','quillOptions','lessons']),{searched:function searched(){var _this=this;var search=function search(el,q){return _this.searchFn(el,q)};var sortByDate=function sortByDate(a,b){var aDate=new Date(a.date).valueOf()||0,bDate=new Date(b.date).valueOf()||0,c=aDate-bDate;if(c>0)return 1;if(c<0)return-1;return 0};if(!this.search.length)return this.lessons.sort(sortByDate).reverse();return this.lessons.filter(function(el){return search(el,_this.search)}).sort(sortByDate).reverse()}}),mounted:function mounted(){this.getAllLessons()}};
 
 /***/ }),
 /* 674 */
@@ -39405,7 +39321,12 @@ var render = function() {
           _vm._l(_vm.searched, function(lesson, index) {
             return _c(
               "div",
-              { staticClass: "lesson mather" },
+              {
+                staticClass: "lesson mather",
+                class: {
+                  old: new Date(lesson.date).valueOf() < new Date().valueOf()
+                }
+              },
               [
                 _c("div", { staticClass: "title" }, [
                   _vm._v(_vm._s(lesson.title))
@@ -39477,6 +39398,209 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7f516dde", esExports)
+  }
+}
+
+/***/ }),
+/* 675 */,
+/* 676 */,
+/* 677 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_reg_vue__ = __webpack_require__(680);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_reg_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_reg_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_47e04698_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_reg_vue__ = __webpack_require__(681);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(678)
+}
+var normalizeComponent = __webpack_require__(6)
+/* script */
+
+/* template */
+
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_reg_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_47e04698_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_reg_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "components\\reg.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-47e04698", Component.options)
+  } else {
+    hotAPI.reload("data-v-47e04698", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 678 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(679);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(8)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-47e04698\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/less-loader/dist/cjs.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./reg.vue", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-47e04698\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/less-loader/dist/cjs.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./reg.vue");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 679 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.reg {\n  padding: 20px;\n  background: #fff;\n}\n.reg .title {\n  margin: 10px 0;\n  color: #444;\n  font-size: 24px;\n  font-weight: 400;\n  line-height: 20px;\n}\n.reg .buttons {\n  display: grid;\n  grid-auto-flow: column;\n  justify-content: end;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 680 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key]}}}return target};//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _vuex=__webpack_require__(9);exports.default={props:['content'],data:function data(){return{}},components:{},computed:{data:function data(){var data=this.content||{};this.editFields=Object.assign({},data);return data}},methods:_extends({},(0,_vuex.mapActions)(['removeRecordUser']))};
+
+/***/ }),
+/* 681 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "reg mather" }, [
+    _c("div", { staticClass: "title" }, [
+      _vm._v(_vm._s(_vm.data.lesson.title))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "description" }, [
+      _vm._v(
+        "\n\t\tДата и время занятия: " + _vm._s(_vm.data.lesson.date) + " "
+      ),
+      _c("br"),
+      _vm._v("\n\t\tЦена: " + _vm._s(_vm.data.lesson.price) + "\n\t")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "status" }, [
+      _vm._v("\n\t\tСтатус: " + _vm._s(_vm.data.status.title) + "\n\t")
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "buttons" },
+      [
+        new Date(_vm.data.lesson.date).valueOf() > new Date().valueOf()
+          ? _c(
+              "div",
+              {
+                staticClass: "buttonTRb",
+                on: {
+                  click: function($event) {
+                    _vm.removeRecordUser({
+                      id: _vm.data.id,
+                      id_lesson: _vm.data.lesson.id
+                    })
+                  }
+                }
+              },
+              [_vm._v("Отменить")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "buttonTRb" }, [_vm._v("Оплатить")]),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          {
+            staticClass: "buttonTRb",
+            attrs: { to: { path: "/cource/" + _vm.data.lesson.id_cource } }
+          },
+          [_vm._v("Подробнее о курсе")]
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-47e04698", esExports)
   }
 }
 

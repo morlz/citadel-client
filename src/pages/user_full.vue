@@ -18,21 +18,7 @@
 
 				<h3 v-if="currentUserRegs.length">Запись на занятия</h3>
 				<div class="regs" v-for="reg, index in currentUserRegs">
-					<div class="reg mather">
-						<div class="title">{{ reg.lesson.title }}</div>
-						<div class="description">
-							Дата и время занятия: {{ reg.lesson.date }} <br>
-							Цена: {{ reg.lesson.price }}
-						</div>
-						<div class="status">
-							Статус: {{ reg.status.title }}
-						</div>
-						<div class="buttons">
-							<div class="buttonTRb" @click="removeRecordUser({ id: reg.id, id_lesson: reg.lesson.id })">Отменить</div>
-							<div class="buttonTRb">Оплатить</div>
-							<router-link class="buttonTRb" :to="{ path: `/cource/${reg.lesson.id_cource}` }">Подробнее о курсе</router-link>
-						</div>
-					</div>
+					<reg :key="index" :content="reg"></reg>
 				</div>
 			</section>
 			<section class="small">
@@ -45,10 +31,9 @@
 			<section class="big">
 				<div class="adminButton">
 					<div class="button" @click="localEdit = !localEdit" v-if="localEdit">Отменить редактирование</div>
-					<div class="button" @click="updateUser(editFields)">Сохранить изменения</div>
+					<div class="button" @click="updateUserHandler">Сохранить изменения</div>
 				</div>
 				<input type="text" class="title" v-model="editFields.name">
-				<div class="photoS"><img :src="data.photo"></div>
 				<photoSelect class="photoS" :content="editFields.photo" @save="changePhoto"></photoSelect>
 				<quill-editor v-if="isAdmin || isWorker" :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
 
@@ -65,13 +50,12 @@
 				<h3>Пароль</h3>
 				<div class="password">
 					Пароль:
-					<input type="password" v-model="editFields.password" placeholder="Пароль">
+					<input type="password" v-model="editFields.password" placeholder="Пароль (not work)">
 					Пароль ещё раз:
-					<input type="password" v-model="editFields.password2" placeholder="Пароль">
+					<input type="password" v-model="editFields.password2" placeholder="Пароль (not work)">
 				</div>
 			</section>
 			<section class="small">
-				<div class="photoB"><img :src="editFields.photo"></div>
 				<photoSelect class="photoB" :content="editFields.photo" @save="changePhoto"></photoSelect>
 				<div class="cources"></div>
 			</section>
@@ -82,16 +66,13 @@
 <script>
 import {
     mapActions,
-    mapGetters
+    mapGetters,
+	mapMutations
 } from 'vuex'
 
-import {
-    default as photoSelect
-} from '@/components/photoSelect.vue'
-
-import {
-    default as mixins
-} from '@/components/mixins.vue'
+import photoSelect from '@/components/photoSelect.vue'
+import reg from '@/components/reg.vue'
+import mixins from '@/components/mixins.vue'
 
 export default {
 	data () {
@@ -102,14 +83,17 @@ export default {
 	},
 	mixins: [mixins],
 	components: {
-		photoSelect
+		photoSelect,
+		reg
 	},
 	methods: {
 		...mapActions([
 			'setCurrentUser',
 			'updateUser',
-			'getUserRegs',
-			'removeRecordUser'
+			'getUserRegs'
+		]),
+		...mapMutations([
+			'toggleEditMutation'
 		]),
 		changePhoto (newPhoto) {
 			this.editFields.photo = newPhoto
@@ -119,8 +103,13 @@ export default {
             html,
             text
         }) {
-            this.editFields.content = html
-        }
+            this.editFields.description = html
+        },
+		updateUserHandler(){
+			this.updateUser(this.editFields)
+			this.toggleEditMutation(false)
+			this.localEdit = false
+		}
 	},
 	computed: {
 		...mapGetters([
@@ -226,22 +215,7 @@ export default {
         }
     }
 	.regs {
-		.reg {
-			padding: 20px;
-			background: #fff;
-			.title {
-				margin: 10px 0;
-				color: #444;
-				font-size: 24px;
-				font-weight: 400;
-				line-height: 20px;
-			}
-			.buttons {
-				display: grid;
-				grid-auto-flow: column;
-				justify-content: end;
-			}
-		}
+
 	}
 }
 @media (max-width: 1100px) {
@@ -264,3 +238,11 @@ export default {
     }
 }
 </style>
+
+
+паспорт
+снилс
+инн
+военный билет
+2 фото 3х4
+игорев николай

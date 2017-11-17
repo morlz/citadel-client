@@ -23,14 +23,8 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
-import {
-    default as auth
-} from '@/components/auth.vue'
-
-import {
-    default as mainMenu
-} from '@/components/menu.vue'
+import auth from '@/components/auth.vue'
+import mainMenu from '@/components/menu.vue'
 
 export default {
     components: {

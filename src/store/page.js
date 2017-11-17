@@ -41,6 +41,13 @@ const actions = {
 
 		if (!response) console.error( req )
 
+		if (response.data.error) {
+			dispatch('alert', {
+				content: response.data.error.message
+			})
+			return
+		}
+
 		if (response.status == 401) {
 			dispatch('alert', {
 				content: "Вы не авторизованы"

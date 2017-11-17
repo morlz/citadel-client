@@ -37,12 +37,7 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
-import {
-    default as canopen
-} from '@/components/canOpen.vue'
-
-
+import canopen from '@/components/canOpen.vue'
 
 export default {
     data() {

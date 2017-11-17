@@ -22,14 +22,8 @@ import {
     mapGetters,
 	mapMutations
 } from 'vuex'
-
-import {
-	default as recordedUser
-} from '@/components/recordedUser.vue'
-
-import {
-    default as mixins
-} from '@/components/mixins.vue'
+import recordedUser from '@/components/recordedUser.vue'
+import mixins from '@/components/mixins.vue'
 
 export default {
 	data () {

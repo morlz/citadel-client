@@ -65,20 +65,10 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
 import Quill from 'vue-quill-editor'
-
-import {
-    default as user_prev
-} from '@/components/user_prev.vue'
-
-import {
-    default as canopen
-} from '@/components/canOpen.vue'
-
-import {
-    default as photoSelect
-} from '@/components/photoSelect.vue'
+import user_prev from '@/components/user_prev.vue'
+import canopen from '@/components/canOpen.vue'
+import photoSelect from '@/components/photoSelect.vue'
 
 
 export default {

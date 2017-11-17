@@ -14,7 +14,7 @@
 					<div class="date">Дата</div>
 					<div class="price">Цена</div>
 				</div>
-				<div class="lesson mather" v-for="lesson, index in searched">
+				<div class="lesson mather" v-for="lesson, index in searched" :class="{ old: new Date(lesson.date).valueOf() < new Date().valueOf() }">
 					<div class="title">{{ lesson.title }}</div>
 					<router-link class="cource" :to="{ path: `/cource/${lesson.cource.id}` }">{{ lesson.cource.title }}</router-link>
 					<router-link class="center" :to="{ path: `/centers/${lesson.center.id}` }">{{ lesson.center.title }}</router-link>
@@ -32,9 +32,7 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
-
-import { default as mixins } from '@/components/mixins.vue'
+import mixins from '@/components/mixins.vue'
 
 export default {
 	data () {
@@ -60,8 +58,19 @@ export default {
 				return this.searchFn(el, q)
 			}
 
-			if (!this.search.length) return this.lessons
-			return this.lessons.filter(el => search(el, this.search))
+			let sortByDate = (a, b) => {
+				let aDate = new Date(a.date).valueOf() || 0,
+					bDate = new Date(b.date).valueOf() || 0,
+					c = aDate - bDate
+
+				if (c > 0) return 1
+				if (c < 0) return -1
+				return 0
+			}
+
+
+			if (!this.search.length) return this.lessons.sort(sortByDate).reverse()
+			return this.lessons.filter(el => search(el, this.search)).sort(sortByDate).reverse()
 		}
 	},
 	mounted () {
@@ -119,6 +128,13 @@ export default {
 				}
 				a {
 					color: inherit;
+				}
+			}
+			.old {
+				opacity: 0.6;
+				transition: all 0.3s ease-in-out;
+				&:hover {
+					opacity: 1;
 				}
 			}
 		}
