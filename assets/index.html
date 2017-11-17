@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link href="curtains.css" rel="stylesheet">
+
+		<title>Учебный центр "Цитодель"</title>
+	</head>
+	<body>
+		<div class="curtains curtainsActive">
+			<div class="leftCurtain curtain">
+				<canvas class="curt"></canvas>
+			</div>
+			<div class="rightCurtain curtain">
+				<canvas class="curt"></canvas>
+			</div>
+		</div>
+
+		<script src="curtains.js" async></script>
+
+		<div id="mainWrapper">
+			<main_styles></main_styles>
+			<alert></alert>
+			<main_header></main_header>
+			<transition name="pageChange" mode="out-in">
+				<router-view :key="$route.name + ($route.params.id || '')"></router-view>
+			</transition>
+			<main_footer></main_footer>
+		</div>
+
+		<script src="main.js" async></script>
+		<script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
+	</body>
+</html>
