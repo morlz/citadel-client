@@ -37,6 +37,20 @@
 				<photoSelect class="photoS" :content="editFields.photo" @save="changePhoto"></photoSelect>
 				<quill-editor v-if="isAdmin || isWorker" :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
 
+				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
+
+				<div v-if="isAdmin">
+					<h3>Роль</h3>
+					<ol>
+						<li>Администратор</li>
+						<li>Преподаватель</li>
+						<li>Пользователь</li>
+						<li>Подтверждение почты</li>
+					</ol>
+					<input type="text" v-model="editFields.id_role" placeholder="Цифра роли">
+				</div>
+
+
 				<h3>Контакты</h3>
 				<div class="contacts">
 					Телефон:

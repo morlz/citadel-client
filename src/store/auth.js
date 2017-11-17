@@ -30,9 +30,10 @@ const actions = {
         api.invoke({
             method: 'get',
             data
-        }).then(data => {
-			console.log(data);
-            commit('receive_user', data)
+        }).then(({ data }) => {
+            dispatch('alert', {
+				content: data
+			})
         }).catch(err => dispatch('handleCode', err))
     },
     logout({commit}) {

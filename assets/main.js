@@ -29645,7 +29645,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_re
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports,"__esModule",{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var state={user:{},re:"6LcNSzUUAAAAAJp9Z2YmYjBtoFkMUZOcmA15r2gi",savedReToken:""};var actions={signin:function signin(_ref,data){var commit=_ref.commit,dispatch=_ref.dispatch;data.type="signin";_index2.default.invoke({method:"get",data:data}).then(function(_ref2){var data=_ref2.data,status=_ref2.status;commit("receive_user",data)}).catch(function(err){dispatch("alert",{content:"\u041D\u0435\u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u043E\u0435 \u0438\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F \u0438\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C",buttons:[{name:"ok"}]})})},signup:function signup(_ref3,data){var commit=_ref3.commit,dispatch=_ref3.dispatch;data.type="signup";_index2.default.invoke({method:"get",data:data}).then(function(data){console.log(data);commit("receive_user",data)}).catch(function(err){return dispatch("handleCode",err)})},logout:function logout(_ref4){var commit=_ref4.commit;commit("unsetAuthData")},getUserData:function getUserData(_ref5){var commit=_ref5.commit;_index2.default.invoke({method:"get",data:{type:"getUserData"}}).then(function(_ref6){var data=_ref6.data;commit("receive_user",data)}).catch(function(err){commit("unsetAuthData")})},checkCookies:function checkCookies(_ref7){var dispatch=_ref7.dispatch;var cookie=_index2.default.cookie.getAuth();if(!cookie||!cookie.uid||!cookie.api_token)return;dispatch("getUserData")},reOnVerify:function reOnVerify(_ref8,data){var commit=_ref8.commit;commit("setToken",data)},reOnExpired:function reOnExpired(_ref9,data){var commit=_ref9.commit;commit("setToken","")},reOnReqSend:function reOnReqSend(_ref10){var commit=_ref10.commit;commit("setToken","")}};var mutations={receive_user:function receive_user(state,data){state.user=data;var uid=data.id,api_token=data.api_token;_index2.default.cookie.setAuth({uid:uid,api_token:api_token})},unsetAuthData:function unsetAuthData(state){state.user={};_index2.default.cookie.setAuth({uid:"",api_token:""})},receive_accesData:function receive_accesData(state,data){state.user.id=data.id||"";state.user.api_token=data.api_token||""},setToken:function setToken(state,data){state.savedReToken=data}};var getters={user:function user(state){return state.user},accesData:function accesData(_ref11){var user=_ref11.user;var id=user.id,api_token=user.api_token;return{id:id,api_token:api_token}},logined:function logined(_ref12){var user=_ref12.user;return!!user&&!!user.id&&!!user.api_token&&!!user.name},isAdmin:function isAdmin(_ref13){var user=_ref13.user;return user&&user.id_role==1},isWorker:function isWorker(_ref14){var user=_ref14.user;return user&&user.id_role==2},isUser:function isUser(_ref15){var user=_ref15.user;return user&&user.id_role==3},reCaptchaKey:function reCaptchaKey(_ref16){var re=_ref16.re;return re},reToken:function reToken(_ref17){var savedReToken=_ref17.savedReToken;return savedReToken}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
+Object.defineProperty(exports,"__esModule",{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var state={user:{},re:"6LcNSzUUAAAAAJp9Z2YmYjBtoFkMUZOcmA15r2gi",savedReToken:""};var actions={signin:function signin(_ref,data){var commit=_ref.commit,dispatch=_ref.dispatch;data.type="signin";_index2.default.invoke({method:"get",data:data}).then(function(_ref2){var data=_ref2.data,status=_ref2.status;commit("receive_user",data)}).catch(function(err){dispatch("alert",{content:"\u041D\u0435\u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u043E\u0435 \u0438\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F \u0438\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C",buttons:[{name:"ok"}]})})},signup:function signup(_ref3,data){var commit=_ref3.commit,dispatch=_ref3.dispatch;data.type="signup";_index2.default.invoke({method:"get",data:data}).then(function(_ref4){var data=_ref4.data;dispatch("alert",{content:data})}).catch(function(err){return dispatch("handleCode",err)})},logout:function logout(_ref5){var commit=_ref5.commit;commit("unsetAuthData")},getUserData:function getUserData(_ref6){var commit=_ref6.commit;_index2.default.invoke({method:"get",data:{type:"getUserData"}}).then(function(_ref7){var data=_ref7.data;commit("receive_user",data)}).catch(function(err){commit("unsetAuthData")})},checkCookies:function checkCookies(_ref8){var dispatch=_ref8.dispatch;var cookie=_index2.default.cookie.getAuth();if(!cookie||!cookie.uid||!cookie.api_token)return;dispatch("getUserData")},reOnVerify:function reOnVerify(_ref9,data){var commit=_ref9.commit;commit("setToken",data)},reOnExpired:function reOnExpired(_ref10,data){var commit=_ref10.commit;commit("setToken","")},reOnReqSend:function reOnReqSend(_ref11){var commit=_ref11.commit;commit("setToken","")}};var mutations={receive_user:function receive_user(state,data){state.user=data;var uid=data.id,api_token=data.api_token;_index2.default.cookie.setAuth({uid:uid,api_token:api_token})},unsetAuthData:function unsetAuthData(state){state.user={};_index2.default.cookie.setAuth({uid:"",api_token:""})},receive_accesData:function receive_accesData(state,data){state.user.id=data.id||"";state.user.api_token=data.api_token||""},setToken:function setToken(state,data){state.savedReToken=data}};var getters={user:function user(state){return state.user},accesData:function accesData(_ref12){var user=_ref12.user;var id=user.id,api_token=user.api_token;return{id:id,api_token:api_token}},logined:function logined(_ref13){var user=_ref13.user;return!!user&&!!user.id&&!!user.api_token&&!!user.name},isAdmin:function isAdmin(_ref14){var user=_ref14.user;return user&&user.id_role==1},isWorker:function isWorker(_ref15){var user=_ref15.user;return user&&user.id_role==2},isUser:function isUser(_ref16){var user=_ref16.user;return user&&user.id_role==3},reCaptchaKey:function reCaptchaKey(_ref17){var re=_ref17.re;return re},reToken:function reToken(_ref18){var savedReToken=_ref18.savedReToken;return savedReToken}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
 
 /***/ }),
 /* 439 */
@@ -37934,6 +37934,20 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _vuex=__webpack_require__(9);var _photoSelect=__webpack_require__(88);var _photoSelect2=_interopRequireDefault(_photoSelect);var _reg=__webpack_require__(649);var _reg2=_interopRequireDefault(_reg);var _mixins=__webpack_require__(66);var _mixins2=_interopRequireDefault(_mixins);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{localEdit:false,editFields:{}}},mixins:[_mixins2.default],components:{photoSelect:_photoSelect2.default,reg:_reg2.default},methods:_extends({},(0,_vuex.mapActions)(['setCurrentUser','updateUser','getUserRegs']),(0,_vuex.mapMutations)(['toggleEditMutation']),{changePhoto:function changePhoto(newPhoto){this.editFields.photo=newPhoto},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.description=html},updateUserHandler:function updateUserHandler(){this.updateUser(this.editFields);this.toggleEditMutation(false);this.localEdit=false}}),computed:_extends({},(0,_vuex.mapGetters)(['currentUser','quillOptions','edit','isAdmin','isWorker','user','logined','currentUserRegs']),{data:function data(){var data=this.currentUser;this.editFields=Object.assign({password:'',password2:''},data);return data}}),watch:{user:function user(){if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}},mounted:function mounted(){this.setCurrentUser(this.$route.params.id);if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}};
 
 /***/ }),
@@ -38306,6 +38320,50 @@ var render = function() {
                   })
                 : _vm._e(),
               _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "role",
+                  class: ((_obj$1 = {}),
+                  (_obj$1[_vm.roleIconClass(_vm.data.id_role)] = true),
+                  _obj$1)
+                },
+                [_vm._v(_vm._s(_vm.roleName(_vm.data.id_role)))]
+              ),
+              _vm._v(" "),
+              _vm.isAdmin
+                ? _c("div", [
+                    _c("h3", [_vm._v("Роль")]),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.editFields.id_role,
+                          expression: "editFields.id_role"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "Цифра роли" },
+                      domProps: { value: _vm.editFields.id_role },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.editFields,
+                            "id_role",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("h3", [_vm._v("Контакты")]),
               _vm._v(" "),
               _c("div", { staticClass: "contacts" }, [
@@ -38469,8 +38527,24 @@ var render = function() {
       : _vm._e()
   ])
   var _obj
+  var _obj$1
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ol", [
+      _c("li", [_vm._v("Администратор")]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Преподаватель")]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Пользователь")]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Подтверждение почты")])
+    ])
+  }
+]
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
