@@ -12,6 +12,12 @@ export default {
 		}
 	},
     methods: {
+		parseJSONimages(imagesString){
+			if (Array.isArray(imagesString)) return imagesString
+			if (typeof imagesString == 'string' && imagesString) return JSON.parse(imagesString)
+			if (!imagesString) return []
+			return JSON.parse(imagesString) || []
+		},
 		roleName(id){
 			let roles = [
 				'Незарегистрирован',

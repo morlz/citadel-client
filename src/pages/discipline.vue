@@ -94,7 +94,7 @@ import lection from '@/components/lection.vue'
 import addLectionForm from '@/components/addLectionForm.vue'
 import regForm from '@/components/regForm.vue'
 import recordedUsers from '@/components/recordedUsers.vue'
-
+import mixins from '@/components/mixins.vue'
 
 
 export default {
@@ -107,6 +107,7 @@ export default {
 			}
         }
     },
+	mixins: [mixins],
     computed: {
         ...mapGetters([
             'disciplines',
@@ -181,12 +182,6 @@ export default {
         }) {
             this.editFields.description = html
         },
-		parseJSONimages(imagesString){
-			if (Array.isArray(imagesString)) return imagesString
-			if (typeof imagesString == 'string' && imagesString) return JSON.parse(imagesString)
-			if (!imagesString) return []
-			return JSON.parse(imagesString) || []
-		},
 		deleteCource(id){
 			this.remove({
 				type: 'cource',

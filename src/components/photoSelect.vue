@@ -33,6 +33,7 @@ export default {
 		},
 		save () {
 			this.$emit("save", this.localUrl)
+			if (this.addbtn) this.localUrl = ''
 		}
 	},
 	watch: {

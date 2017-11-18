@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const UglifyJSPlugin = require('uglify-es-webpack-plugin')
 
+console.log("build for " + process.env.NODE_ENV)
+
 var config = {
     context: path.join(__dirname, 'src'),
     entry: {
@@ -23,7 +25,7 @@ var config = {
     resolve: {
         alias: {
             //'@': path.join(__dirname, '../', 'src/'),
-            vue: 'vue/dist/vue.js'
+            vue: process.env.NODE_ENV == 'dev' ? 'vue/dist/vue.js' : "vue/dist/vue.esm.js",
         }
     },
     target: 'web',

@@ -15,7 +15,7 @@
 			:speed="350"
 			navigationNextLabel=""
 			navigationPrevLabel=""
-			:perPageCustom="[[500, 2], [650, 3], [800, 1], [1000, 2], [1250, 3], [1400, 3], [1800, 4]]"
+			:perPageCustom="perPageCustom"
 			>
 
 			<slide v-for="image, imageIndex in imagesLocal" :key="imageIndex">
@@ -44,7 +44,7 @@ import {
 import { Carousel, Slide } from 'vue-carousel';
 
 export default {
-    props: ['images'],
+    props: ['images', 'perpage'],
     data() {
         return {
             index: null,
@@ -73,6 +73,10 @@ export default {
 		imagesLocal () {
 			if (typeof this.images == 'string') return JSON.parse(this.images)
 			return this.images
+		},
+		perPageCustom () {
+			if (this.perpage) return this.perpage
+			return [[500, 2], [650, 3], [800, 1], [1000, 2], [1250, 3], [1400, 3], [1800, 4]]
 		}
 	}
 }
