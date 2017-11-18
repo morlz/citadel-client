@@ -1,5 +1,6 @@
 <template>
 	<div class="lessonListWrapper">
+		<recordedUsers />
 		<article>
 			<h2>Список всех занятий</h2>
 			<div class="searchWrapper">
@@ -14,7 +15,7 @@
 					<div class="date">Дата</div>
 					<div class="price">Цена</div>
 				</div>
-				<div class="lesson mather" v-for="lesson, index in searched" :class="{ old: new Date(lesson.date).valueOf() < new Date().valueOf() }">
+				<div class="lesson mather" v-for="lesson, index in searched" :class="{ old: new Date(lesson.date).valueOf() < new Date().valueOf() }" @click="showRegistredUsers( $event, lesson.id )">
 					<div class="title">{{ lesson.title }}</div>
 					<router-link class="cource" :to="{ path: `/cource/${lesson.cource.id}` }" v-if="lesson.cource">{{ lesson.cource.title }}</router-link>
 					<div v-else="lesson.cource">...</div>
@@ -32,9 +33,12 @@
 <script>
 import {
     mapActions,
-    mapGetters
+    mapGetters,
+	mapMutations
 } from 'vuex'
 import mixins from '@/components/mixins.vue'
+import recordedUsers from '@/components/recordedUsers.vue'
+
 
 export default {
 	data () {
@@ -43,11 +47,26 @@ export default {
 		}
 	},
 	mixins: [mixins],
-	components: {},
+	components: {
+		recordedUsers
+	},
 	methods: {
 		...mapActions([
-			'getAllLessons'
-		])
+			'getAllLessons',
+			'getRegistredUsersForCurrentLesson'
+		]),
+		...mapMutations([
+			'showCurrentUsers'
+		]),
+		showRegistredUsers ( e, lessonId ) {
+			e.stopPropagation()
+			if (e.target.tagName == 'A') return
+			this.showCurrentUsers()
+			this.getRegistredUsersForCurrentLesson( lessonId )
+		},
+		stopProp (e) {
+			e.stopPropagation()
+		}
 	},
 	computed: {
 		...mapGetters([
@@ -70,9 +89,7 @@ export default {
 				return 0
 			}
 
-
 			if (!this.search.length) {
-				console.log(this.lessons.sort(sortByDate).reverse());
 				return this.lessons.sort(sortByDate).reverse()
 			}
 			return this.lessons.filter(el => search(el, this.search)).sort(sortByDate).reverse()
@@ -121,6 +138,9 @@ export default {
 		.lessonList {
 			width: 100%;
 			.lesson {
+				&:not(:first-child) {
+					cursor: pointer;
+				}
 				padding: 5px 10px;
 				align-items: center;
 				display: grid;

@@ -49,7 +49,6 @@ export default {
 	computed: {
 		reg () {
 			let data = this.content
-			console.log(data);
 			this.editFields = Object.assign({}, data)
 			return data
 		}

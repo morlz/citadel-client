@@ -36492,7 +36492,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-var _vuex=__webpack_require__(9);exports.default={props:['content'],data:function data(){return{search:'',localEdit:false,editFields:{}}},computed:{reg:function reg(){var data=this.content;console.log(data);this.editFields=Object.assign({},data);return data}},methods:_extends({},(0,_vuex.mapActions)(['updateRegistredUserForCurrentLesson','removeRecordUser']),{saveRecordedUser:function saveRecordedUser(){this.updateRegistredUserForCurrentLesson(this.editFields);this.localEdit=!1}})};
+var _vuex=__webpack_require__(9);exports.default={props:['content'],data:function data(){return{search:'',localEdit:false,editFields:{}}},computed:{reg:function reg(){var data=this.content;this.editFields=Object.assign({},data);return data}},methods:_extends({},(0,_vuex.mapActions)(['updateRegistredUserForCurrentLesson','removeRecordUser']),{saveRecordedUser:function saveRecordedUser(){this.updateRegistredUserForCurrentLesson(this.editFields);this.localEdit=!1}})};
 
 /***/ }),
 /* 634 */
@@ -39598,7 +39598,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "\n.lessonListWrapper article {\n  display: grid;\n  justify-content: stretch;\n}\n.lessonListWrapper article .search {\n  background-image: url(" + __webpack_require__(125) + ");\n  background-position: 97% 50%;\n  background-repeat: no-repeat;\n  padding: 15px 40px 15px 20px;\n  justify-self: center;\n  margin: 10px;\n  width: 300px;\n  background-color: #fff;\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .search:focus {\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .searchWrapper {\n  display: grid;\n  grid-auto-flow: column;\n  grid-gap: 10px;\n  justify-content: center;\n}\n.lessonListWrapper article .searchWrapper .tooltip {\n  width: 45px;\n  height: 45px;\n  background-color: #fff;\n  background-position: center;\n  padding: 0;\n  margin: 10px 0;\n}\n.lessonListWrapper .lessonList {\n  width: 100%;\n}\n.lessonListWrapper .lessonList .lesson {\n  padding: 5px 10px;\n  align-items: center;\n  display: grid;\n  grid-auto-flow: column;\n  grid-template-columns: 1fr 1fr 1fr 120px 100px 60px;\n  margin-bottom: 5px;\n  background: #fff;\n}\n.lessonListWrapper .lessonList .lesson > div {\n  overflow: hidden;\n}\n.lessonListWrapper .lessonList .lesson a {\n  color: inherit;\n}\n.lessonListWrapper .lessonList .old {\n  opacity: 0.6;\n  transition: all 0.3s ease-in-out;\n}\n.lessonListWrapper .lessonList .old:hover {\n  opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\n.lessonListWrapper article {\n  display: grid;\n  justify-content: stretch;\n}\n.lessonListWrapper article .search {\n  background-image: url(" + __webpack_require__(125) + ");\n  background-position: 97% 50%;\n  background-repeat: no-repeat;\n  padding: 15px 40px 15px 20px;\n  justify-self: center;\n  margin: 10px;\n  width: 300px;\n  background-color: #fff;\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .search:focus {\n  border-bottom: 1px solid transparent;\n}\n.lessonListWrapper article .searchWrapper {\n  display: grid;\n  grid-auto-flow: column;\n  grid-gap: 10px;\n  justify-content: center;\n}\n.lessonListWrapper article .searchWrapper .tooltip {\n  width: 45px;\n  height: 45px;\n  background-color: #fff;\n  background-position: center;\n  padding: 0;\n  margin: 10px 0;\n}\n.lessonListWrapper .lessonList {\n  width: 100%;\n}\n.lessonListWrapper .lessonList .lesson {\n  padding: 5px 10px;\n  align-items: center;\n  display: grid;\n  grid-auto-flow: column;\n  grid-template-columns: 1fr 1fr 1fr 120px 100px 60px;\n  margin-bottom: 5px;\n  background: #fff;\n}\n.lessonListWrapper .lessonList .lesson:not(:first-child) {\n  cursor: pointer;\n}\n.lessonListWrapper .lessonList .lesson > div {\n  overflow: hidden;\n}\n.lessonListWrapper .lessonList .lesson a {\n  color: inherit;\n}\n.lessonListWrapper .lessonList .old {\n  opacity: 0.6;\n  transition: all 0.3s ease-in-out;\n}\n.lessonListWrapper .lessonList .old:hover {\n  opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -39639,7 +39639,8 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-var _vuex=__webpack_require__(9);var _mixins=__webpack_require__(52);var _mixins2=_interopRequireDefault(_mixins);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{search:''}},mixins:[_mixins2.default],components:{},methods:_extends({},(0,_vuex.mapActions)(['getAllLessons'])),computed:_extends({},(0,_vuex.mapGetters)(['edit','quillOptions','lessons']),{searched:function searched(){var _this=this;var search=function search(el,q){return _this.searchFn(el,q)};var sortByDate=function sortByDate(a,b){var aDate=new Date(a.date).valueOf()||0,bDate=new Date(b.date).valueOf()||0,c=aDate-bDate;if(c>0)return 1;if(c<0)return-1;return 0};if(!this.search.length){console.log(this.lessons.sort(sortByDate).reverse());return this.lessons.sort(sortByDate).reverse()}return this.lessons.filter(function(el){return search(el,_this.search)}).sort(sortByDate).reverse()}}),mounted:function mounted(){this.getAllLessons()}};
+//
+var _vuex=__webpack_require__(9);var _mixins=__webpack_require__(52);var _mixins2=_interopRequireDefault(_mixins);var _recordedUsers=__webpack_require__(626);var _recordedUsers2=_interopRequireDefault(_recordedUsers);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{search:''}},mixins:[_mixins2.default],components:{recordedUsers:_recordedUsers2.default},methods:_extends({},(0,_vuex.mapActions)(['getAllLessons','getRegistredUsersForCurrentLesson']),(0,_vuex.mapMutations)(['showCurrentUsers']),{showRegistredUsers:function showRegistredUsers(e,lessonId){e.stopPropagation();if(e.target.tagName=='A')return;this.showCurrentUsers();this.getRegistredUsersForCurrentLesson(lessonId)},stopProp:function stopProp(e){e.stopPropagation()}}),computed:_extends({},(0,_vuex.mapGetters)(['edit','quillOptions','lessons']),{searched:function searched(){var _this=this;var search=function search(el,q){return _this.searchFn(el,q)};var sortByDate=function sortByDate(a,b){var aDate=new Date(a.date).valueOf()||0,bDate=new Date(b.date).valueOf()||0,c=aDate-bDate;if(c>0)return 1;if(c<0)return-1;return 0};if(!this.search.length){return this.lessons.sort(sortByDate).reverse()}return this.lessons.filter(function(el){return search(el,_this.search)}).sort(sortByDate).reverse()}}),mounted:function mounted(){this.getAllLessons()}};
 
 /***/ }),
 /* 680 */
@@ -39650,96 +39651,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "lessonListWrapper" }, [
-    _c("article", [
-      _c("h2", [_vm._v("Список всех занятий")]),
+  return _c(
+    "div",
+    { staticClass: "lessonListWrapper" },
+    [
+      _c("recordedUsers"),
       _vm._v(" "),
-      _c("div", { staticClass: "searchWrapper" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.search,
-              expression: "search"
-            }
-          ],
-          staticClass: "search mather",
-          attrs: { type: "text", placeholder: "Поиск" },
-          domProps: { value: _vm.search },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.search = $event.target.value
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "lessonList" },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._l(_vm.searched, function(lesson, index) {
-            return _c(
-              "div",
+      _c("article", [
+        _c("h2", [_vm._v("Список всех занятий")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "searchWrapper" }, [
+          _c("input", {
+            directives: [
               {
-                staticClass: "lesson mather",
-                class: {
-                  old: new Date(lesson.date).valueOf() < new Date().valueOf()
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search,
+                expression: "search"
+              }
+            ],
+            staticClass: "search mather",
+            attrs: { type: "text", placeholder: "Поиск" },
+            domProps: { value: _vm.search },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              },
-              [
-                _c("div", { staticClass: "title" }, [
-                  _vm._v(_vm._s(lesson.title))
-                ]),
-                _vm._v(" "),
-                lesson.cource
-                  ? _c(
-                      "router-link",
-                      {
-                        staticClass: "cource",
-                        attrs: { to: { path: "/cource/" + lesson.cource.id } }
-                      },
-                      [_vm._v(_vm._s(lesson.cource.title))]
-                    )
-                  : _c("div", [_vm._v("...")]),
-                _vm._v(" "),
-                lesson.center
-                  ? _c(
-                      "router-link",
-                      {
-                        staticClass: "center",
-                        attrs: { to: { path: "/centers/" + lesson.center.id } }
-                      },
-                      [_vm._v(_vm._s(lesson.center.title))]
-                    )
-                  : _c("div", [_vm._v("...")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "duration" }, [
-                  _vm._v(_vm._s(lesson.duration))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "date" }, [
-                  _vm._v(_vm._s(lesson.date))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "price" }, [
-                  _vm._v(_vm._s(lesson.price))
-                ])
-              ],
-              1
-            )
+                _vm.search = $event.target.value
+              }
+            }
           })
-        ],
-        2
-      )
-    ])
-  ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "lessonList" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.searched, function(lesson, index) {
+              return _c(
+                "div",
+                {
+                  staticClass: "lesson mather",
+                  class: {
+                    old: new Date(lesson.date).valueOf() < new Date().valueOf()
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.showRegistredUsers($event, lesson.id)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "title" }, [
+                    _vm._v(_vm._s(lesson.title))
+                  ]),
+                  _vm._v(" "),
+                  lesson.cource
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "cource",
+                          attrs: { to: { path: "/cource/" + lesson.cource.id } }
+                        },
+                        [_vm._v(_vm._s(lesson.cource.title))]
+                      )
+                    : _c("div", [_vm._v("...")]),
+                  _vm._v(" "),
+                  lesson.center
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "center",
+                          attrs: {
+                            to: { path: "/centers/" + lesson.center.id }
+                          }
+                        },
+                        [_vm._v(_vm._s(lesson.center.title))]
+                      )
+                    : _c("div", [_vm._v("...")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "duration" }, [
+                    _vm._v(_vm._s(lesson.duration))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "date" }, [
+                    _vm._v(_vm._s(lesson.date))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "price" }, [
+                    _vm._v(_vm._s(lesson.price))
+                  ])
+                ],
+                1
+              )
+            })
+          ],
+          2
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

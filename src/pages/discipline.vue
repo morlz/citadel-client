@@ -1,8 +1,8 @@
 <template>
 <div class="disciplineWrapper">
 
-	<regForm></regForm>
-	<recordedUsers></recordedUsers>
+	<regForm />
+	<recordedUsers />
 
     <article class="discipline" v-if="!edit">
 
@@ -11,11 +11,11 @@
             <div class="photoS"> <img :src="dis.logo"> </div>
             <div class="content" v-html="dis.description"></div>
             <div class="images">
-                <gallery :images="parseJSONimages(dis.images)" :edit="edit"></gallery>
+                <gallery :images="parseJSONimages(dis.images)" :edit="edit" />
             </div>
 			<h3>Предстоящие занятия</h3>
 			<div class="canOpenWrapper">
-				<lection v-for="lesson, index in nextLessons" :key="index" :content="lesson"></lection>
+				<lection v-for="lesson, index in nextLessons" :key="index" :content="lesson" />
 				<div v-if="!nextLessons || !nextLessons.length">В данный момент занятий нет</div>
 			</div>
         </section>
@@ -24,13 +24,13 @@
             <div class="photoB"> <img :src="dis.logo"> </div>
             <div class="prepods">
                 <h3>Преподаватели</h3>
-                <user_prev v-for="(prepod, index) in disPrepods" :id="prepod" :key="index"></user_prev>
+                <user_prev v-for="(prepod, index) in disPrepods" :id="prepod" :key="index" />
 				<div v-if="!dis.prepods">В данный момент преподавателей нет</div>
             </div>
 			<h3>Фильтр занятий</h3>
 			<div class="lessonsFilter mather">
 				<h4>По дате</h4>
-				<flat-pickr v-model="lessonFilterLocal.date" :config="dateFilterConfig"></flat-pickr>
+				<flat-pickr v-model="lessonFilterLocal.date" :config="dateFilterConfig" />
 				<label v-if="isAdmin && false">
 					<input type="checkbox" v-model="lessonFilterLocal.showAll">
 					Отображать все
@@ -51,14 +51,14 @@
 			<h3>Краткое описание:</h3>
 			<input type="text" v-model="editFields.littleText" placeholder="Краткое описание">
 			<h3>Полное описание:</h3>
-            <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+            <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
 			<h3>Изображения</h3>
 			<div class="images">
-                <gallery :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages"></gallery>
+                <gallery :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages" />
             </div>
 			<h3>Предстоящие занятия</h3>
 			<div class="canOpenWrapper">
-				<lection v-for="lesson, index in nextLessons" :key="index" :content="lesson"></lection>
+				<lection v-for="lesson, index in nextLessons" :key="index" :content="lesson" />
 				<div v-if="!nextLessons || !nextLessons.length">В данный момент занятий нет</div>
 			</div>
 			<addLectionForm></addLectionForm>
@@ -66,11 +66,11 @@
 
         <section class="small">
 			<h3>Логотип</h3>
-			<photoSelect :content="editFields.logo" @save="updateLogo"></photoSelect>
+			<photoSelect :content="editFields.logo" @save="updateLogo" />
 
 			<div class="prepods">
 				<h3>Преподаватели</h3>
-				<user_prev v-for="(prepod, index) in disPrepods" :id="prepod" :key="index"></user_prev>
+				<user_prev v-for="(prepod, index) in disPrepods" :id="prepod" :key="index" />
 				<div v-if="!dis.prepods">В данный момент преподавателей нет</div>
 			</div>
         </section>
