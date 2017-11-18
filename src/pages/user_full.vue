@@ -37,17 +37,9 @@
 				<photoSelect class="photoS" :content="editFields.photo" @save="changePhoto"></photoSelect>
 				<quill-editor v-if="isAdmin || isWorker" :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
 
-				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
-
 				<div v-if="isAdmin">
 					<h3>Роль</h3>
-					<ol>
-						<li>Администратор</li>
-						<li>Преподаватель</li>
-						<li>Пользователь</li>
-						<li>Подтверждение почты</li>
-					</ol>
-					<input type="text" v-model="editFields.id_role" placeholder="Цифра роли">
+					<role_select :content="editFields.id_role" @selected="changeRole" />
 				</div>
 
 
@@ -87,6 +79,7 @@ import {
 
 import photoSelect from '@/components/photoSelect.vue'
 import reg from '@/components/reg.vue'
+import role_select from '@/components/role_select.vue'
 import mixins from '@/components/mixins.vue'
 
 export default {
@@ -99,7 +92,8 @@ export default {
 	mixins: [mixins],
 	components: {
 		photoSelect,
-		reg
+		reg,
+		role_select
 	},
 	methods: {
 		...mapActions([
@@ -124,6 +118,9 @@ export default {
 			this.updateUser(this.editFields)
 			this.toggleEditMutation(false)
 			this.localEdit = false
+		},
+		changeRole (to) {
+			this.editFields.id_role = to
 		}
 	},
 	computed: {

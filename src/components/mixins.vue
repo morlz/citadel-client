@@ -2,13 +2,14 @@
 export default {
 	computed: {
 		roleNames(){
-			return [
-				'Незарегистрирован',
+			let roles = [
+				'Do not touch this',
 				'Администратор',
 				'Преподаватель',
 				'Пользователь',
 				'Подтверждение почты'
 			]
+			return roles
 		}
 	},
     methods: {
@@ -19,14 +20,7 @@ export default {
 			return JSON.parse(imagesString) || []
 		},
 		roleName(id){
-			let roles = [
-				'Незарегистрирован',
-				'Администратор',
-				'Преподаватель',
-				'Пользователь',
-				'Подтверждение почты'
-			]
-			return roles[id]
+			return this.roleNames[id]
 		},
 		roleIconClass(id){
 			let classes = [
