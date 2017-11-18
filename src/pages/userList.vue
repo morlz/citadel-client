@@ -9,7 +9,7 @@
 				<div class="userIcon tooltip mather" data-tooltip="Пользователи" @click="searchSetRole('Пользователь')"></div>
 			</div>
 			<div class="userList" v-masonry fitWidth="true">
-				<user_prev v-masonry-tile v-for="user, index in searched" :user="user" :key="index" width="300px"></user_prev>
+				<user_prev v-masonry-tile v-for="user, index in searched" :user="user" :key="index" width="300px" />
 			</div>
 		</article>
 	</div>

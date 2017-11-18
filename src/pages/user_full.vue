@@ -5,11 +5,14 @@
 				<div class="adminButton">
 					<div class="button" @click="localEdit = !localEdit" v-if="logined && user.id == data.id">Изменить профиль</div>
 				</div>
+
 				<h2>{{data.name}}</h2>
 				<div class="photoS"><img :src="data.photo"></div>
 				<div class="description" v-html="data.description"></div>
+
 				<h3>Роль</h3>
 				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
+
 				<h3>Контакты</h3>
 				<div class="contacts">
 					<div class="phone">{{data.phone}}</div>
@@ -18,7 +21,7 @@
 
 				<h3 v-if="currentUserRegs.length">Запись на занятия</h3>
 				<div class="regs" v-for="reg, index in currentUserRegs">
-					<reg :key="index" :content="reg"></reg>
+					<reg :key="index" :content="reg" />
 				</div>
 			</section>
 			<section class="small">
@@ -34,8 +37,8 @@
 					<div class="button" @click="updateUserHandler">Сохранить изменения</div>
 				</div>
 				<input type="text" class="title" v-model="editFields.name">
-				<photoSelect class="photoS" :content="editFields.photo" @save="changePhoto"></photoSelect>
-				<quill-editor v-if="isAdmin || isWorker" :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+				<photoSelect class="photoS" :content="editFields.photo" @save="changePhoto" />
+				<quill-editor v-if="isAdmin || isWorker" :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
 
 				<div v-if="isAdmin">
 					<h3>Роль</h3>
@@ -63,7 +66,7 @@
 				</div>
 			</section>
 			<section class="small">
-				<photoSelect class="photoB" :content="editFields.photo" @save="changePhoto"></photoSelect>
+				<photoSelect class="photoB" :content="editFields.photo" @save="changePhoto" />
 				<div class="cources"></div>
 			</section>
 		</article>

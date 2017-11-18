@@ -12,7 +12,7 @@
             <h4>Телефон</h4>
             <input type="text" v-model="editFields.phone" placeholder="9 (876) 543 21 21">
 			<div class="bottomBar">
-				<vue-recaptcha :sitekey="reCaptchaKey" @verify="reOnVerify" @expired="reOnExpired" ref="recaptcha"></vue-recaptcha>
+				<vue-recaptcha :sitekey="reCaptchaKey" @verify="reOnVerify" @expired="reOnExpired" ref="recaptcha" />
 			</div>
         </div>
         <div class="buttons">

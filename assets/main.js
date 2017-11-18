@@ -37989,6 +37989,9 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
+//
+//
+//
 var _vuex=__webpack_require__(9);var _photoSelect=__webpack_require__(88);var _photoSelect2=_interopRequireDefault(_photoSelect);var _reg=__webpack_require__(650);var _reg2=_interopRequireDefault(_reg);var _role_select=__webpack_require__(683);var _role_select2=_interopRequireDefault(_role_select);var _mixins=__webpack_require__(52);var _mixins2=_interopRequireDefault(_mixins);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{localEdit:false,editFields:{}}},mixins:[_mixins2.default],components:{photoSelect:_photoSelect2.default,reg:_reg2.default,role_select:_role_select2.default},methods:_extends({},(0,_vuex.mapActions)(['setCurrentUser','updateUser','getUserRegs']),(0,_vuex.mapMutations)(['toggleEditMutation']),{changePhoto:function changePhoto(newPhoto){this.editFields.photo=newPhoto},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.description=html},updateUserHandler:function updateUserHandler(){this.updateUser(this.editFields);this.toggleEditMutation(false);this.localEdit=false},changeRole:function changeRole(to){this.editFields.id_role=to}}),computed:_extends({},(0,_vuex.mapGetters)(['currentUser','quillOptions','edit','isAdmin','isWorker','user','logined','currentUserRegs']),{data:function data(){var data=this.currentUser;this.editFields=Object.assign({password:'',password2:''},data);return data}}),watch:{user:function user(){if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}},mounted:function mounted(){this.setCurrentUser(this.$route.params.id);if(this.user.id==this.$route.params.id||this.isAdmin)this.getUserRegs(this.$route.params.id)}};
 
 /***/ }),

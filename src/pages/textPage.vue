@@ -10,7 +10,7 @@
 				<div class="button" @click="updatePage(editFields)">Сохранить изменения</div>
 			</div>
 			<input type="text" v-model="editFields.title" class="title">
-			<quill-editor :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+			<quill-editor :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)" />
 		</article>
 	</div>
 </template>

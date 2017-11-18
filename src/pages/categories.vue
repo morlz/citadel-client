@@ -6,7 +6,7 @@
 
 	        <h3>Курсы</h3>
 	        <div class="couces mather" v-if="categoryCources && categoryCources.length">
-				<canopen v-for="(cource, index) in categoryCources" :content="cource" :key="index"></canopen>
+				<canopen v-for="(cource, index) in categoryCources" :content="cource" :key="index" />
 	        </div>
 			<div v-if="!categoryCources || !categoryCources.length">В данный момент курсов нет</div>
 	    </article>
@@ -17,11 +17,11 @@
 				<div class="button" @click="updateCat(data.id)">Сохранить изменения</div>
 			</div>
 			<input type="text" class="title" v-model="editFields.title">
-			<quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+			<quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
 
 			<h3>Курсы</h3>
 	        <div class="couces mather" v-if="categoryCources && categoryCources.length">
-				<canopen v-for="(cource, index) in categoryCources" :content="cource" :key="index"></canopen>
+				<canopen v-for="(cource, index) in categoryCources" :content="cource" :key="index" />
 	        </div>
 			<div v-if="!categoryCources || !categoryCources.length">В данный момент курсов нет</div>
 
