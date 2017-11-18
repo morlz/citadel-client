@@ -51,7 +51,7 @@ export default {
 					childs: this.catChilds
 				},
 				{
-					name: "Условия работы",
+					name: "Документы",
 					path: "/work"
 				},
 				{

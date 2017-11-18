@@ -1,7 +1,7 @@
 <template>
 	<div class="alertWrapper" :class="{alertWrapperActive: alertShow}">
 		<div class="alert mather">
-			<div class="content">{{ data.content }}</div>
+			<div class="content" v-html="data.content"></div>
 			<div class="buttons">
 				<div class="buttonTRb" v-for="button in buttons" @click="buttonClicked(button.event)">{{ button.name }}</div>
 			</div>

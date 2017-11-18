@@ -3,14 +3,16 @@
 	<div class="editMode" @click="toggleEdit" v-if="isAdmin">{{ edit ? 'Stop it!' : `I'm God` }}</div>
     <div class="lBox">
         <div class="logo"></div>
-        <div class="st">Центр информационных технологий и аналитики <br>"Дистанционная электронная лаборатория"</div>
-        <h2 class="mt">Учебный<br>центр</h2>
-        <h2 class="bt">&#8222;ЦИТАДЕЛЬ&#8221;</h2>
+
+		<h2 class="mt">Учебный центр "Цитадель"</h2>
+		<div class="st">Центра информационных технологий и аналитики <br>"Дистанционная электронная лаборатория"</div>
+
+        <!---h2 class="bt">&#8222;ЦИТАДЕЛЬ&#8221;</h2-->
     </div>
     <div class="rBox">
         <h2 class="contacts">
-				<div class="phone">+7 (985) 123-45-67</div>
-				<div class="email">admen@site.site</div>
+				<div class="phone">+7(985)522-32-42</div>
+				<div class="email">admin@it-citadel.ru</div>
 			</h2>
         <auth></auth>
     </div>
@@ -78,27 +80,28 @@ header {
         display: grid;
         align-items: center;
         justify-items: center;
-        grid-template: "logo st st" "logo mt bt";
-
+        //grid-template: "logo st st" "logo mt bt";
+		grid-template: "logo mt" "logo st";
+		grid-gap: 20px;
         .logo {
             grid-area: logo;
             width: 150px;
             height: 150px;
-            background: url("https://rlv.zcache.co.uk/your_logo_here_classic_round_sticker-r2acca0b24567489b9215e7360d9e9dc6_v9waf_8byvr_324.jpg") no-repeat;
+            background: url("./img/logoCitadel.png") no-repeat;
             background-size: contain;
         }
         .st {
-            padding: 5px;
             grid-area: st;
             text-align: center;
+			align-self: start;
         }
         .mt {
+			align-self: end;
             grid-area: mt;
             text-align: center;
             font-size: 32px;
             line-height: 32px;
             margin: 0;
-            padding: 5px;
         }
         .bt {
             grid-area: bt;

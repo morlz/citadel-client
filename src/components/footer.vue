@@ -4,11 +4,11 @@
         <div class="footerMenuColumn" v-for="item in menu">
             <div class="columnName">{{item.name}}</div>
             <router-link :to="{ path: childItem.path }" class="childItem" v-for="(childItem, index) in item.childs" v-if="childItem.path" :key="index" :class="childItem.class">{{childItem.name}}</router-link>
-			<div v-for="(childItem, index) in item.childs" class="childItem" v-if="!childItem.path && !childItem.url" :class="childItem.class" >{{childItem.name}}</div>
-			<a v-for="(childItem, index) in item.childs" class="childItem" v-if="childItem.url" :class="childItem.class" :href="childItem.url">{{childItem.name}}</a>
+            <div v-for="(childItem, index) in item.childs" class="childItem" v-if="!childItem.path && !childItem.url" :class="childItem.class" v-html="childItem.name"></div>
+            <a v-for="(childItem, index) in item.childs" class="childItem" v-if="childItem.url" :class="childItem.class" :href="childItem.url">{{childItem.name}}</a>
         </div>
     </div>
-	<div class="copyright">Copyright © 2017 ООО "ЦИТАДЕЛЬ"</div>
+    <div class="copyright">Copyright © 2017 ООО "ЦИТАДЕЛЬ"</div>
 </footer>
 </template>
 
@@ -20,12 +20,16 @@ import {
 export default {
     computed: {
         ...mapGetters([
-            'centers'
+            'centers',
+            'categories'
         ])
     },
     watch: {
         centers(newVal) {
-            this.menu.find(el => el.name == "Centers").childs = this.format("centers", newVal)
+            this.menu.find(el => el.name == "Площадки").childs = this.format("centers", newVal)
+        },
+        categories(newVal) {
+            this.menu.find(el => el.name == "Курсы").childs = this.format("cat", newVal)
         }
     },
     methods: {
@@ -40,50 +44,60 @@ export default {
     },
     data() {
         return {
-            menu: [{
-                    name: "Share",
+            menu: [
+                /*{
+                                    name: "Share",
+                                    childs: [{
+                                            name: "VK",
+                                            url: "http://vk.com/"
+                                        },
+                                        {
+                                            name: "twitter",
+                                            url: "http://twitter.com/"
+                                        }
+                                    ]
+                                },*/
+                {
+                    name: "О нас",
                     childs: [{
-                            name: "VK",
-                            url: "http://vk.com/"
+                            name: "Учебный центр",
+                            path: "/"
+                        },
+						{
+							name: "Учредитель",
+							url: "http://it-citadel.ru/"
+						},
+                        {
+                            name: "Документы",
+                            path: "/work"
                         },
                         {
-                            name: "twitter",
-                            url: "http://twitter.com/"
+                            name: "Реквизиты",
+                            path: "/recs"
                         }
                     ]
                 },
                 {
-                    name: "Contacts",
-                    childs: [{
-                            name: "9 892 098765",
-                        },
-                        {
-                            name: "mail@ilam.py",
-                        }
-                    ]
-                },
-                {
-                    name: "Centers",
+                    name: "Площадки",
                     childs: []
                 },
                 {
-                    name: "Any more cat",
+                    name: "Курсы",
+                    childs: []
+                },
+                {
+                    name: "Контакты",
                     childs: [{
-                            name: "Some child 1"
+                            name: "+7(985)522-32-42",
                         },
                         {
-                            name: "Some child 2"
+                            name: "admin@it-citadel.ru",
                         },
                         {
-                            name: "Some child link 404",
-                            path: "/404"
-                        },
-                        {
-                            name: "Some child external link",
-                            url: "http://google.com/"
+                            name: "141840, МО, г.Яхрома, <br>ул.Заречная, д.2",
                         }
                     ]
-                }
+                },
             ]
         }
     }
@@ -130,25 +144,25 @@ footer {
         justify-items: stretch;
         grid-auto-flow: column;
     }
-	.copyright {
-		margin: 120px auto 0 auto;
-		font-size: 12px;
-		text-align: center;
-	}
+    .copyright {
+        margin: 120px auto 0;
+        font-size: 12px;
+        text-align: center;
+    }
 }
 
 @media (max-width: 800px) {
-	footer {
-		padding: 20px;
-		.footerMenu {
-			grid-auto-flow: row;
-			.footerMenuColumn {
-				justify-items: center;
-				.columnName {
-					margin: 40px 0 0 0;
-				}
-			}
-		}
-	}
+    footer {
+        padding: 20px;
+        .footerMenu {
+            grid-auto-flow: row;
+            .footerMenuColumn {
+                justify-items: center;
+                .columnName {
+                    margin: 40px 0 0;
+                }
+            }
+        }
+    }
 }
 </style>

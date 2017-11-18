@@ -51,7 +51,7 @@
 				<canopen v-for="(cource, index) in centerCources" :content="cource" :key="index"></canopen>
 			</div>
 
-			<h3>Преподователи</h3>
+			<h3>Преподaватели</h3>
 
 			<div class="prepods">
 				<user_prev v-for="(prepod, index) in centerPrepods" :key="index" width="300px" :user="prepod"></user_prev>

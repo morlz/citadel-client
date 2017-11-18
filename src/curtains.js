@@ -46,7 +46,7 @@ class Curtains {
     }
 
     _checkTimeout() {
-        if (Date.now() - this._lastMouseMove > this.afkTimeout)
+        if (Date.now() - this._lastMouseMove > this.afkTimeout && document.body.clientWidth > 699)
             this.close()
     }
 

@@ -32,7 +32,7 @@ const actions = {
             data
         }).then(({ data }) => {
             dispatch('alert', {
-				content: data
+				content: `перейди по <a href="${window.location.origin}/${data.confirm_url}">ссылке</a>`
 			})
         }).catch(err => dispatch('handleCode', err))
     },
