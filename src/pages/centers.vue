@@ -62,16 +62,18 @@
 
         <h3>Курсы</h3>
         <div class="couces mather">
-            <canopen v-for="(cource, index) in centerCources" :content="cource" :key="index"></canopen>
+            <canopen v-for="(cource, index) in centerCources" :content="cource" :key="index" />
         </div>
 
         <h3>Преподaватели</h3>
         <div class="prepods">
-            <user_prev v-for="(prepod, index) in centerPrepods" :key="index" width="300px" :user="prepod"></user_prev>
+            <user_prev v-for="(prepod, index) in centerPrepods" :key="index" width="300px" :user="prepod" />
         </div>
 
 		<h3>Новости центра</h3>
 		<centerNews :content="centerNews" :open="openNew" />
+
+		<addNewsForm />
     </article>
 </div>
 </template>
@@ -88,6 +90,7 @@ import photoSelect from '@/components/photoSelect.vue'
 import gallery from '@/components/gallery.vue'
 import mixins from '@/components/mixins.vue'
 import centerNews from '@/components/centerNews.vue'
+import addNewsForm from '@/components/addNewsForm.vue'
 
 export default {
     data() {
@@ -140,7 +143,8 @@ export default {
         canopen,
         photoSelect,
         gallery,
-		centerNews
+		centerNews,
+		addNewsForm
     },
     methods: {
         ...mapActions([

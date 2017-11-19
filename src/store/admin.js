@@ -13,6 +13,10 @@ const updateDispatchers = {
 	lesson: "afterRemoveLesson"
 }
 
+const updateMutations = {
+	news: "removeNew"
+}
+
 const state = {
     edit: false,
 	QO: {},
@@ -37,8 +41,8 @@ const actions = {
 			if (status == 201) dispatch( updateDispatchers[payload.type] )
 		}).catch(err => dispatch('handleCode', err))
 	},
-	remove({ dispatch }, payload){
-		let { type, id, redirect = true } = payload
+	remove({ dispatch, commit }, payload){
+		let { type, id, redirect = true, to } = payload
 		api.invoke({
 			method: "delete",
 			data: {
@@ -46,8 +50,9 @@ const actions = {
 				id
 			}
 		}).then((data) => {
-			dispatch( updateDispatchers[type], id )
-			if (redirect) router.push({ path: '/' })
+			if (updateDispatchers[type]) dispatch( updateDispatchers[type], id )
+			if (updateMutations[type]) commit( updateMutations[type], id )
+			if (redirect) router.push({ path: to ? to : '/' })
 		}).catch(err => dispatch('handleCode', err))
 	}
 }

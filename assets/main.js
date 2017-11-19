@@ -29732,7 +29732,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_re
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i]}return arr2}else{return Array.from(arr)}}var state={cached:[],current:{},currentCenterPrepods:[],cachedNews:[]};var actions={getCenters:function getCenters(_ref){var commit=_ref.commit;_index2.default.invoke({method:'get',data:{type:'center'}}).then(function(_ref2){var data=_ref2.data;commit('receive_centers',data)})},getCenter:function getCenter(state,id){var finded=state.getters.centers.find(function(center){return center.id==id});if(finded){state.commit('receive_currentCenter',finded);return}_index2.default.invoke({method:'get',data:{type:'center',id:id}}).then(function(_ref3){var data=_ref3.data;state.commit('addCenterToCache',data);state.commit('receive_currentCenter',data)}).catch(function(err){return state.dispatch('handleCode',err)})},updateCenter:function updateCenter(_ref4,data){var dispatch=_ref4.dispatch,commit=_ref4.commit;data.type='center';_index2.default.invoke({method:'put',data:data}).then(function(_ref5){var data=_ref5.data;commit('removeCenter',data.id);commit('addCenterToCache',[data]);commit('receive_currentCenter',data);commit('toggleEditMutation',false)}).catch(function(err){return dispatch('handleCode',err)})},getCenterNews:function getCenterNews(_ref6,id){var dispatch=_ref6.dispatch,commit=_ref6.commit;_index2.default.invoke({method:'get',data:{type:'newsByCenter',id:id}}).then(function(_ref7){var data=_ref7.data;commit('addNewsToCache',data)}).catch(function(err){return dispatch('handleCode',err)})}};var mutations={removeCenter:function removeCenter(state,id){state.cached=state.cached.filter(function(el){return el.id!=id})},addCenterToCache:function addCenterToCache(state,data){if(!state.cached.find(function(center){return center.id==data.id}))state.cached.push(data)},addNewsToCache:function addNewsToCache(state,data){state.cachedNews=[].concat(_toConsumableArray(data),_toConsumableArray(state.cachedNews.filter(function(el){return!data.find(function(newCached){return newCached.id==el.id})})))},receive_centers:function receive_centers(state,data){state.cached=data},receive_currentCenter:function receive_currentCenter(state,data){state.current=data},setCurrentCenterPrepods:function setCurrentCenterPrepods(state,data){state.currentCenterPrepods=data}};var getters={centers:function centers(state){return state.cached||[]},currentCenter:function currentCenter(state){return state.current},currentCenterPrepods:function currentCenterPrepods(_ref8){var currentCenterPrepods=_ref8.currentCenterPrepods;return currentCenterPrepods},allCenterNews:function allCenterNews(_ref9){var cachedNews=_ref9.cachedNews;return cachedNews}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
+Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i]}return arr2}else{return Array.from(arr)}}var state={cached:[],current:{},currentCenterPrepods:[],cachedNews:[]};var actions={getCenters:function getCenters(_ref){var commit=_ref.commit;_index2.default.invoke({method:'get',data:{type:'center'}}).then(function(_ref2){var data=_ref2.data;commit('receive_centers',data)})},getCenter:function getCenter(state,id){var finded=state.getters.centers.find(function(center){return center.id==id});if(finded){state.commit('receive_currentCenter',finded);return}_index2.default.invoke({method:'get',data:{type:'center',id:id}}).then(function(_ref3){var data=_ref3.data;state.commit('addCenterToCache',data);state.commit('receive_currentCenter',data)}).catch(function(err){return state.dispatch('handleCode',err)})},updateCenter:function updateCenter(_ref4,data){var dispatch=_ref4.dispatch,commit=_ref4.commit;data.type='center';_index2.default.invoke({method:'put',data:data}).then(function(_ref5){var data=_ref5.data;commit('removeCenter',data.id);commit('addCenterToCache',[data]);commit('receive_currentCenter',data);commit('toggleEditMutation',false)}).catch(function(err){return dispatch('handleCode',err)})},getCenterNews:function getCenterNews(_ref6,id){var dispatch=_ref6.dispatch,commit=_ref6.commit;_index2.default.invoke({method:'get',data:{type:'newsByCenter',id:id}}).then(function(_ref7){var data=_ref7.data;commit('addNewsToCache',data)}).catch(function(err){return dispatch('handleCode',err)})},addNews:function addNews(_ref8,data){var dispatch=_ref8.dispatch,commit=_ref8.commit;data.type='news';_index2.default.invoke({method:'post',data:data}).then(function(_ref9){var data=_ref9.data;commit('addNewsToCache',[data])}).catch(function(err){return dispatch('handleCode',err)})},updateNew:function updateNew(_ref10,data){var dispatch=_ref10.dispatch,commit=_ref10.commit;data.type='news';_index2.default.invoke({method:'put',data:data}).then(function(_ref11){var data=_ref11.data;commit('removeNew',data.id);commit('addNewsToCache',[data]);commit('toggleEditMutation',false)}).catch(function(err){return dispatch('handleCode',err)})}};var mutations={removeCenter:function removeCenter(state,id){state.cached=state.cached.filter(function(el){return el.id!=id})},removeNew:function removeNew(state,id){state.cachedNews=state.cachedNews.filter(function(el){return el.id!=id})},addCenterToCache:function addCenterToCache(state,data){if(!state.cached.find(function(center){return center.id==data.id}))state.cached.push(data)},addNewsToCache:function addNewsToCache(state,data){state.cachedNews=[].concat(_toConsumableArray(data),_toConsumableArray(state.cachedNews.filter(function(el){return!data.find(function(newCached){return newCached.id==el.id})})))},receive_centers:function receive_centers(state,data){state.cached=data},receive_currentCenter:function receive_currentCenter(state,data){state.current=data},setCurrentCenterPrepods:function setCurrentCenterPrepods(state,data){state.currentCenterPrepods=data}};var getters={centers:function centers(state){return state.cached||[]},currentCenter:function currentCenter(_ref12){var current=_ref12.current;return current},currentCenterPrepods:function currentCenterPrepods(_ref13){var currentCenterPrepods=_ref13.currentCenterPrepods;return currentCenterPrepods},allCenterNews:function allCenterNews(_ref14){var cachedNews=_ref14.cachedNews;return cachedNews}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
 
 /***/ }),
 /* 437 */
@@ -29746,7 +29746,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _index=__webpack_re
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports,"__esModule",{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var addRoutes={cat:"category",centers:"center"};var updateDispatchers={category:"getCategories",centers:"getCenters",cource:"getAllDisciplines",center:"getCenters",lesson:"afterRemoveLesson"};var state={edit:false,QO:{},FP:{enableTime:true,time_24hr:true,minDate:new Date},editButtonShow:false};var actions={toggleEdit:function toggleEdit(_ref){var commit=_ref.commit;commit("toggleEditMutation")},add:function add(_ref2,payload){var dispatch=_ref2.dispatch;payload.type=addRoutes[payload.type]||payload.type;_index2.default.invoke({method:"post",data:payload}).then(function(_ref3){var data=_ref3.data,status=_ref3.status,_ref3$error=_ref3.error,error=_ref3$error===undefined?null:_ref3$error;if(status==201)dispatch(updateDispatchers[payload.type])}).catch(function(err){return dispatch("handleCode",err)})},remove:function remove(_ref4,payload){var dispatch=_ref4.dispatch;var type=payload.type,id=payload.id,_payload$redirect=payload.redirect,redirect=_payload$redirect===undefined?true:_payload$redirect;_index2.default.invoke({method:"delete",data:{type:type,id:id}}).then(function(data){dispatch(updateDispatchers[type],id);if(redirect)router.push({path:"/"})}).catch(function(err){return dispatch("handleCode",err)})}};var mutations={toggleEditMutation:function toggleEditMutation(state,data){if(data===undefined){state.edit=!state.edit;return}state.edit=data}};var getters={edit:function edit(state){return state.edit},quillOptions:function quillOptions(){return state.QO||{}},FP:function FP(_ref5){var FP=_ref5.FP;return FP},FPRange:function FPRange(_ref6){var FP=_ref6.FP;var data=Object.assign({mode:"range"},FP);if(data.minDate)delete data.minDate;return data}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
+Object.defineProperty(exports,"__esModule",{value:true});var _index=__webpack_require__(35);var _index2=_interopRequireDefault(_index);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var addRoutes={cat:"category",centers:"center"};var updateDispatchers={category:"getCategories",centers:"getCenters",cource:"getAllDisciplines",center:"getCenters",lesson:"afterRemoveLesson"};var updateMutations={news:"removeNew"};var state={edit:false,QO:{},FP:{enableTime:true,time_24hr:true,minDate:new Date},editButtonShow:false};var actions={toggleEdit:function toggleEdit(_ref){var commit=_ref.commit;commit("toggleEditMutation")},add:function add(_ref2,payload){var dispatch=_ref2.dispatch;payload.type=addRoutes[payload.type]||payload.type;_index2.default.invoke({method:"post",data:payload}).then(function(_ref3){var data=_ref3.data,status=_ref3.status,_ref3$error=_ref3.error,error=_ref3$error===undefined?null:_ref3$error;if(status==201)dispatch(updateDispatchers[payload.type])}).catch(function(err){return dispatch("handleCode",err)})},remove:function remove(_ref4,payload){var dispatch=_ref4.dispatch,commit=_ref4.commit;var type=payload.type,id=payload.id,_payload$redirect=payload.redirect,redirect=_payload$redirect===undefined?true:_payload$redirect,to=payload.to;_index2.default.invoke({method:"delete",data:{type:type,id:id}}).then(function(data){if(updateDispatchers[type])dispatch(updateDispatchers[type],id);if(updateMutations[type])commit(updateMutations[type],id);if(redirect)router.push({path:to?to:"/"})}).catch(function(err){return dispatch("handleCode",err)})}};var mutations={toggleEditMutation:function toggleEditMutation(state,data){if(data===undefined){state.edit=!state.edit;return}state.edit=data}};var getters={edit:function edit(state){return state.edit},quillOptions:function quillOptions(){return state.QO||{}},FP:function FP(_ref5){var FP=_ref5.FP;return FP},FPRange:function FPRange(_ref6){var FP=_ref6.FP;var data=Object.assign({mode:"range"},FP);if(data.minDate)delete data.minDate;return data}};exports.default={state:state,actions:actions,mutations:mutations,getters:getters};
 
 /***/ }),
 /* 439 */
@@ -36325,7 +36325,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "\n.currentUsersRegistredWrapper {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 26;\n  pointer-events: none;\n  background: transparent;\n  transition: all 0.3s ease-in-out;\n  background: rgba(0, 0, 0, 0.5);\n  opacity: 0;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred {\n  position: absolute;\n  top: 5%;\n  left: calc(50% - 450px);\n  height: 90%;\n  padding: 30px;\n  background: #fff;\n  box-sizing: border-box;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content {\n  padding: 10px;\n  margin: 10px;\n  width: 800px;\n  height: calc( 100% - 35px );\n  box-sizing: border-box;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content > .title {\n  margin: 0 0 10px 0;\n  height: 19px;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content .search {\n  background-image: url(" + __webpack_require__(125) + ");\n  background-position: 97% 50%;\n  background-repeat: no-repeat;\n  padding: 15px 40px 15px 20px;\n  margin: 10px 210px;\n  width: 300px;\n  background-color: #eee;\n  border-bottom: 1px solid transparent;\n  height: 15px;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content .search:focus {\n  border-bottom: 1px solid transparent;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content .users {\n  height: calc(100% - 80px);\n  box-sizing: border-box;\n  overflow-y: scroll;\n  padding: 75px 10px 0 0;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .buttons {\n  display: flex;\n  justify-content: flex-end;\n}\n.currentUsersRegistredWrapperActive {\n  pointer-events: all;\n  opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\n.currentUsersRegistredWrapper {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 26;\n  pointer-events: none;\n  background: transparent;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n}\n.currentUsersRegistredWrapper .backButton {\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  cursor: pointer;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred {\n  position: absolute;\n  top: 5%;\n  left: calc(50% - 450px);\n  height: 90%;\n  padding: 30px;\n  background: #fff;\n  box-sizing: border-box;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content {\n  padding: 10px;\n  margin: 10px;\n  width: 800px;\n  height: calc( 100% - 35px );\n  box-sizing: border-box;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content > .title {\n  margin: 0 0 10px 0;\n  height: 19px;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content .search {\n  background-image: url(" + __webpack_require__(125) + ");\n  background-position: 97% 50%;\n  background-repeat: no-repeat;\n  padding: 15px 40px 15px 20px;\n  margin: 10px 210px;\n  width: 300px;\n  background-color: #eee;\n  border-bottom: 1px solid transparent;\n  height: 15px;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content .search:focus {\n  border-bottom: 1px solid transparent;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .content .users {\n  height: calc(100% - 80px);\n  box-sizing: border-box;\n  overflow-y: scroll;\n  padding: 75px 10px 0 0;\n}\n.currentUsersRegistredWrapper .currentUsersRegistred .buttons {\n  display: flex;\n  justify-content: flex-end;\n}\n.currentUsersRegistredWrapperActive {\n  pointer-events: all;\n  opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -36336,6 +36336,7 @@ exports.push([module.i, "\n.currentUsersRegistredWrapper {\n  position: fixed;\n
 
 "use strict";
 Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key]}}}return target};//
+//
 //
 //
 //
@@ -36757,6 +36758,11 @@ var render = function() {
       }
     },
     [
+      _c("div", {
+        staticClass: "backButton",
+        on: { click: _vm.hideCurrentUsers }
+      }),
+      _vm._v(" "),
       _c("div", { staticClass: "currentUsersRegistred mather" }, [
         _c("div", { staticClass: "content" }, [
           _c("h4", { staticClass: "title" }, [
@@ -37327,7 +37333,9 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-var _vuex=__webpack_require__(9);var _vueQuillEditor=__webpack_require__(122);var _vueQuillEditor2=_interopRequireDefault(_vueQuillEditor);var _user_prev=__webpack_require__(124);var _user_prev2=_interopRequireDefault(_user_prev);var _canOpen=__webpack_require__(198);var _canOpen2=_interopRequireDefault(_canOpen);var _photoSelect=__webpack_require__(88);var _photoSelect2=_interopRequireDefault(_photoSelect);var _gallery=__webpack_require__(190);var _gallery2=_interopRequireDefault(_gallery);var _mixins=__webpack_require__(36);var _mixins2=_interopRequireDefault(_mixins);var _centerNews=__webpack_require__(689);var _centerNews2=_interopRequireDefault(_centerNews);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{editFields:{},perPageIamagesCount:[[500,2],[650,3],[820,3],[1030,4],[1250,5],[1300,5],[1800,6]]}},props:['openNew'],mixins:[_mixins2.default],computed:_extends({},(0,_vuex.mapGetters)(['currentCenter','disciplines','prepods','edit','quillOptions','currentCenterPrepods','allCenterNews']),{data:function data(){var data=this.currentCenter;this.editFields=Object.assign({},data);return data},centerCources:function centerCources(){return this.disciplines},centerPrepods:function centerPrepods(){return this.currentCenterPrepods},filtredPrepods:function filtredPrepods(){var _this=this;return this.prepods.filter(function(prepod){return _this.data.id_workers?_this.data.id_workers.indexOf(prepod.id)+1:false})},centerNews:function centerNews(){var _this2=this;return this.allCenterNews.filter(function(el){return el.center_id==_this2.editFields.id||el.center_id==null})}}),components:{user_prev:_user_prev2.default,Quill:_vueQuillEditor2.default,canopen:_canOpen2.default,photoSelect:_photoSelect2.default,gallery:_gallery2.default,centerNews:_centerNews2.default},methods:_extends({},(0,_vuex.mapActions)(['getCenter','getUsers','getAllDisciplines','updateCenter','remove','getCenterPrepods','getCenterNews']),{onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.description=html},updateImages:function updateImages(newData){this.editFields.images=JSON.stringify(newData)},updateLogo:function updateLogo(newData){this.editFields.logo=newData},removeCenter:function removeCenter(id){this.remove({type:'center',id:id})}}),mounted:function mounted(){this.getCenter(this.$route.params.id);this.getAllDisciplines();this.getCenterPrepods(this.$route.params.id);this.getCenterNews(this.$route.params.id)}};
+//
+//
+var _vuex=__webpack_require__(9);var _vueQuillEditor=__webpack_require__(122);var _vueQuillEditor2=_interopRequireDefault(_vueQuillEditor);var _user_prev=__webpack_require__(124);var _user_prev2=_interopRequireDefault(_user_prev);var _canOpen=__webpack_require__(198);var _canOpen2=_interopRequireDefault(_canOpen);var _photoSelect=__webpack_require__(88);var _photoSelect2=_interopRequireDefault(_photoSelect);var _gallery=__webpack_require__(190);var _gallery2=_interopRequireDefault(_gallery);var _mixins=__webpack_require__(36);var _mixins2=_interopRequireDefault(_mixins);var _centerNews=__webpack_require__(689);var _centerNews2=_interopRequireDefault(_centerNews);var _addNewsForm=__webpack_require__(707);var _addNewsForm2=_interopRequireDefault(_addNewsForm);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{editFields:{},perPageIamagesCount:[[500,2],[650,3],[820,3],[1030,4],[1250,5],[1300,5],[1800,6]]}},props:['openNew'],mixins:[_mixins2.default],computed:_extends({},(0,_vuex.mapGetters)(['currentCenter','disciplines','prepods','edit','quillOptions','currentCenterPrepods','allCenterNews']),{data:function data(){var data=this.currentCenter;this.editFields=Object.assign({},data);return data},centerCources:function centerCources(){return this.disciplines},centerPrepods:function centerPrepods(){return this.currentCenterPrepods},filtredPrepods:function filtredPrepods(){var _this=this;return this.prepods.filter(function(prepod){return _this.data.id_workers?_this.data.id_workers.indexOf(prepod.id)+1:false})},centerNews:function centerNews(){var _this2=this;return this.allCenterNews.filter(function(el){return el.center_id==_this2.editFields.id||el.center_id==null})}}),components:{user_prev:_user_prev2.default,Quill:_vueQuillEditor2.default,canopen:_canOpen2.default,photoSelect:_photoSelect2.default,gallery:_gallery2.default,centerNews:_centerNews2.default,addNewsForm:_addNewsForm2.default},methods:_extends({},(0,_vuex.mapActions)(['getCenter','getUsers','getAllDisciplines','updateCenter','remove','getCenterPrepods','getCenterNews']),{onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.description=html},updateImages:function updateImages(newData){this.editFields.images=JSON.stringify(newData)},updateLogo:function updateLogo(newData){this.editFields.logo=newData},removeCenter:function removeCenter(id){this.remove({type:'center',id:id})}}),mounted:function mounted(){this.getCenter(this.$route.params.id);this.getAllDisciplines();this.getCenterPrepods(this.$route.params.id);this.getCenterNews(this.$route.params.id)}};
 
 /***/ }),
 /* 641 */
@@ -39709,7 +39717,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "\n.news {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  grid-gap: 15px;\n}\n.news .backButton {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  background: rgba(0, 0, 0, 0.5);\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s ease-in-out;\n  z-index: 5;\n}\n.news .backButtonActive {\n  opacity: 1;\n  pointer-events: all;\n}\n", ""]);
+exports.push([module.i, "\n.news {\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  grid-gap: 15px;\n}\n.news .backButton {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  background: rgba(0, 0, 0, 0.5);\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s ease-in-out;\n  z-index: 5;\n}\n.news .backButtonActive {\n  opacity: 1;\n  pointer-events: all;\n}\n", ""]);
 
 // exports
 
@@ -39865,8 +39873,8 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-var _mixins=__webpack_require__(36);var _mixins2=_interopRequireDefault(_mixins);var _gallery=__webpack_require__(190);var _gallery2=_interopRequireDefault(_gallery);var _vuex=__webpack_require__(9);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}//import TWEEN from 'tweenjs/tween.js/src/Tween.js'
-exports.default={props:['content','open'],mixins:[_mixins2.default],components:{gallery:_gallery2.default},data:function data(){return{localEdit:false,editFields:{},perPageIamagesCount:[[500,2],[650,3],[820,3],[1030,4],[1250,5],[1300,5],[1800,6]]}},watch:{editFields:function editFields(a){console.log(a)}},computed:_extends({},(0,_vuex.mapGetters)(['edit','isAdmin','quillOptions']),{data:function data(){var data=this.content;this.editFields=Object.assign({},data);return data}}),methods:{getBackgroundImage:function getBackgroundImage(){var images=this.parseJSONimages(this.content.images);if(!images.length)return'none';return'url(\''+images[Math.round(Math.random()*(images.length-1))]+'\')'},updateImages:function updateImages(n){console.log(n);this.editFields.images=n},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.content=html}}};
+var _vuex=__webpack_require__(9);var _mixins=__webpack_require__(36);var _mixins2=_interopRequireDefault(_mixins);var _gallery=__webpack_require__(190);var _gallery2=_interopRequireDefault(_gallery);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}//import TWEEN from 'tweenjs/tween.js/src/Tween.js'
+exports.default={props:['content','open'],mixins:[_mixins2.default],components:{gallery:_gallery2.default},data:function data(){return{localEdit:false,editFields:{},perPageIamagesCount:[[500,2],[650,3],[820,3],[1030,4],[1250,5],[1300,5],[1800,6]]}},computed:_extends({},(0,_vuex.mapGetters)(['edit','isAdmin','quillOptions']),{data:function data(){var data=this.content;this.editFields=Object.assign({},data);return data}}),methods:_extends({},(0,_vuex.mapActions)(['updateNew','remove']),{getBackgroundImage:function getBackgroundImage(){var images=this.parseJSONimages(this.content.images);if(!images.length)return'none';return'url(\''+images[Math.round(Math.random()*(images.length-1))]+'\')'},updateImages:function updateImages(n){this.editFields.images=JSON.stringify(n)},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.content=html},updateNewsHandler:function updateNewsHandler(){this.updateNew(this.editFields);this.localEdit=false},removeNew:function removeNew(id){this.remove({type:'news',id:id,to:'/centers/'+this.$route.params.id})}})};
 
 /***/ }),
 /* 698 */,
@@ -39911,7 +39919,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "\n.newWrapper[data-v-774c1a56] {\n  text-decoration: none;\n}\n.newWrapper .new[data-v-774c1a56] {\n  transition: all 0.3s ease-in-out;\n  background-size: cover;\n  background-color: #fff;\n  background-position: center;\n  padding-top: 200px;\n}\n.newWrapper .new .title[data-v-774c1a56] {\n  margin: 0;\n  padding: 10px;\n  color: #fff;\n  font-size: 24px;\n  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 60%, transparent);\n}\n.full[data-v-774c1a56] {\n  position: fixed;\n  width: 90%;\n  height: 90%;\n  top: 5%;\n  left: 5%;\n  background: #fff;\n  z-index: 26;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s ease-in-out;\n  padding: 20px;\n  box-sizing: border-box;\n  display: grid;\n  grid-template-rows: minmax(80px, auto) minmax(80px, 100%) 20px;\n  align-content: flex-start;\n}\n.full .title[data-v-774c1a56] {\n  margin: 10px;\n}\n.full .contentWrapper[data-v-774c1a56] {\n  overflow-y: scroll;\n}\n.full .contentWrapper .content[data-v-774c1a56] {\n  padding: 10px 20px;\n}\n.full .contentWrapper .allImages[data-v-774c1a56] {\n  width: calc(100% - 20px);\n}\n.full .buttons[data-v-774c1a56] {\n  display: grid;\n  grid-auto-flow: column;\n  justify-content: end;\n}\n.open[data-v-774c1a56] {\n  opacity: 1;\n  pointer-events: all;\n}\n", ""]);
+exports.push([module.i, "\n.newWrapperWrapper[data-v-774c1a56] {\n  width: 100%;\n  height: 100%;\n}\n.newWrapperWrapper .newWrapper[data-v-774c1a56] {\n  width: 100%;\n  height: 100%;\n  display: block;\n  text-decoration: none;\n}\n.newWrapperWrapper .newWrapper .new[data-v-774c1a56] {\n  width: 100%;\n  height: 100%;\n  transition: all 0.3s ease-in-out;\n  background-size: cover;\n  background-color: #fff;\n  background-position: center;\n  box-sizing: border-box;\n  display: grid;\n  align-items: end;\n  padding-top: 200px;\n}\n.newWrapperWrapper .newWrapper .new .title[data-v-774c1a56] {\n  margin: 0;\n  padding: 10px;\n  color: #fff;\n  font-size: 24px;\n  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 60%, transparent);\n}\n.newWrapperWrapper .full[data-v-774c1a56] {\n  position: fixed;\n  width: 90%;\n  height: 90%;\n  top: 5%;\n  left: 5%;\n  background: #fff;\n  z-index: 26;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s ease-in-out;\n  padding: 20px;\n  box-sizing: border-box;\n  display: grid;\n  grid-template-rows: minmax(80px, auto) minmax(80px, 100%) 20px;\n  align-content: flex-start;\n}\n.newWrapperWrapper .full .title[data-v-774c1a56] {\n  margin: 10px;\n}\n.newWrapperWrapper .full .contentWrapper[data-v-774c1a56] {\n  overflow-y: scroll;\n}\n.newWrapperWrapper .full .contentWrapper .content[data-v-774c1a56] {\n  padding: 10px 20px;\n}\n.newWrapperWrapper .full .contentWrapper .allImages[data-v-774c1a56] {\n  width: calc(100% - 20px);\n}\n.newWrapperWrapper .full .buttons[data-v-774c1a56] {\n  display: grid;\n  grid-auto-flow: column;\n  justify-content: end;\n}\n.newWrapperWrapper .open[data-v-774c1a56] {\n  opacity: 1;\n  pointer-events: all;\n}\n", ""]);
 
 // exports
 
@@ -39927,6 +39935,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "newWrapperWrapper" },
     [
       _c(
         "router-link",
@@ -39995,7 +40004,18 @@ var render = function() {
                     [_vm._v("Редактироваить")]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "buttonTR" }, [_vm._v("Удалить")])
+                  _c(
+                    "div",
+                    {
+                      staticClass: "buttonTR",
+                      on: {
+                        click: function($event) {
+                          _vm.removeNew(_vm.data.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Удалить")]
+                  )
                 ])
               : _vm._e()
           ])
@@ -40057,9 +40077,14 @@ var render = function() {
               _vm._v(" "),
               _vm.isAdmin
                 ? _c("div", { staticClass: "buttons" }, [
-                    _c("div", { staticClass: "buttonTRb" }, [
-                      _vm._v("Сохранить")
-                    ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "buttonTRb",
+                        on: { click: _vm.updateNewsHandler }
+                      },
+                      [_vm._v("Сохранить")]
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -40074,7 +40099,18 @@ var render = function() {
                       [_vm._v("Отменить")]
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "buttonTR" }, [_vm._v("Удалить")])
+                    _c(
+                      "div",
+                      {
+                        staticClass: "buttonTR",
+                        on: {
+                          click: function($event) {
+                            _vm.removeNew(_vm.data.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Удалить")]
+                    )
                   ])
                 : _vm._e()
             ]
@@ -40453,7 +40489,9 @@ var render = function() {
             _vm._v(" "),
             _c("centerNews", {
               attrs: { content: _vm.centerNews, open: _vm.openNew }
-            })
+            }),
+            _vm._v(" "),
+            _c("addNewsForm")
           ],
           1
         )
@@ -40468,6 +40506,240 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-70df62ea", esExports)
+  }
+}
+
+/***/ }),
+/* 707 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_addNewsForm_vue__ = __webpack_require__(710);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_addNewsForm_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_addNewsForm_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_02183fd0_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_addNewsForm_vue__ = __webpack_require__(711);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(708)
+}
+var normalizeComponent = __webpack_require__(5)
+/* script */
+
+/* template */
+
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_addNewsForm_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_02183fd0_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_addNewsForm_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "components\\addNewsForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-02183fd0", Component.options)
+  } else {
+    hotAPI.reload("data-v-02183fd0", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 708 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(709);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(7)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-02183fd0\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/less-loader/dist/cjs.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./addNewsForm.vue", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-02183fd0\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/less-loader/dist/cjs.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./addNewsForm.vue");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 709 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(undefined);
+// imports
+exports.i(__webpack_require__(614), "");
+exports.i(__webpack_require__(189), "");
+
+// module
+exports.push([module.i, "\n.addNewsForm {\n  padding: 20px;\n  background: #fff;\n  box-sizing: border-box;\n}\n.addNewsForm .title {\n  margin-top: 0;\n}\n.addNewsForm .center {\n  padding: 10px;\n  border: 1px solid #448aff;\n  cursor: pointer;\n}\n.addNewsForm .dur {\n  margin-bottom: 30px;\n}\n.addNewsForm .addButton {\n  text-align: right;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 710 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key]}}}return target};//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _vuex=__webpack_require__(9);var _mixins=__webpack_require__(36);var _mixins2=_interopRequireDefault(_mixins);var _gallery=__webpack_require__(190);var _gallery2=_interopRequireDefault(_gallery);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}exports.default={data:function data(){return{editFields:{title:'',content:'',center_id:true,images:'[]'},perPageIamagesCount:[[500,2],[650,3],[820,3],[1030,4],[1250,5],[1300,5],[1800,6]]}},mixins:[_mixins2.default],components:{gallery:_gallery2.default},computed:_extends({},(0,_vuex.mapGetters)(['quillOptions','currentCenter','FP'])),methods:_extends({},(0,_vuex.mapActions)(['addNews']),{onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.content=html},addNewsHandler:function addNewsHandler(){var data=Object.assign({},this.editFields);data.center_id=data.center_id?this.currentCenter.id:null;this.addNews(data)},updateImages:function updateImages(n){this.editFields.images=JSON.stringify(n)}})};
+
+/***/ }),
+/* 711 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "addNewsFromWrapper" }, [
+    _c("h3", [_vm._v("Добавить новость")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "mather addNewsForm" },
+      [
+        _c("h4", [_vm._v("Название")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.editFields.title,
+              expression: "editFields.title"
+            }
+          ],
+          staticClass: "title",
+          attrs: { type: "text", placeholder: "Название" },
+          domProps: { value: _vm.editFields.title },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.editFields, "title", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Центр")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "center",
+            on: {
+              click: function($event) {
+                _vm.editFields.center_id = !_vm.editFields.center_id
+              }
+            }
+          },
+          [
+            _vm._v(
+              _vm._s(
+                _vm.editFields.center_id
+                  ? "Только для текущего"
+                  : "Для всех центров"
+              )
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Содержание")]),
+        _vm._v(" "),
+        _c("quill-editor", {
+          attrs: { content: _vm.editFields.content, options: _vm.quillOptions },
+          on: {
+            change: function($event) {
+              _vm.onEditorChange($event)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("gallery", {
+          staticClass: "allImages",
+          attrs: {
+            images: _vm.parseJSONimages(_vm.editFields.images),
+            edit: true,
+            perpage: _vm.perPageIamagesCount
+          },
+          on: { imagesChanged: _vm.updateImages }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "buttonTRb addButton",
+            on: { click: _vm.addNewsHandler }
+          },
+          [_vm._v("Добавить")]
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-02183fd0", esExports)
   }
 }
 

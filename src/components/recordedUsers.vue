@@ -1,5 +1,6 @@
 <template>
 	<div class="currentUsersRegistredWrapper" :class="{currentUsersRegistredWrapperActive: currentUsersRegistredShow}">
+		<div class="backButton" @click="hideCurrentUsers"></div>
 		<div class="currentUsersRegistred mather">
 			<div class="content">
 				<h4 class="title">Зарегестрированые пользователи</h4>
@@ -65,8 +66,15 @@ export default {
 		pointer-events: none;
 		background: transparent;
 		transition: all 0.3s ease-in-out;
-		background: rgba(0, 0, 0, 0.5);
 		opacity: 0;
+		.backButton {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			cursor: pointer;
+		}
 		.currentUsersRegistred {
 			position: absolute;
 			top: 5%;

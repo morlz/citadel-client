@@ -58,12 +58,35 @@ const actions = {
 		}).then(({ data }) => {
 			commit('addNewsToCache', data)
 		}).catch(err => dispatch('handleCode', err))
+	},
+	addNews({dispatch, commit}, data){
+		data.type = 'news'
+		api.invoke({
+			method: 'post',
+			data
+		}).then(({ data }) => {
+			commit('addNewsToCache', [data])
+		}).catch(err => dispatch('handleCode', err))
+	},
+	updateNew({dispatch, commit}, data){
+		data.type = 'news'
+		api.invoke({
+			method: 'put',
+			data
+		}).then(({ data }) => {
+			commit('removeNew', data.id)
+			commit('addNewsToCache', [data])
+			commit('toggleEditMutation', false)
+		}).catch(err => dispatch('handleCode', err))
 	}
 }
 
 const mutations = {
 	removeCenter(state, id){
 		state.cached = state.cached.filter(el => el.id != id)
+	},
+	removeNew(state, id){
+		state.cachedNews = state.cachedNews.filter(el => el.id != id)
 	},
 	addCenterToCache(state, data) {
         if (!state.cached.find(center => center.id == data.id)) state.cached.push(data)
@@ -86,8 +109,8 @@ const getters = {
     centers(state) {
         return state.cached || []
     },
-	currentCenter(state){
-		return state.current
+	currentCenter({ current }){
+		return current
 	},
 	currentCenterPrepods({ currentCenterPrepods }){
 		return currentCenterPrepods
