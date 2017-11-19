@@ -3,7 +3,8 @@ import api from '@/api/index'
 const state = {
     cached: [],
 	current: {},
-	currentCenterPrepods: []
+	currentCenterPrepods: [],
+	cachedNews: []
 }
 
 const actions = {
@@ -46,6 +47,17 @@ const actions = {
 			commit('receive_currentCenter', data)
 			commit('toggleEditMutation', false)
 		}).catch(err => dispatch('handleCode', err))
+	},
+	getCenterNews ({dispatch, commit}, id) {
+		api.invoke({
+			method: 'get',
+			data: {
+				type: 'newsByCenter',
+				id
+			}
+		}).then(({ data }) => {
+			commit('addNewsToCache', data)
+		}).catch(err => dispatch('handleCode', err))
 	}
 }
 
@@ -56,6 +68,9 @@ const mutations = {
 	addCenterToCache(state, data) {
         if (!state.cached.find(center => center.id == data.id)) state.cached.push(data)
     },
+	addNewsToCache(state, data){
+		state.cachedNews = [...data, ...state.cachedNews.filter(el => !data.find(newCached => newCached.id == el.id))]
+	},
     receive_centers(state, data) {
         state.cached = data
     },
@@ -76,6 +91,9 @@ const getters = {
 	},
 	currentCenterPrepods({ currentCenterPrepods }){
 		return currentCenterPrepods
+	},
+	allCenterNews({ cachedNews }){
+		return cachedNews
 	}
 }
 

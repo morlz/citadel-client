@@ -163,7 +163,7 @@ const mutations = {
 		state.cached = state.cached.filter(el => el.id != id)
 	},
 	addLectionToCache(state, data){
-		state.cached = [...data, state.cached.filter(el => !data.find(newCached => newCached.id == el.id))]
+		state.cached = [...data, ...state.cached.filter(el => !data.find(newCached => newCached.id == el.id))]
 	},
 	regFormShow(state){
 		state.regFormShow = true

@@ -31,6 +31,9 @@
             <user_prev v-for="(prepod, index) in centerPrepods" :key="index" width="300px" :user="prepod"></user_prev>
             <div v-if="!centerPrepods.length">В данный момент преподавателей нет</div>
         </div>
+
+		<h3>Новости центра</h3>
+		<centerNews :content="centerNews" :open="openNew" />
     </article>
 
     <article class="center edit" v-if="edit && data">
@@ -63,10 +66,12 @@
         </div>
 
         <h3>Преподaватели</h3>
-
         <div class="prepods">
             <user_prev v-for="(prepod, index) in centerPrepods" :key="index" width="300px" :user="prepod"></user_prev>
         </div>
+
+		<h3>Новости центра</h3>
+		<centerNews :content="centerNews" :open="openNew" />
     </article>
 </div>
 </template>
@@ -82,6 +87,7 @@ import canopen from '@/components/canOpen.vue'
 import photoSelect from '@/components/photoSelect.vue'
 import gallery from '@/components/gallery.vue'
 import mixins from '@/components/mixins.vue'
+import centerNews from '@/components/centerNews.vue'
 
 export default {
     data() {
@@ -98,6 +104,7 @@ export default {
             ]
         }
     },
+	props: ['openNew'],
     mixins: [mixins],
     computed: {
         ...mapGetters([
@@ -106,7 +113,8 @@ export default {
             'prepods',
             'edit',
             'quillOptions',
-            'currentCenterPrepods'
+            'currentCenterPrepods',
+			'allCenterNews'
         ]),
         data() {
             let data = this.currentCenter
@@ -121,14 +129,18 @@ export default {
         },
         filtredPrepods() {
             return this.prepods.filter(prepod => this.data.id_workers ? this.data.id_workers.indexOf(prepod.id) + 1 : false)
-        }
+        },
+		centerNews(){
+			return this.allCenterNews.filter(el => el.center_id == this.editFields.id || el.center_id == null)
+		}
     },
     components: {
         user_prev,
         Quill,
         canopen,
         photoSelect,
-        gallery
+        gallery,
+		centerNews
     },
     methods: {
         ...mapActions([
@@ -137,7 +149,8 @@ export default {
             'getAllDisciplines',
             'updateCenter',
             'remove',
-            'getCenterPrepods'
+            'getCenterPrepods',
+			'getCenterNews'
         ]),
         onEditorChange({
             editor,
@@ -163,11 +176,12 @@ export default {
         this.getCenter(this.$route.params.id)
         this.getAllDisciplines()
         this.getCenterPrepods(this.$route.params.id)
+		this.getCenterNews(this.$route.params.id)
     }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .edit {
     .quill-editor {
         margin-top: 20px;

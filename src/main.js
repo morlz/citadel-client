@@ -37,7 +37,8 @@ Vue.use( VueCookie )
 const routes = [
 	{ path: '/discipline/:id', component: discipline },
 	{ path: '/cource/:id', component: discipline },
-	{ path: '/centers/:id', component: centers },
+	//{ path: '/centers/:id', component: centers },
+	{ path: '/centers/:id/:newId?', component: centers, name: "news", props: route => ({ openNew: route.params.newId }) },
 	{ path: '/cat/:id', component: cat },
 	{ path: '/user/:id', component: user },
 	{ path: '/users', component: users },
@@ -51,6 +52,13 @@ const routes = [
 const router = new VueRouter({
 	routes,
 	scrollBehavior(to, from, savedPosition) {
+		let noScrollNames = [
+			'news'
+		]
+		let noScrollFrom = [
+			'news'
+		]
+		if (noScrollNames.indexOf(to.name) + 1 || noScrollFrom.indexOf(from.name) + 1) return {}
 		window.curtains.sctollToTop()
 		return {}
 	}
