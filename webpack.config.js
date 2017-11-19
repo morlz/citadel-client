@@ -17,7 +17,7 @@ var config = {
     plugins: [
 		new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+                'NODE_ENV': process.env.NODE_ENV == 'dev' ? '"dev"' : '"production"'
             },
 			'serverAddr' : process.env.NODE_ENV == 'dev' ? '`http://77.51.118.12/www15/blog/public`' : "'public'",
         })
@@ -25,14 +25,14 @@ var config = {
     resolve: {
         alias: {
             //'@': path.join(__dirname, '../', 'src/'),
-            vue: process.env.NODE_ENV == 'dev' ? 'vue/dist/vue.js' : "vue/dist/vue.esm.js",
+            vue: process.env.NODE_ENV == 'dev' ? 'vue/dist/vue.js' : "vue/dist/vue.min.js",
         }
     },
     target: 'web',
     module: {
         loaders: [{
             test: /\.js$/,
-            exclude: /(jquery|socket|vue|less)/,
+            exclude: /(jquery|socket|less|vue)/,
             loader: 'babel-loader'
         }, {
             test: /\.(html)$/,

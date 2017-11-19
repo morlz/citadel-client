@@ -6,7 +6,8 @@ export default {}
 </script>
 
 <style lang="less">
-@import url( 'https://cdn.quilljs.com/1.2.6/quill.snow.css');
+//@import url( 'https://cdn.quilljs.com/1.2.6/quill.snow.css');
+@import url( './styles/quill.snow.css');
 @import url( 'https://fonts.googleapis.com/css?family=Roboto');
 @import "../../node_modules/blueimp-gallery/css/blueimp-gallery.min.css";
 @font-face {
