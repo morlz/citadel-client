@@ -30,6 +30,7 @@
 			<h3>Фильтр занятий</h3>
 			<div class="lessonsFilter mather">
 				<h4>По дате</h4>
+				<p>Все занятия в выбраном проежутке</p>
 				<flat-pickr v-model="lessonFilterLocal.date" :config="dateFilterConfig" />
 				<label v-if="isAdmin && false">
 					<input type="checkbox" v-model="lessonFilterLocal.showAll">
