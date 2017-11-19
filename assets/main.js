@@ -34148,7 +34148,7 @@ Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.ass
 //
 //
 //
-exports.default={props:['images','perpage'],data:function data(){return{index:null,addImageSrc:''}},components:{'gallery':_vueGallery2.default,Carousel:_vueCarousel.Carousel,Slide:_vueCarousel.Slide,photoSelect:_photoSelect2.default},methods:{addImage:function addImage(newImage){this.$emit('imagesChanged',[].concat(_toConsumableArray(this.imagesLocal),[newImage]))},removeImage:function removeImage(e,index){e.stopPropagation();this.$emit('imagesChanged',this.imagesLocal.filter(function(el,i){return i!=index}))}},computed:_extends({},(0,_vuex.mapGetters)(['edit']),{imagesLocal:function imagesLocal(){if(typeof this.images=='string')return JSON.parse(this.images);return this.images},perPageCustom:function perPageCustom(){if(this.perpage)return this.perpage;return[[500,2],[650,3],[800,1],[1000,2],[1250,3],[1400,3],[1800,4]]}})};
+exports.default={props:['images','perpage','edit'],data:function data(){return{index:null,addImageSrc:''}},components:{'gallery':_vueGallery2.default,Carousel:_vueCarousel.Carousel,Slide:_vueCarousel.Slide,photoSelect:_photoSelect2.default},methods:{addImage:function addImage(newImage){this.$emit('imagesChanged',[].concat(_toConsumableArray(this.imagesLocal),[newImage]))},removeImage:function removeImage(e,index){e.stopPropagation();this.$emit('imagesChanged',this.imagesLocal.filter(function(el,i){return i!=index}))}},computed:_extends({},(0,_vuex.mapGetters)([]),{imagesLocal:function imagesLocal(){if(typeof this.images=='string')return JSON.parse(this.images);return this.images},perPageCustom:function perPageCustom(){if(this.perpage)return this.perpage;return[[500,2],[650,3],[800,1],[1000,2],[1250,3],[1400,3],[1800,4]]}})};
 
 /***/ }),
 /* 588 */
@@ -39832,7 +39832,7 @@ if (false) {(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports,'__esModule',{value:true});var _mixins=__webpack_require__(36);var _mixins2=_interopRequireDefault(_mixins);var _gallery=__webpack_require__(190);var _gallery2=_interopRequireDefault(_gallery);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}//import TWEEN from 'tweenjs/tween.js/src/Tween.js'
+Object.defineProperty(exports,'__esModule',{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key]}}}return target};//
 //
 //
 //
@@ -39850,7 +39850,23 @@ Object.defineProperty(exports,'__esModule',{value:true});var _mixins=__webpack_r
 //
 //
 //
-exports.default={props:['content','open'],mixins:[_mixins2.default],components:{gallery:_gallery2.default},data:function data(){return{localEdit:false,perPageIamagesCount:[[500,2],[650,3],[820,3],[1030,4],[1250,5],[1300,5],[1800,6]]}},methods:{getBackgroundImage:function getBackgroundImage(){var images=this.parseJSONimages(this.content.images);if(!images.length)return'none';return'url(\''+images[Math.round(Math.random()*(images.length-1))]+'\')'},updateImages:function updateImages(){}}};
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _mixins=__webpack_require__(36);var _mixins2=_interopRequireDefault(_mixins);var _gallery=__webpack_require__(190);var _gallery2=_interopRequireDefault(_gallery);var _vuex=__webpack_require__(9);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}//import TWEEN from 'tweenjs/tween.js/src/Tween.js'
+exports.default={props:['content','open'],mixins:[_mixins2.default],components:{gallery:_gallery2.default},data:function data(){return{localEdit:false,editFields:{},perPageIamagesCount:[[500,2],[650,3],[820,3],[1030,4],[1250,5],[1300,5],[1800,6]]}},watch:{editFields:function editFields(a){console.log(a)}},computed:_extends({},(0,_vuex.mapGetters)(['edit','isAdmin','quillOptions']),{data:function data(){var data=this.content;this.editFields=Object.assign({},data);return data}}),methods:{getBackgroundImage:function getBackgroundImage(){var images=this.parseJSONimages(this.content.images);if(!images.length)return'none';return'url(\''+images[Math.round(Math.random()*(images.length-1))]+'\')'},updateImages:function updateImages(n){console.log(n);this.editFields.images=n},onEditorChange:function onEditorChange(_ref){var editor=_ref.editor,html=_ref.html,text=_ref.text;this.editFields.content=html}}};
 
 /***/ }),
 /* 698 */,
@@ -39895,7 +39911,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "\n.newWrapper[data-v-774c1a56] {\n  text-decoration: none;\n}\n.newWrapper .new[data-v-774c1a56] {\n  transition: all 0.3s ease-in-out;\n  background-size: cover;\n  background-color: #fff;\n  background-position: center;\n  padding-top: 200px;\n}\n.newWrapper .new .title[data-v-774c1a56] {\n  margin: 0;\n  padding: 10px;\n  color: #fff;\n  font-size: 24px;\n  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 60%, transparent);\n}\n.full[data-v-774c1a56] {\n  position: fixed;\n  width: 90%;\n  height: 90%;\n  top: 5%;\n  left: 5%;\n  background: #fff;\n  z-index: 26;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s ease-in-out;\n  padding: 20px;\n  box-sizing: border-box;\n  display: grid;\n  grid-template-rows: minmax(80px, auto) minmax(80px, 100%);\n  align-content: flex-start;\n}\n.full .title[data-v-774c1a56] {\n  margin: 10px;\n}\n.full .contentWrapper[data-v-774c1a56] {\n  overflow-y: scroll;\n}\n.full .contentWrapper .content[data-v-774c1a56] {\n  padding: 10px 20px;\n}\n.full .contentWrapper .allImages[data-v-774c1a56] {\n  width: calc(100% - 20px);\n}\n.open[data-v-774c1a56] {\n  opacity: 1;\n  pointer-events: all;\n}\n", ""]);
+exports.push([module.i, "\n.newWrapper[data-v-774c1a56] {\n  text-decoration: none;\n}\n.newWrapper .new[data-v-774c1a56] {\n  transition: all 0.3s ease-in-out;\n  background-size: cover;\n  background-color: #fff;\n  background-position: center;\n  padding-top: 200px;\n}\n.newWrapper .new .title[data-v-774c1a56] {\n  margin: 0;\n  padding: 10px;\n  color: #fff;\n  font-size: 24px;\n  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 60%, transparent);\n}\n.full[data-v-774c1a56] {\n  position: fixed;\n  width: 90%;\n  height: 90%;\n  top: 5%;\n  left: 5%;\n  background: #fff;\n  z-index: 26;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s ease-in-out;\n  padding: 20px;\n  box-sizing: border-box;\n  display: grid;\n  grid-template-rows: minmax(80px, auto) minmax(80px, 100%) 20px;\n  align-content: flex-start;\n}\n.full .title[data-v-774c1a56] {\n  margin: 10px;\n}\n.full .contentWrapper[data-v-774c1a56] {\n  overflow-y: scroll;\n}\n.full .contentWrapper .content[data-v-774c1a56] {\n  padding: 10px 20px;\n}\n.full .contentWrapper .allImages[data-v-774c1a56] {\n  width: calc(100% - 20px);\n}\n.full .buttons[data-v-774c1a56] {\n  display: grid;\n  grid-auto-flow: column;\n  justify-content: end;\n}\n.open[data-v-774c1a56] {\n  opacity: 1;\n  pointer-events: all;\n}\n", ""]);
 
 // exports
 
@@ -39917,9 +39933,7 @@ var render = function() {
         {
           staticClass: "newWrapper",
           attrs: {
-            to: {
-              path: "/centers/" + _vm.$route.params.id + "/" + _vm.content.id
-            }
+            to: { path: "/centers/" + _vm.$route.params.id + "/" + _vm.data.id }
           }
         },
         [
@@ -39931,38 +39945,140 @@ var render = function() {
             },
             [
               _c("h3", { staticClass: "title" }, [
-                _vm._v(_vm._s(_vm.content.title))
+                _vm._v(_vm._s(_vm.data.title))
               ])
             ]
           )
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "full mather", class: { open: _vm.open } }, [
-        _c("h2", { staticClass: "title" }, [_vm._v(_vm._s(_vm.content.title))]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "contentWrapper" },
-          [
-            _c("div", {
-              staticClass: "content",
-              domProps: { innerHTML: _vm._s(_vm.content.content) }
-            }),
+      !(_vm.edit || _vm.localEdit)
+        ? _c("div", { staticClass: "full mather", class: { open: _vm.open } }, [
+            _c("h2", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.data.title))
+            ]),
             _vm._v(" "),
-            _c("gallery", {
-              staticClass: "allImages",
-              attrs: {
-                images: _vm.parseJSONimages(_vm.content.images),
-                edit: _vm.localEdit,
-                perpage: _vm.perPageIamagesCount
-              },
-              on: { imagesChanged: _vm.updateImages }
-            })
-          ],
-          1
-        )
-      ])
+            _c(
+              "div",
+              { staticClass: "contentWrapper" },
+              [
+                _c("div", {
+                  staticClass: "content",
+                  domProps: { innerHTML: _vm._s(_vm.data.content) }
+                }),
+                _vm._v(" "),
+                _c("gallery", {
+                  staticClass: "allImages",
+                  attrs: {
+                    images: _vm.parseJSONimages(_vm.data.images),
+                    edit: _vm.edit || _vm.localEdit,
+                    perpage: _vm.perPageIamagesCount
+                  },
+                  on: { imagesChanged: _vm.updateImages }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.isAdmin
+              ? _c("div", { staticClass: "buttons" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "buttonTRb",
+                      on: {
+                        click: function($event) {
+                          _vm.localEdit = true
+                        }
+                      }
+                    },
+                    [_vm._v("Редактироваить")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "buttonTR" }, [_vm._v("Удалить")])
+                ])
+              : _vm._e()
+          ])
+        : _c(
+            "div",
+            { staticClass: "full mather edit", class: { open: _vm.open } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.editFields.title,
+                    expression: "editFields.title"
+                  }
+                ],
+                staticClass: "title",
+                attrs: { type: "text", placeholder: "Название" },
+                domProps: { value: _vm.editFields.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.editFields, "title", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "contentWrapper" },
+                [
+                  _c("quill-editor", {
+                    staticClass: "content",
+                    attrs: {
+                      content: _vm.editFields.content,
+                      options: _vm.quillOptions
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.onEditorChange($event)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("gallery", {
+                    staticClass: "allImages",
+                    attrs: {
+                      images: _vm.parseJSONimages(_vm.editFields.images),
+                      edit: _vm.edit || _vm.localEdit,
+                      perpage: _vm.perPageIamagesCount
+                    },
+                    on: { imagesChanged: _vm.updateImages }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.isAdmin
+                ? _c("div", { staticClass: "buttons" }, [
+                    _c("div", { staticClass: "buttonTRb" }, [
+                      _vm._v("Сохранить")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "buttonTRb",
+                        on: {
+                          click: function($event) {
+                            _vm.localEdit = false
+                          }
+                        }
+                      },
+                      [_vm._v("Отменить")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "buttonTR" }, [_vm._v("Удалить")])
+                  ])
+                : _vm._e()
+            ]
+          )
     ],
     1
   )

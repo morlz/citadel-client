@@ -1,15 +1,31 @@
 <template>
 	<div >
-		<router-link class="newWrapper" :to="{ path: `/centers/${$route.params.id}/${content.id}` }">
+		<router-link class="newWrapper" :to="{ path: `/centers/${$route.params.id}/${data.id}` }">
 			<div class="new mather" :style="{ 'background-image': getBackgroundImage() }">
-				<h3 class="title">{{content.title}}</h3>
+				<h3 class="title">{{data.title}}</h3>
 			</div>
 		</router-link>
-		<div class="full mather" :class="{ open }">
-			<h2 class="title">{{content.title}}</h2>
+		<div class="full mather" :class="{ open }" v-if="!(edit || localEdit)">
+			<h2 class="title">{{data.title}}</h2>
 			<div class="contentWrapper">
-				<div class="content" v-html="content.content"></div>
-				<gallery class="allImages" :images="parseJSONimages(content.images)" :edit="localEdit" @imagesChanged="updateImages" :perpage="perPageIamagesCount"></gallery>
+				<div class="content" v-html="data.content"></div>
+				<gallery class="allImages" :images="parseJSONimages(data.images)" :edit="edit || localEdit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
+			</div>
+			<div class="buttons" v-if="isAdmin">
+				<div class="buttonTRb" @click="localEdit = true">Редактироваить</div>
+				<div class="buttonTR">Удалить</div>
+			</div>
+		</div>
+		<div class="full mather edit" :class="{ open }" v-else="!(edit || localEdit) && data">
+			<input type="text" class="title" v-model="editFields.title" placeholder="Название">
+			<div class="contentWrapper">
+				<quill-editor :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)" class="content" />
+				<gallery class="allImages" :images="parseJSONimages(editFields.images)" :edit="edit || localEdit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
+			</div>
+			<div class="buttons" v-if="isAdmin">
+				<div class="buttonTRb">Сохранить</div>
+				<div class="buttonTRb" @click="localEdit = false">Отменить</div>
+				<div class="buttonTR">Удалить</div>
 			</div>
 		</div>
 	</div>
@@ -18,6 +34,9 @@
 <script>
 import mixins from '@/components/mixins.vue'
 import gallery from '@/components/gallery.vue'
+import {
+	mapGetters
+} from 'vuex'
 //import TWEEN from 'tweenjs/tween.js/src/Tween.js'
 
 export default {
@@ -29,6 +48,7 @@ export default {
     data() {
         return {
 			localEdit: false,
+			editFields: {},
 			perPageIamagesCount: [
                 [500, 2],
                 [650, 3],
@@ -40,15 +60,40 @@ export default {
             ]
 		}
     },
+	watch: {
+		editFields(a) {
+			console.log(a);
+		}
+	},
+	computed: {
+		...mapGetters([
+			'edit',
+			'isAdmin',
+			'quillOptions'
+		]),
+		data () {
+			let data = this.content
+            this.editFields = Object.assign({}, data)
+            return data
+		}
+	},
     methods: {
         getBackgroundImage() {
             let images = this.parseJSONimages(this.content.images)
             if (!images.length) return 'none'
             return `url('${images[ Math.round(Math.random() * (images.length - 1)) ]}')`
         },
-		updateImages () {
-
-		}
+		updateImages (n) {
+			console.log(n);
+			this.editFields.images = n
+		},
+		onEditorChange({
+            editor,
+            html,
+            text
+        }) {
+            this.editFields.content = html
+        },
     }
 }
 </script>
@@ -85,7 +130,7 @@ export default {
 	padding: 20px;
 	box-sizing: border-box;
 	display: grid;
-	grid-template-rows: minmax(80px, auto) minmax(80px, 100%);
+	grid-template-rows: minmax(80px, auto) minmax(80px, 100%) 20px;
 	align-content: flex-start;
 	.title {
 		margin: 10px;
@@ -98,6 +143,11 @@ export default {
 		.allImages {
 			width: ~"calc(100% - 20px)";
 		}
+	}
+	.buttons {
+		display: grid;
+		grid-auto-flow: column;
+		justify-content: end;
 	}
 }
 .open {

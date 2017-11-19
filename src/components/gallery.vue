@@ -44,7 +44,7 @@ import {
 import { Carousel, Slide } from 'vue-carousel';
 
 export default {
-    props: ['images', 'perpage'],
+    props: ['images', 'perpage', 'edit'],
     data() {
         return {
             index: null,
@@ -67,9 +67,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters([
-			'edit'
-		]),
+		...mapGetters([]),
 		imagesLocal () {
 			if (typeof this.images == 'string') return JSON.parse(this.images)
 			return this.images

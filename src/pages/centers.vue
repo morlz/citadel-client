@@ -43,10 +43,10 @@
         </div>
         <input type="text" class="title" v-model="editFields.title">
         <photoSelect :content="editFields.logo" @save="updateLogo"></photoSelect>
-        <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+        <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
 
         <div class="images">
-            <gallery :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages" :perpage="perPageIamagesCount"></gallery>
+            <gallery :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
         </div>
 
         <h3>Контакты</h3>
