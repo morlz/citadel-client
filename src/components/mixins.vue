@@ -13,6 +13,15 @@ export default {
 		}
 	},
     methods: {
+		sortByDate (a, b) {
+			let aDate = new Date(a.date).valueOf() || 0,
+				bDate = new Date(b.date).valueOf() || 0,
+				c = aDate - bDate
+
+			if (c > 0) return 1
+			if (c < 0) return -1
+			return 0
+		},
 		parseJSONimages(imagesString){
 			if (Array.isArray(imagesString)) return imagesString
 			if (typeof imagesString == 'string' && imagesString) return JSON.parse(imagesString)

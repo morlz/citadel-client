@@ -3,6 +3,7 @@
 		<article v-if="!edit">
 			<h2>{{data.title}}</h2>
 			<div class="content" v-html="data.content"></div>
+			<gallery class="allImages" :images="parseJSONimages(data.images)" :edit="edit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
 		</article>
 
 		<article v-if="edit && data" class="edit">
@@ -11,6 +12,7 @@
 			</div>
 			<input type="text" v-model="editFields.title" class="title">
 			<quill-editor :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)" />
+			<gallery class="allImages" :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
 		</article>
 	</div>
 </template>
@@ -20,15 +22,29 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-
+import mixins from '@/components/mixins.vue'
+import gallery from '@/components/gallery.vue'
 
 export default {
 	props: ['id'],
+	components: {
+		gallery
+	},
 	data() {
 		return {
-			editFields: {}
+			editFields: {},
+			perPageIamagesCount: [
+				[500, 2],
+				[650, 3],
+				[820, 3],
+				[1030, 4],
+				[1250, 5],
+				[1300, 5],
+				[1800, 6]
+			]
 		}
 	},
+	mixins: [mixins],
 	watch: {
 		id (newVal) {
 			this.setCurrent(newVal)
@@ -57,7 +73,10 @@ export default {
             text
         }) {
             this.editFields.content = html
-        }
+        },
+		updateImages (n) {
+			this.editFields.images = JSON.stringify(n)
+		}
 	},
 	mounted () {
 		this.setCurrent(this.$route.params.id || this.id)

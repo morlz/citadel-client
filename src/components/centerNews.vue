@@ -1,8 +1,8 @@
 <template>
 	<div class="news">
-		<oneCenterNew v-for="one, index in content" :key="index" :content="one" :open="one.id == open" />
+		<oneCenterNew v-for="one, index in data" :key="index" :content="one" :open="one.id == open" />
 		<router-link :to="{ path: `/centers/${$route.params.id}` }" class="backButton" :class="{ backButtonActive: open }" />
-		<div v-if="!content.length">Новостей нет</div>
+		<div v-if="!data.length">Новостей нет</div>
 	</div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
 	},
 	data () {
 		return {}
+	},
+	computed: {
+		data () {
+			return this.content.sort(this.sortByDate).reverse()
+		}
 	}
 }
 </script>

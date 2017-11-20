@@ -79,18 +79,8 @@ export default {
 				return this.searchFn(el, q)
 			}
 
-			let sortByDate = (a, b) => {
-				let aDate = new Date(a.date).valueOf() || 0,
-					bDate = new Date(b.date).valueOf() || 0,
-					c = aDate - bDate
-
-				if (c > 0) return 1
-				if (c < 0) return -1
-				return 0
-			}
-
 			if (!this.search.length) {
-				return this.lessons.sort(sortByDate).reverse()
+				return this.lessons.sort(this.sortByDate).reverse()
 			}
 			return this.lessons.filter(el => search(el, this.search)).sort(sortByDate).reverse()
 		}
