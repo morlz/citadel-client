@@ -16,7 +16,6 @@ import main_header from '@/components/header.vue'
 import main_footer from '@/components/footer.vue'
 import main_styles from '@/components/mainStyles.vue'
 import alert from '@/components/alert.vue'
-
 import discipline from '@/pages/discipline.vue'
 import centers from '@/pages/centers.vue'
 import user from '@/pages/user_full.vue'

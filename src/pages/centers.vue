@@ -22,11 +22,12 @@
         </div>
 
         <h3>Курсы</h3>
-        <div class="couces mather">
+        <div class="couces mather" v-if="centerCources.length">
             <canopen v-for="(cource, index) in centerCources" :content="cource" :key="index"></canopen>
         </div>
+		<div v-else="centerCources.length">В данный момент курсов нет</div>
 
-        <h3>Преподователи</h3>
+        <h3>Преподaватели</h3>
         <div class="prepods">
             <user_prev v-for="(prepod, index) in centerPrepods" :key="index" width="300px" :user="prepod"></user_prev>
             <div v-if="!centerPrepods.length">В данный момент преподавателей нет</div>
@@ -61,9 +62,11 @@
         </div>
 
         <h3>Курсы</h3>
-        <div class="couces mather">
+        <div class="couces mather" v-if="centerCources.length">
             <canopen v-for="(cource, index) in centerCources" :content="cource" :key="index" />
         </div>
+
+		<div v-else="centerCources.length">В данный момент курсов нет</div>
 
         <h3>Преподaватели</h3>
         <div class="prepods">

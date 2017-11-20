@@ -3,7 +3,7 @@ console.log('fast loaded')
 class Curtains {
     constructor() {
         this.opened = false
-        this.afkTimeout = 30000
+        this.afkTimeout = 120000
         this._lastMouseMove = Date.now()
         this.curtainsElement = document.querySelector('.curtains')
         this.loaded = {

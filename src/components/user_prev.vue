@@ -1,11 +1,11 @@
 <template>
-	<router-link class="user_prev mather"
-	:to="{ path: `/user/${data.id}` }"
-	:class="{ noImage: !data.photo }"
-	:style="{
-		'background-image' : data.photo ? `url('${data.photo}')` : '',
-		'width' : width || '100%'
-		}">
+	<router-link class="user_prev mather" :to="{ path: `/user/${data.id}` }">
+		<div class="image" :style="{
+			'background-image' : data.photo ? `url('${data.photo}')` : '',
+			'width' : width || '300px',
+			'height' : width || '300px'
+			}"
+			:class="{ noImage: !data.photo }"></div>
 		<h2 class="name"> {{ data.name }}</h2>
 	    <div class="contactsWrapper">
 	        <div class="contacts">
@@ -69,13 +69,20 @@ export default {
 .user_prev {
 	text-decoration: none;
     background-color: #fff;
-	background-repeat: no-repeat;
-	background-size: 100%;
     transition: all 0.2s ease-in-out;
 	color:#666;
 	overflow: hidden;
+	.image {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+	.noImage {
+		background-position: 50% 20px;
+		background-size: 90%;
+	}
 	.name {
-		margin: 350px 0 0 0;
+		margin: 0;
         font-size: 26px;
         line-height: 26px;
         padding: 10px;

@@ -60,24 +60,24 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 686);
+/******/ 	return __webpack_require__(__webpack_require__.s = 702);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 686:
+/***/ 702:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(687);
+module.exports = __webpack_require__(703);
 
 
 /***/ }),
 
-/***/ 687:
+/***/ 703:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if('value'in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function')}}console.log('fast loaded');var Curtains=function(){function Curtains(){var _this=this;_classCallCheck(this,Curtains);this.opened=false;this.afkTimeout=30000;this._lastMouseMove=Date.now();this.curtainsElement=document.querySelector('.curtains');this.loaded={fast:true,big:false};window.document.addEventListener('mousemove',function(){return _this._updateLastMouseMove()});setInterval(function(){return _this._checkTimeout()},1000)}_createClass(Curtains,[{key:'open',value:function open(){var _this2=this;if(this.opened)return;if(!this.loaded.big)return;this.opened=true;setTimeout(function(){_this2.curtainsElement.classList.remove('curtainsActive');_this2.sctollToTop()},400)}},{key:'close',value:function close(){if(!this.opened)return;this.curtainsElement.classList.add('curtainsActive');this.opened=false}},{key:'sctollToTop',value:function sctollToTop(){//this._scrollTo(document.querySelector("html"), 0, 400)
+var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if('value'in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function')}}console.log('fast loaded');var Curtains=function(){function Curtains(){var _this=this;_classCallCheck(this,Curtains);this.opened=false;this.afkTimeout=120000;this._lastMouseMove=Date.now();this.curtainsElement=document.querySelector('.curtains');this.loaded={fast:true,big:false};window.document.addEventListener('mousemove',function(){return _this._updateLastMouseMove()});setInterval(function(){return _this._checkTimeout()},1000)}_createClass(Curtains,[{key:'open',value:function open(){var _this2=this;if(this.opened)return;if(!this.loaded.big)return;this.opened=true;setTimeout(function(){_this2.curtainsElement.classList.remove('curtainsActive');_this2.sctollToTop()},400)}},{key:'close',value:function close(){if(!this.opened)return;this.curtainsElement.classList.add('curtainsActive');this.opened=false}},{key:'sctollToTop',value:function sctollToTop(){//this._scrollTo(document.querySelector("html"), 0, 400)
 this._scrollToTop()}},{key:'_updateLastMouseMove',value:function _updateLastMouseMove(){this._lastMouseMove=Date.now();if(!this.opened)this.open()}},{key:'_checkTimeout',value:function _checkTimeout(){if(Date.now()-this._lastMouseMove>this.afkTimeout&&document.body.clientWidth>699)this.close()}},{key:'_scrollTo',value:function _scrollTo(element,to,duration){var _this3=this;if(duration<=0)return;var difference=to-element.scrollTop;var perTick=difference/duration*10;setTimeout(function(){element.scrollTop=element.scrollTop+perTick;if(element.scrollTop===to)return;_this3._scrollTo(element,to,duration-10)},10)}},{key:'_scrollToTop',value:function _scrollToTop(){// easing functions http://goo.gl/5HLl8
 Math.easeInOutQuad=function(t,b,c,d){t/=d/2;if(t<1){return c/2*t*t+b}t--;return-c/2*(t*(t-2)-1)+b};Math.easeInCubic=function(t,b,c,d){var tc=(t/=d)*t*t;return b+c*tc};Math.inOutQuintic=function(t,b,c,d){var ts=(t/=d)*t,tc=ts*t;return b+c*(6*tc*ts+-15*ts*ts+10*tc)};// requestAnimationFrame for Smart Animating http://goo.gl/sx5sts
 var requestAnimFrame=function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||function(callback){window.setTimeout(callback,1000/60)}}();function scrollTo(to,callback,duration){// because it's so fucking difficult to detect the scrolling element, just move them all
