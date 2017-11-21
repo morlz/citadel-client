@@ -5,15 +5,15 @@
 		<h4>Название</h4>
         <input type="text" class="title" placeholder="Название" v-model="editFields.title">
 		<h4>Описание</h4>
-        <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+        <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
         <h4>Преподаватель</h4>
-        <prepod_select :content="editFields.id_worker" @selected="onPrepodSelected"></prepod_select>
+        <prepod_select :content="editFields.id_worker" @selected="onPrepodSelected" />
 		<h4>Центр</h4>
-		<center_select :content="editFields.id_center" @selected="onCenterSelected"></center_select>
+		<center_select :content="editFields.id_center" @selected="onCenterSelected" />
         <h4 class="dur">Количество мест</h4>
 		<vue-slider v-model="editFields.space" :min="0" :max="36"></vue-slider>
         <h4 class="dur">Длительность</h4>
-        <vue-slider v-model="editFields.duration" :formatter="timeFormat" :min="0" :max="360"></vue-slider>
+        <vue-slider v-model="editFields.duration" :formatter="timeFormat" :min="0" :max="360" />
 		<h4>Дата и время занятия</h4>
 		<flat-pickr v-model="editFields.date" :config="FP"></flat-pickr>
 		<h4>Цена</h4>
@@ -100,8 +100,11 @@ export default {
             return h + m
         },
 		addLectionHandler () {
-			let data = Object.assign({}, this.editFields)
-			data.id_cource = this.currentDiscipline.id
+			let data = Object.assign({
+				id_cource: this.currentDiscipline.id
+			}, this.editFields)
+			if (!data.id_worker) data.id_worker = null
+			if (!data.id_center) data.id_center = null
 			this.addLection(data)
 		}
     }

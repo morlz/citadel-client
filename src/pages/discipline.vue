@@ -147,7 +147,7 @@ export default {
 		},
 		disPrepods(){
 			if (!this.dis.prepods) return []
-			return JSON.parse(this.dis.prepods)
+			return JSON.parse(this.dis.prepods).filter(el => el)
 		},
 		dateFilterConfig(){
 			return Object.assign({

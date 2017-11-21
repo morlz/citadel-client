@@ -30,6 +30,12 @@
 			<div class="arrow"></div>
 
 			<div class="content">
+				<h4>Преподаватель</h4>
+		        <prepod_select :content="editFields.id_worker" @selected="onPrepodSelected" />
+
+				<h4>Центр</h4>
+				<center_select :content="editFields.id_center" @selected="onCenterSelected" />
+
 				<h4 class="dur">Количество мест</h4>
 				<vue-slider v-model="editFields.space" :min="0" :max="36"></vue-slider>
 
@@ -65,6 +71,8 @@ import {
 
 import vueSlider from 'vue-slider-component'
 import flatPickr from 'vue-flatpickr-component'
+import prepod_select from '@/components/prepod_select.vue'
+import center_select from '@/components/center_select.vue'
 import dateFormat from 'dateformat'
 
 export default {
@@ -78,7 +86,9 @@ export default {
 	},
 	components: {
 		vueSlider,
-		flatPickr
+		flatPickr,
+		center_select,
+		prepod_select
 	},
 	computed: {
 		...mapGetters([
@@ -137,7 +147,10 @@ export default {
 			this.showRegForm(this.data)
 		},
 		save () {
-			this.updateLection(this.editFields)
+			let data = Object.assign({}, this.editFields)
+			if (!data.id_worker) data.id_worker = null
+			if (!data.id_center) data.id_center = null
+			this.updateLection(data)
 			this.localEdit = !1
 		},
 		onEditorChange({
@@ -164,6 +177,12 @@ export default {
 			if (!this.isAdmin) return
 			this.showCurrentUsers()
 			this.getRegistredUsersForCurrentLesson( lessonId )
+		},
+		onPrepodSelected(newWorkerId) {
+			this.editFields.id_worker = newWorkerId
+		},
+		onCenterSelected (newCenterId) {
+			this.editFields.id_center = newCenterId
 		}
 	}
 }
@@ -231,8 +250,11 @@ export default {
 		text-overflow: ellipsis;
 		position: relative;
 		padding: 0 20px;
-		grid-auto-flow: column;
 		grid-gap: 10px;
+		input {
+			width: 100%;
+			box-sizing: border-box;
+		}
 		h3 {
 			font-size: 20px;
 		}
