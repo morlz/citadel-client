@@ -5,14 +5,14 @@
 		</div>
 
 		<div class="buttons">
-			<div class="button mather" @click="signinForm.open = !signinForm.open" v-if="!logined">Вход</div>
-			<div class="button mather" @click="signupFrom.open = !signupFrom.open" v-if="!logined">Регистрация</div>
+			<div class="button mather" @click="setSignInFormOpen(!signInFormOpen)" v-if="!logined">Вход</div>
+			<div class="button mather" @click="setSignUpFormOpen(!signInFormOpen)" v-if="!logined">Регистрация</div>
 			<div class="button mather" @click="logout" v-if="logined">Выйти</div>
 			<router-link class="button mather" :to="{ path: `/user/${user.id}` }" v-if="logined">Профиль</router-link>
 		</div>
 
 		<transition name="fade">
-			<div class="modal mather" v-if="signinForm.open">
+			<div class="modal mather" v-if="signInFormOpen">
 				<input type="text" placeholder="Логин" v-model="signinForm.login">
 				<input type="password" placeholder="Пароль" v-model="signinForm.pass">
 				<vue-recaptcha
@@ -30,7 +30,7 @@
 		</transition>
 
 		<transition name="fade">
-			<div class="modal mather" v-if="signupFrom.open">
+			<div class="modal mather" v-if="signUpFormOpen">
 				<input type="text" placeholder="Имя" v-model="signupFrom.name">
 				<input type="text" placeholder="Логин" v-model="signupFrom.login">
 				<input type="text" placeholder="email" v-model="signupFrom.email">
@@ -56,7 +56,8 @@
 <script>
 import {
     mapActions,
-    mapGetters
+    mapGetters,
+	mapMutations
 } from 'vuex'
 import VueRecaptcha from 'vue-recaptcha'
 
@@ -64,12 +65,10 @@ export default {
 	data(){
 		return {
 			signinForm: {
-				open: false,
 				login: "",
 				pass: ""
 			},
 			signupFrom: {
-				open: false,
 				name: "",
 				email: "",
 				login: "",
@@ -87,10 +86,16 @@ export default {
 			'logined',
 			'reCaptchaKey',
 			'reToken',
-			'user'
+			'user',
+			'signUpFormOpen',
+			'signInFormOpen'
 		])
 	},
 	methods: {
+		...mapMutations([
+			'setSignUpFormOpen',
+			'setSignInFormOpen'
+		]),
 		...mapActions([
 			'logout',
 			'signin',
@@ -100,7 +105,7 @@ export default {
 			'reOnExpired'
 		]),
 		signInClose(){
-			this.signinForm.open = false
+			this.setSignInFormOpen(false)
 			this.$refs.recaptcha.reset()
 		},
 		signInHandler(){
@@ -111,11 +116,10 @@ export default {
 				'g-recaptcha-response': this.reToken
 			})
 
-			this.signinForm.open = false
-			this.$refs.recaptcha.reset()
+			this.signInClose()
 		},
 		signUpClose(){
-			this.signupFrom.open = false
+			this.setSignUpFormOpen(false)
 			this.$refs.recaptcha.reset()
 		},
 		signUpHandler(){
@@ -127,8 +131,7 @@ export default {
 				'g-recaptcha-response': this.reToken
 			})
 
-			this.signupFrom.open = false
-			this.$refs.recaptcha.reset()
+			this.signUpClose()
 		}
 	},
 	mounted () {

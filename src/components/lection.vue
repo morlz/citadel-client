@@ -5,10 +5,10 @@
 
 			<div class="space tooltip" data-tooltip="Занятые / все места" @click="showRegistredUsers( $event, data.id )">
 				<div class="spaceIcon"></div>
-				<div class="spaceNumbers">{{ filled }} / {{ data.space }}</div>
+				<div class="spaceNumbers">{{ data.filled }} / {{ data.space }}</div>
 			</div>
 
-			<div class="description">Цена занятия {{data.price}} р.<br> Длительность {{ durationFormat }} <br> Дата {{ dateFormat }} <br> Время {{ timeFormat }}</div>
+			<div class="description">Стоимость {{data.price}} р.<br> Длительность {{ durationFormat }} <br> Дата {{ dateFormat }} <br> Время {{ timeFormat }}</div>
 
 			<div class="arrow"></div>
 			<div class="content">
@@ -20,6 +20,7 @@
 				<div class="buttonTRb" v-if="isAdmin && edit" @click="copy">Провести</div>
 				<div class="buttonTRb register" v-if="isAdmin && edit" @click="deleteLesson($event, data.id)">Удалить</div>
 				<div class="buttonTRb register" v-if="!edit && isUser && !data.registred && new Date(data.date).valueOf() > new Date().valueOf()" @click="openRegFormHandler" >Записаться</div>
+				<div class="buttonTRb register" v-if="!edit && !isUser && new Date(data.date).valueOf() > new Date().valueOf()" @click="alertNoRegistred" >Записаться</div>
 				<div class="buttonTR register" v-if="data.registred">Вы записаны</div>
 			</div>
 		</div>
@@ -137,10 +138,13 @@ export default {
 			'addLectionDataSet',
 			'updateLection',
 			'remove',
-			'getRegistredUsersForCurrentLesson'
+			'getRegistredUsersForCurrentLesson',
+			'alert'
 		]),
 		...mapMutations([
-			'showCurrentUsers'
+			'showCurrentUsers',
+			'setSignInFormOpen',
+			'setSignUpFormOpen'
 		]),
 		openRegFormHandler (e) {
 			e.stopPropagation()
@@ -183,6 +187,22 @@ export default {
 		},
 		onCenterSelected (newCenterId) {
 			this.editFields.id_center = newCenterId
+		},
+		alertNoRegistred () {
+			this.alert({
+				content: "Для того чтобы записаться на занятия нужно:<br> 1. Зарегистрироваться <br>2. Войти в свою учётную запись!",
+				buttons: [
+					{ name: "Вход", event: e => {
+						setTimeout(() => window.curtains.sctollToTop(), 300)
+						setTimeout(() => this.setSignInFormOpen(), 700)
+					} },
+					{ name: "Регистрация", event: e => {
+						setTimeout(() => window.curtains.sctollToTop(), 300)
+						setTimeout(() => this.setSignUpFormOpen(), 700)
+					} },
+					{ name: "Ок" }
+				]
+			})
 		}
 	}
 }

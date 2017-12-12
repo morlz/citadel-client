@@ -69,6 +69,7 @@ const actions = {
 				content: "Вы зарегестрированы"
 			})
 			dispatch('lessonRegStateForUser', data.lesson.id)
+			commit('incrementLessonFilled', data.lesson.id)
 		}).catch(err => {
 			dispatch('handleCode', err)
 			dispatch('reOnReqSend')
@@ -188,6 +189,11 @@ const mutations = {
 	},
 	setCurrentLesson(state, id){
 		state.currentLesson = state.cached.find(el => el.id == id)
+	},
+	incrementLessonFilled (state, id) {
+		let les = state.cached.find(el => el.id == id)
+		if (les) les.filled++
+		if (state.currentLesson) state.currentLesson.filled++
 	}
 }
 

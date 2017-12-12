@@ -3,7 +3,9 @@ import api from '@/api/index'
 const state = {
     user: {},
 	re: "6LcNSzUUAAAAAJp9Z2YmYjBtoFkMUZOcmA15r2gi",
-	savedReToken: ""
+	savedReToken: "",
+	signInFormOpen: false,
+	signUpFormOpen: false
 }
 
 const actions = {
@@ -86,7 +88,13 @@ const mutations = {
     },
 	setToken(state, data) {
 		state.savedReToken = data
-	}
+	},
+	setSignUpFormOpen(state, data = true) {
+		state.signUpFormOpen = data
+	},
+	setSignInFormOpen(state, data = true) {
+		state.signInFormOpen = data
+	},
 }
 
 const getters = {
@@ -114,6 +122,12 @@ const getters = {
 	},
 	reToken({ savedReToken }) {
 		return savedReToken
+	},
+	signUpFormOpen({ signUpFormOpen }){
+		return signUpFormOpen
+	},
+	signInFormOpen({ signInFormOpen }){
+		return signInFormOpen
 	}
 }
 
