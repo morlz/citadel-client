@@ -9,7 +9,8 @@
 			<input type="file" @change="changeFile" v-show="thisTab == 'file'">
 			<input type="text" v-model="localUrl" v-show="thisTab == 'url'" placeholder="Image url">
 		</div>
-		<img :src="previewSrc" alt="preview" v-show="previewSrc" class="preview">
+
+		<img :src="previewSrc" alt="preview" v-show="previewSrc" class="preview" id="c">
 
 		<div class="buttonTRb" v-if="addbtn" @click="save">Добавить</div>
 	</div>

@@ -25,7 +25,7 @@
 			<alert></alert>
 			<main_header></main_header>
 			<transition name="pageChange" mode="out-in">
-				<router-view :key="$route.name + ($route.params.id || '')"></router-view>
+				<router-view :key="$route.name + ($route.params.id || '')" class="contentWrapper"></router-view>
 			</transition>
 			<main_footer></main_footer>
 		</div>

@@ -7,11 +7,14 @@
 				</div>
 
 				<h2>{{data.name}}</h2>
+
 				<div class="photoS"><img :src="data.photo"></div>
 				<div class="description" v-html="data.description"></div>
 
 				<h3>Роль</h3>
 				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
+
+				<h3 v-if="data.balance !== undefined">Баланс {{ data.balance }} руб</h3>
 
 				<h3>Контакты</h3>
 				<div class="contacts">
@@ -23,6 +26,9 @@
 				<div class="regs" v-for="reg, index in currentUserRegs">
 					<reg :key="index" :content="reg" />
 				</div>
+
+				<h3 v-if="data.id == user.id || isAdmin">Транзакции</h3>
+				<user-transactions v-if="data.id == user.id || isAdmin" :key="data.id" />
 			</section>
 			<section class="small">
 				<div class="photoB"><img :src="data.photo"></div>
@@ -64,6 +70,9 @@
 					<input type="password" v-model="editFields.password2" placeholder="Пароль ещё раз">
 					<div class="passConfirmErr" v-show="editFields.password != editFields.password2 && editFields.password2.length">Пароли не совпадают</div>
 				</div>
+
+				<h3 v-if="data.id == user.id || isAdmin">Транзакции</h3>
+				<user-transactions v-if="data.id == user.id || isAdmin" :key="data.id" />
 			</section>
 			<section class="small">
 				<photoSelect class="photoB" :content="editFields.photo" @save="changePhoto" />
@@ -83,6 +92,7 @@ import {
 import photoSelect from '@/components/photoSelect.vue'
 import reg from '@/components/reg.vue'
 import role_select from '@/components/role_select.vue'
+import userTransactions from '@/components/userTransactions.vue'
 import mixins from '@/components/mixins.vue'
 
 export default {
@@ -96,7 +106,8 @@ export default {
 	components: {
 		photoSelect,
 		reg,
-		role_select
+		role_select,
+		userTransactions
 	},
 	methods: {
 		...mapActions([
@@ -230,9 +241,6 @@ export default {
             margin: 0 auto;
         }
     }
-	.regs {
-
-	}
 }
 @media (max-width: 1100px) {
     .user_full {

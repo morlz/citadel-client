@@ -4,18 +4,25 @@
     <div class="mather addLectionForm" v-if="!0 || data">
 		<h4>Название</h4>
         <input type="text" class="title" placeholder="Название" v-model="editFields.title">
+
 		<h4>Описание</h4>
         <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
+
         <h4>Преподаватель</h4>
-        <prepod_select :content="editFields.id_worker" @selected="onPrepodSelected" />
+        <prepod-select :content="editFields.id_worker" @selected="onPrepodSelected" />
+
 		<h4>Центр</h4>
-		<center_select :content="editFields.id_center" @selected="onCenterSelected" />
+		<center-select :content="editFields.id_center" @selected="onCenterSelected" />
+
         <h4 class="dur">Количество мест</h4>
-		<vue-slider v-model="editFields.space" :min="0" :max="36"></vue-slider>
+		<vue-slider v-model="editFields.space" :min="0" :max="36"/>
+
         <h4 class="dur">Длительность</h4>
         <vue-slider v-model="editFields.duration" :formatter="timeFormat" :min="0" :max="360" />
+
 		<h4>Дата и время занятия</h4>
-		<flat-pickr v-model="editFields.date" :config="FP"></flat-pickr>
+		<flat-pickr v-model="editFields.date" :config="FP" />
+
 		<h4>Цена</h4>
 		<input type="text" v-model="editFields.price">
 		<div class="buttonTRb addButton" @click="addLectionHandler">Добавить занятие</div>
@@ -28,8 +35,8 @@ import {
     mapActions,
     mapGetters
 } from 'vuex'
-import prepod_select from '@/components/prepod_select.vue'
-import center_select from '@/components/center_select.vue'
+import prepodSelect from '@/components/prepod_select.vue'
+import centerSelect from '@/components/center_select.vue'
 import vueSlider from 'vue-slider-component'
 import dateFormat from 'dateformat'
 import flatPickr from 'vue-flatpickr-component'
@@ -50,8 +57,8 @@ export default {
         }
     },
     components: {
-        prepod_select,
-		center_select,
+        prepodSelect,
+		centerSelect,
         vueSlider,
 		flatPickr
     },

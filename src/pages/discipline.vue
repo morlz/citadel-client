@@ -62,7 +62,7 @@
 				<lection v-for="lesson, index in nextLessons" :key="index" :content="lesson" />
 				<div v-if="!nextLessons || !nextLessons.length">В данный момент занятий нет</div>
 			</div>
-			<addLectionForm></addLectionForm>
+			<addLectionForm/>
         </section>
 
         <section class="small">
@@ -204,8 +204,6 @@ export default {
 </script>
 
 <style lang="less">
-
-@import url('../../node_modules/flatpickr/dist/flatpickr.css');
 
 .disciplineWrapper {
 	> .button {

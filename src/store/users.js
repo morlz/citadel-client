@@ -1,9 +1,16 @@
 import api from '@/api/index'
 
+const sortTransactionsByDate = (a, b) => {
+	if (new Date(a.date).valueOf() > new Date(b.date).valueOf()) return -1
+	if (new Date(a.date).valueOf() < new Date(b.date).valueOf()) return 1
+	return 0
+}
+
 const state = {
     cached: [],
 	current: {},
-	currentUserRegs: []
+	currentUserRegs: [],
+	currentUserTransactions: []
 }
 
 const actions = {
@@ -60,12 +67,6 @@ const actions = {
 		})
 	},
 	setCurrentUser (state, id) {
-		let finded = state.getters.allUsers.find(user => user.id == id)
-		if (finded) {
-			state.commit("setCurrent", finded)
-			return
-		}
-
 		api.invoke({
 			method: 'get',
 			data: {
@@ -110,7 +111,38 @@ const actions = {
 			commit('addUsersToCache', data)
 			commit('setCurrentCenterPrepods', data)
 		}).catch(err => dispatch('handleCode', err))
-	}
+	},
+	getUserTransactions ({ commit, dispatch }, id) {
+		api.invoke({
+			method: "get",
+			data: {
+				type: "userCash",
+				id
+			}
+		})
+		.then(({ data }) => {
+			commit("setCachedTransactions", data)
+		})
+		.catch(err => dispatch('handleCode', err))
+	},
+	addUserTransaction ({ commit, dispatch }, data) {
+		data.type = 'cash'
+		api.invoke({
+			method: 'post',
+			data
+		})
+		.then(res => commit("addTransactionToCache", res.data))
+		.catch(err => dispatch('handleCode', err))
+	},
+	updateUserTransaction ({ commit, dispatch }, data) {
+		data.type = 'cash'
+		api.invoke({
+			method: 'put',
+			data
+		})
+		.then(res => commit("updateTransactionInCache", res.data))
+		.catch(err => dispatch('handleCode', err))
+	},
 }
 
 const mutations = {
@@ -125,35 +157,27 @@ const mutations = {
 		state.cached = [...state.cached, ...toCache]
 	},
 	setCurrent(state, data){
-		state.current = data
+		state.current = Object.assign({}, data, {transactions: []})
 	},
 	reciveCurrentUserRegs(state, data){
 		state.currentUserRegs = data
 	},
 	removeUserRegFromCache(state, id){
 		state.currentUserRegs = state.currentUserRegs.filter(el => el.id != id)
-	}
+	},
+	setCachedTransactions: (state, payload) => state.currentUserTransactions = payload,
+	addTransactionToCache: (state, payload) => state.currentUserTransactions = [payload, ...state.currentUserTransactions],
+	updateTransactionInCache: (state, payload) => state.currentUserTransactions = [payload, ...state.currentUserTransactions.filter(el => el.id != payload.id)],
 }
 
 const getters = {
-	admins(state){
-		return state.cached.filter(user => user.id_role == 1)
-	},
-    prepods(state) {
-        return state.cached.filter(user => user.id_role == 2)
-    },
-	users(state){
-		return state.cached.filter(user => user.id_role == 3)
-	},
-	allUsers (state) {
-		return state.cached
-	},
-	currentUser (state) {
-		return state.current
-	},
-	currentUserRegs (state) {
-		return state.currentUserRegs || []
-	}
+	admins: state => state.cached.filter(user => user.id_role == 1),
+    prepods: state => state.cached.filter(user => user.id_role == 2),
+	users: state => state.cached.filter(user => user.id_role == 3),
+	allUsers: state => state.cached,
+	currentUser: state => state.current,
+	currentUserRegs: state => state.currentUserRegs || [],
+	cachedTransactions: state => state.currentUserTransactions.sort(sortTransactionsByDate)
 }
 
 export default {

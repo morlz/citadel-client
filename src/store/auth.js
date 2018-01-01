@@ -69,7 +69,7 @@ const actions = {
 	},
 	reOnReqSend({ commit }){
 		commit("setToken", "")
-	}
+	},
 }
 
 const mutations = {
@@ -95,6 +95,7 @@ const mutations = {
 	setSignInFormOpen(state, data = true) {
 		state.signInFormOpen = data
 	},
+
 }
 
 const getters = {
@@ -128,7 +129,7 @@ const getters = {
 	},
 	signInFormOpen({ signInFormOpen }){
 		return signInFormOpen
-	}
+	},
 }
 
 export default {

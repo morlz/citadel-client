@@ -12,41 +12,45 @@
 		</div>
 
 		<transition name="fade">
-			<div class="modal mather" v-if="signInFormOpen">
-				<input type="text" placeholder="Логин" v-model="signinForm.login">
-				<input type="password" placeholder="Пароль" v-model="signinForm.pass">
-				<vue-recaptcha
-					:sitekey="reCaptchaKey"
-					@verify="reOnVerify"
-				    @expired="reOnExpired"
-					ref="recaptcha"
-					:key="1"
-				></vue-recaptcha>
-				<div class="buttons">
-					<div class="buttonTR" @click="signInClose">Закрыть</div>
-					<div class="buttonTRb" @click="signInHandler">Войти</div>
+			<div class="modalWrapper" :class="{ modalOpen: signInFormOpen }" @click="signInClose">
+				<div class="modal mather" @click="stopProp">
+					<input type="text" placeholder="Логин" v-model="signinForm.login">
+					<input type="password" placeholder="Пароль" v-model="signinForm.pass">
+					<vue-recaptcha
+						:sitekey="reCaptchaKey"
+						@verify="reOnVerify"
+					    @expired="reOnExpired"
+						ref="recaptcha"
+						:key="1"
+					/>
+					<div class="buttons">
+						<div class="buttonTR" @click="signInClose">Закрыть</div>
+						<div class="buttonTRb" @click="signInHandler">Войти</div>
+					</div>
 				</div>
 			</div>
 		</transition>
 
 		<transition name="fade">
-			<div class="modal mather" v-if="signUpFormOpen">
-				<input type="text" placeholder="Имя" v-model="signupFrom.name">
-				<input type="text" placeholder="Логин" v-model="signupFrom.login">
-				<input type="text" placeholder="email" v-model="signupFrom.email">
-				<input type="password" placeholder="Пароль" v-model="signupFrom.password">
-				<input type="password" placeholder="Пароль (ещё раз)" v-model="signupFrom.confirmPassword">
-				<div class="passwordCompareError" v-if="signupFrom.password != signupFrom.confirmPassword && signupFrom.confirmPassword.length">Пароли не совпадают!</div>
-				<vue-recaptcha
-					:sitekey="reCaptchaKey"
-					@verify="reOnVerify"
-					@expired="reOnExpired"
-					ref="recaptcha"
-					:key="2"
-				></vue-recaptcha>
-				<div class="buttons">
-					<div class="buttonTR" @click="signUpClose">Закрыть</div>
-					<div class="buttonTRb" @click="signUpHandler">Продолжить</div>
+			<div class="modalWrapper" :class="{ modalOpen: signUpFormOpen }" @click="signUpClose">
+				<div class="modal mather" @click="stopProp">
+					<input type="text" placeholder="Имя" v-model="signupFrom.name">
+					<input type="text" placeholder="Логин" v-model="signupFrom.login">
+					<input type="text" placeholder="email" v-model="signupFrom.email">
+					<input type="password" placeholder="Пароль" v-model="signupFrom.password">
+					<input type="password" placeholder="Пароль (ещё раз)" v-model="signupFrom.confirmPassword">
+					<div class="passwordCompareError" v-if="signupFrom.password != signupFrom.confirmPassword && signupFrom.confirmPassword.length">Пароли не совпадают!</div>
+					<vue-recaptcha
+						:sitekey="reCaptchaKey"
+						@verify="reOnVerify"
+						@expired="reOnExpired"
+						ref="recaptcha"
+						:key="2"
+					/>
+					<div class="buttons">
+						<div class="buttonTR" @click="signUpClose">Закрыть</div>
+						<div class="buttonTRb" @click="signUpHandler">Продолжить</div>
+					</div>
 				</div>
 			</div>
 		</transition>
@@ -132,6 +136,9 @@ export default {
 			})
 
 			this.signUpClose()
+		},
+		stopProp (e) {
+			e.stopPropagation()
 		}
 	},
 	mounted () {
@@ -145,7 +152,6 @@ export default {
 		box-sizing: border-box;
 		padding: 10px;
 		width: 200px;
-		position: relative;
 		> .userData {
 			text-align: right;
 			padding: 10px;
@@ -158,26 +164,47 @@ export default {
 			grid-auto-flow: column;
 			grid-gap: 15px;
 		}
-		.modal {
-			z-index: 100;
-			top: -50%;
-			right: 20px;
-			padding: 20px 20px 10px 20px;
-			background: #fff;
-			position: absolute;
+		.modalWrapper {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
 			display: grid;
+			justify-items: center;
 			align-items: center;
-			justify-items: end;
-			grid-gap: 10px;
-			> .buttons {
-				display: grid;
-				grid-auto-flow: column;
+			z-index: 100;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			pointer-events: none;
+			opacity: 0;
+			transition: all 0.3s ease-in-out;
+			&:hover:not(.modal) {
+				cursor: pointer;
 			}
-			input {
-				width: 100%;
-				box-sizing: border-box;
+			.modal {
+				padding: 20px 20px 10px 20px;
+				background: #fff;
+				display: grid;
+				align-items: center;
+				justify-items: end;
+				grid-gap: 10px;
+				> .buttons {
+					display: grid;
+					grid-auto-flow: column;
+				}
+				input {
+					width: 100%;
+					box-sizing: border-box;
+				}
 			}
 		}
+		.modalOpen {
+			pointer-events: all;
+			opacity: 1;
+		}
+
 	}
 	.fade-enter-active, .fadeContent-leave-active {
 		transition: all 0.3s ease-in-out;
@@ -195,6 +222,7 @@ export default {
 				justify-items: center;
 				justify-content: center;
 			}
+
 		}
 	}
 </style>

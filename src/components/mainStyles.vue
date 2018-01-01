@@ -10,6 +10,7 @@ export default {}
 @import url( './styles/quill.snow.css');
 @import url( 'https://fonts.googleapis.com/css?family=Roboto');
 @import "../../node_modules/blueimp-gallery/css/blueimp-gallery.min.css";
+@import url('../../node_modules/flatpickr/dist/flatpickr.css');
 @font-face {
     font-family: 'Roboto Slab';
     src: local('Roboto Slab Thin'), local('RobotoSlab-Thin'), url('./fonts/robotoslabthin.woff2') format('woff2'), url('./fonts/robotoslabthin.woff') format('woff'), url('./fonts/robotoslabthin.ttf') format('truetype');
@@ -65,6 +66,9 @@ body {
     font-family: Roboto, Arial, sans-serif;
     background: #F6F6F6;
     font-size: 16px;
+	.contentWrapper {
+		min-height: 500px;
+	}
 }
 
 h2 {
