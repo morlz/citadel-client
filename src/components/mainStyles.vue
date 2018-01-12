@@ -7,31 +7,34 @@ export default {}
 
 <style lang="less">
 //@import url( 'https://cdn.quilljs.com/1.2.6/quill.snow.css');
-@import url( './styles/quill.snow.css');
+
+@import url('../assets/styles/flatpickr.css');
+@import url( '../assets/styles/quill.snow.css');
+@import url( '../assets/styles/blueimp-gallery.min.css');
+
 @import url( 'https://fonts.googleapis.com/css?family=Roboto');
-@import "../../node_modules/blueimp-gallery/css/blueimp-gallery.min.css";
-@import url('../../node_modules/flatpickr/dist/flatpickr.css');
+
 @font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Thin'), local('RobotoSlab-Thin'), url('./fonts/robotoslabthin.woff2') format('woff2'), url('./fonts/robotoslabthin.woff') format('woff'), url('./fonts/robotoslabthin.ttf') format('truetype');
+    src: local('Roboto Slab Thin'), local('RobotoSlab-Thin'), url('../assets/fonts/robotoslabthin.woff2') format('woff2'), url('../assets/fonts/robotoslabthin.woff') format('woff'), url('../assets/fonts/robotoslabthin.ttf') format('truetype');
     font-weight: 100;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url('./fonts/robotoslablight.woff2') format('woff2'), url('./fonts/robotoslablight.woff') format('woff'), url('./fonts/robotoslablight.ttf') format('truetype');
+    src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url('../assets/fonts/robotoslablight.woff2') format('woff2'), url('../assets/fonts/robotoslablight.woff') format('woff'), url('../assets/fonts/robotoslablight.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url('./fonts/robotoslabregular.woff2') format('woff2'), url('./fonts/robotoslabregular.woff') format('woff'), url('./fonts/robotoslabregular.ttf') format('truetype');
+    src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url('../assets/fonts/robotoslabregular.woff2') format('woff2'), url('../assets/fonts/robotoslabregular.woff') format('woff'), url('../assets/fonts/robotoslabregular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url('./fonts/robotoslabbold.woff2') format('woff2'), url('./fonts/robotoslabbold.woff') format('woff'), url('./fonts/robotoslabbold.ttf') format('truetype');
+    src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url('../assets/fonts/robotoslabbold.woff2') format('woff2'), url('../assets/fonts/robotoslabbold.woff') format('woff'), url('../assets/fonts/robotoslabbold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
 }
@@ -66,9 +69,7 @@ body {
     font-family: Roboto, Arial, sans-serif;
     background: #F6F6F6;
     font-size: 16px;
-	.contentWrapper {
-		min-height: 500px;
-	}
+	.contentWrapper {}
 }
 
 h2 {
@@ -156,47 +157,49 @@ a {
     background-position: 0 50%;
 }
 
+
 .phone {
 	.boxWithIconBase;
-    background-image: url("./img/ic_phone_black_24px.svg");
+    background-image: url("../assets/images/ic_phone_black_24px.svg");
 }
 
 .email {
 	.boxWithIconBase;
-    background-image: url("./img/ic_email_black_24px.svg");
+    background-image: url("../assets/images/ic_email_black_24px.svg");
 }
 
 .location {
 	.boxWithIconBase;
-    background-image: url("./img/location-pin.svg");
+    background-image: url("../assets/images/location-pin.svg");
 }
 
 .adminIcon {
 	.boxWithIconBase;
-    background-image: url("./img/admin-with-cogwheels.svg");
+    background-image: url("../assets/images/admin-with-cogwheels.svg");
 }
 
 .prepodIcon {
 	.boxWithIconBase;
-    background-image: url("./img/teacher.svg");
+    background-image: url("../assets/images/teacher.svg");
 	background-size: auto 30px;
 }
 
 .userIcon {
 	.boxWithIconBase;
-    background-image: url("./img/graduate-student-avatar.svg");
+    background-image: url("../assets/images/graduate-student-avatar.svg");
 }
 
 .emailConfirmIcon {
 	.boxWithIconBase;
-    background-image: url("./img/mail-black-envelope-symbol.svg");
+    background-image: url("../assets/images/mail-black-envelope-symbol.svg");
 }
 
 .noImage {
     background-repeat: no-repeat;
-    background-image: url("./img/portrait.svg");
+    background-image: url("../assets/images/portrait.svg");
     background-position: 50% 20px;
 }
+
 
 .adminButton {
     display: grid;

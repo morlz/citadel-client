@@ -16,7 +16,7 @@
 			</div>
 
 			<div class="buttonsWrapper">
-				<div class="buttonTRb" @click="localEdit = !localEdit" v-if="isAdmin && regButton" >Редактировать</div>
+				<div class="buttonTRb" @click="localEdit = !localEdit" v-if="isAdmin" >Редактировать</div>
 				<div class="buttonTRb" v-if="isAdmin && edit" @click="copy">Провести</div>
 				<div class="buttonTRb register" v-if="isAdmin && edit" @click="deleteLesson($event, data.id)">Удалить</div>
 				<div class="buttonTRb register" v-if="!edit && isUser && !data.registred && new Date(data.date).valueOf() > new Date().valueOf()" @click="openRegFormHandler" >Записаться</div>
@@ -56,7 +56,7 @@
 			<div class="buttonsWrapper">
 				<div class="buttonTRb" @click="localEdit = !localEdit || !data">Отменить</div>
 				<div class="buttonTRb" @click="save">Сохранить</div>
-				<div class="buttonTRb" @click="openRegFormHandler" v-if="regButton">Зписаться</div>
+				<div class="buttonTRb" @click="openRegFormHandler" v-if="regButton">Записаться</div>
 			</div>
 
 		</div>
@@ -117,9 +117,11 @@ export default {
 			return `${h} ч. ${m} мин.`
 		},
 		dateFormat () {
+			if (this.data.date == "0000-00-00 00:00:00") return
 			return dateFormat(new Date(this.data.date), "yyyy-mm-dd")
 		},
 		timeFormat () {
+			if (this.data.date == "0000-00-00 00:00:00") return
 			return dateFormat(new Date(this.data.date), "HH:MM")
 		},
 		durationFormatE () {
@@ -166,7 +168,9 @@ export default {
         },
 		copy(e){
 			e.stopPropagation()
-			this.addLectionDataSet(this.editFields)
+			let data = this.editFields
+			data.date = new Date()
+			this.addLectionDataSet(data)
 		},
 		deleteLesson(e, id) {
 			e.stopPropagation()
@@ -236,7 +240,7 @@ export default {
 		align-items: center;
 		transition: all .3s ease-in-out;
 		.spaceIcon {
-			background: url('./img/люди.png') no-repeat;
+			background: url('../assets/images/люди.png') no-repeat;
 			background-size: 100%;
 			width: 48px;
 			height: 48px;
@@ -258,7 +262,7 @@ export default {
 		right: 20px;
 		width: 35px;
 		height: 35px;
-		background: url("./img/ARROW.svg") no-repeat 50% 50%;
+		background: url("../assets/images/ARROW.svg") no-repeat 50% 50%;
 		background-size: 25px;
 		transition: all 0.3s ease-in-out;
 	}

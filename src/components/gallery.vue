@@ -144,12 +144,12 @@ export default {
 	}
 }
 .VueCarousel-navigation-prev {
-	background: url("./img/arrowL.svg") no-repeat 40% 50%;
+	background: url("../assets/images/arrowL.svg") no-repeat 40% 50%;
 	background-size: 50%;
 	margin-left: -10px;
 }
 .VueCarousel-navigation-next {
-	background: url("./img/arrowR.svg") no-repeat 50% 50%;
+	background: url("../assets/images/arrowR.svg") no-repeat 50% 50%;
 	background-size: 50%;
 	margin-right: -10px;
 }

@@ -1,11 +1,11 @@
 <template>
 	<div class="canOpen" :class="{opened: opened}" @click="opened = !opened">
-		<div class="title"> {{content.title}} </div>
+		<div class="title">{{content.title}}</div>
 		<div class="description">{{content.littleText}}</div>
 		<div class="arrow"></div>
 		<div class="content">
 			<div v-html="content.description"></div>
-			<div class="logo" :style="{'background-image' : content.logo ? `url('${content.logo}')` : 'none'}"></div>
+			<img class="logo" :src="content.logo">
 		</div>
 		<router-link class="buttonTRb" :to="{ path: `/discipline/${content.id}` }">Подробнее о курсе</router-link>
 	</div>
@@ -56,7 +56,7 @@ export default {
 		right: 20px;
 		width: 35px;
 		height: 35px;
-		background: url("./img/ARROW.svg") no-repeat 50% 50%;
+		background: url("../assets/images/ARROW.svg") no-repeat 50% 50%;
 		background-size: 25px;
 		transition: all 0.3s ease-in-out;
 	}
@@ -101,7 +101,6 @@ export default {
 		}
 	}
 }
-
 
 .opened {
 	padding: 50px 20px 80px 20px;

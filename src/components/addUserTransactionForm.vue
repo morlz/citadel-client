@@ -7,7 +7,7 @@
 			<h4>Описание</h4>
 			<input type="text" v-model="editFields.description" placeholder="Описание">
 
-			<h4>Количество</h4>
+			<h4>Сумма</h4>
 			<input type="text" v-model="editFields.amount" placeholder="Количество">
 
 			<div class="buttons">

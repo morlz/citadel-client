@@ -11,6 +11,8 @@
             <input type="text" v-model="editFields.email" placeholder="some@mail.com" disabled>
             <h4>Телефон</h4>
             <input type="text" v-model="editFields.phone" placeholder="+7 (999) 111-11-11">
+			<h4>Комментарий</h4>
+			<textarea v-model="editFields.comment" placeholder="Комментарий"/>
 			<div class="bottomBar">
 				<vue-recaptcha :sitekey="reCaptchaKey" @verify="reOnVerify" @expired="reOnExpired" ref="recaptcha" />
 			</div>

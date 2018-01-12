@@ -1,8 +1,8 @@
 <template>
 	<div class="transactionWrapper">
 		<div class="transaction mather" v-if="!localEdit" :class="{ isAdmin }">
-			<div class="date">Дата: {{ getDate(transaction.date) }}</div>
-			<div class="t">Время: {{ getTime(transaction.date) }}</div>
+			<div class="date">Дата: {{ getDate(transaction.created_at) }}</div>
+			<div class="t">Время: {{ getTime(transaction.created_at) }}</div>
 			<div class="description">Описание: {{ transaction.description }}</div>
 			<div class="amount">{{ transaction.amount }}</div>
 			<div class="buttonTRb editButton" v-if="isAdmin" @click="localEdit = true">Редактировать</div>
@@ -10,12 +10,12 @@
 
 		<div class="mather edit" v-if="localEdit">
 			<h4>Дата и время</h4>
-			<flat-pickr v-model="editFields.date" :config="FP" />
+			<flat-pickr v-model="editFields.created_at" :config="FP" />
 
 			<h4>Описание</h4>
 			<input type="text" v-model="editFields.description" placeholder="Описание">
 
-			<h4>Количество</h4>
+			<h4>Сумма</h4>
 			<input type="text" v-model="editFields.amount" placeholder="Количество">
 
 			<div class="buttons">
@@ -47,10 +47,12 @@ export default {
 		flatPickr
 	},
 	methods: {
-		getDate: d => dateFormat(new Date(d), "yyyy-mm-dd"),
-		getTime: d => dateFormat(new Date(d), "HH:MM"),
+		getDate: d => d ? dateFormat(new Date(d), "yyyy-mm-dd") : '',
+		getTime: d => d ? dateFormat(new Date(d), "HH:MM") : '',
 		save () {
-			this.updateUserTransaction(this.editFields)
+			let data = Object.assign({}, this.editFields)
+			data.date += ":00"
+			this.updateUserTransaction(data)
 			this.localEdit = false
 		},
 		...mapActions([

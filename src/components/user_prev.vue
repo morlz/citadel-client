@@ -9,8 +9,8 @@
 		<h2 class="name"> {{ data.name }}</h2>
 	    <div class="contactsWrapper">
 	        <div class="contacts">
-				<div class="phone">{{data.phone}}</div>
-				<div class="email">{{data.email}}</div>
+				<div class="phone" v-if="data.phone">{{data.phone}}</div>
+				<div class="email" v-if="data.email">{{data.email}}</div>
 				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
 			</div>
 			<div class="editButtons" v-if="edit">
@@ -67,6 +67,7 @@ export default {
 <style lang="less">
 
 .user_prev {
+	width: 300px;
 	text-decoration: none;
     background-color: #fff;
     transition: all 0.2s ease-in-out;
@@ -82,12 +83,14 @@ export default {
 		background-size: 90%;
 	}
 	.name {
-		margin: 0;
+		margin: 10px;
         font-size: 26px;
         line-height: 26px;
-        padding: 10px;
+        padding: 0;
 		background: #fff;
 		white-space: nowrap;
+		overflow: hidden;
+
     }
 	.contacts {
 		line-height: 40px;

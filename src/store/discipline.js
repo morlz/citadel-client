@@ -83,8 +83,8 @@ const mutations = {
 		state.cached = state.cached.filter(el => el.id != id)
 	},
 	addDisToCache(state, data){
-		let toCache = data.filter(dis => !state.cached.find(cached => cached.id == dis.id))
-		state.cached = [...state.cached, ...toCache]
+		let cache = state.cached.filter(el => !data.find(dta => dta.id == el.id))
+		state.cached = [...cache, ...data]
 	},
 	receive_currentDiscipline(state, data) {
 		state.current = data

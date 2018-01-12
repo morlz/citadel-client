@@ -4,6 +4,9 @@ import axios from 'axios'
 //const serverAddr = `http://localhost/www15/blog/public`
 //const serverAddr = `cit2/public`
 
+//const serverAddr = process.env.NODE_ENV == 'development' ? '/www15/blog/public' : 'public'
+const serverAddr = 'public'
+
 export default {
     async invoke(data) {
 		let auth = cookie.getAuth()
@@ -11,7 +14,6 @@ export default {
 
 		if (process.env.NODE_ENV == 'dev') console.log(`invoke api (${data.method}):`, data.data)
         //let apiResponce = await _emitApiFunction(data)
-
 
 		let url = `${serverAddr}/${data.data.type}${data.data.id ? '/' + data.data.id : ''}`
 

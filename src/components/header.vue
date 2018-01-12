@@ -87,7 +87,7 @@ header {
             grid-area: logo;
             width: 150px;
             height: 150px;
-            background: url("./img/logoCitadel.png") no-repeat;
+            background: url("../assets/images/logoCitadel.png") no-repeat;
             background-size: contain;
         }
         .st {
@@ -119,13 +119,13 @@ header {
             line-height: 46px;
             white-space: nowrap;
             .phone {
-                background: url("./img/ic_phone_black_24px.svg") no-repeat;
+                background: url("../assets/images/ic_phone_black_24px.svg") no-repeat;
                 background-size: auto 80%;
                 background-position: 0 50%;
                 padding-left: 60px;
             }
             .email {
-                background: url("./img/ic_email_black_24px.svg") no-repeat;
+                background: url("../assets/images/ic_email_black_24px.svg") no-repeat;
                 background-size: auto 80%;
                 background-position: 0 50%;
                 padding-left: 60px;
@@ -145,7 +145,7 @@ header {
     header {
         overflow: hidden;
         .lBox {
-            grid-template: "st" "logo" "mt" "bt";
+            grid-template: "mt" "logo" "st" "bt";
         }
         .rBox {
             grid-auto-flow: row;

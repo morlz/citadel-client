@@ -14,7 +14,12 @@
 				<h3>Роль</h3>
 				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
 
-				<h3 v-if="data.balance !== undefined">Баланс {{ data.balance }} руб</h3>
+				<h3 v-if="data.balance !== undefined">Баланс {{ currentUserBalance }} руб</h3>
+				<div class="payForm mather" v-if="logined">
+					<h4>Пополнение баланса онлайн</h4>
+					<input type="text" v-model="paySumm" placeholder="Сумма платежа">
+					<div class="buttonTRb" @click="addCash(paySumm)">Пополнить</div>
+				</div>
 
 				<h3>Контакты</h3>
 				<div class="contacts">
@@ -99,7 +104,8 @@ export default {
 	data () {
 		return {
 			localEdit: false,
-			editFields: {}
+			editFields: {},
+			paySumm: 0
 		}
 	},
 	mixins: [mixins],
@@ -113,7 +119,8 @@ export default {
 		...mapActions([
 			'setCurrentUser',
 			'updateUser',
-			'getUserRegs'
+			'getUserRegs',
+			'addCash'
 		]),
 		...mapMutations([
 			'toggleEditMutation'
@@ -146,7 +153,8 @@ export default {
 			'isWorker',
 			'user',
 			'logined',
-			'currentUserRegs'
+			'currentUserRegs',
+			'currentUserBalance'
 		]),
 		data () {
 			let data = this.currentUser
@@ -241,6 +249,21 @@ export default {
             margin: 0 auto;
         }
     }
+	.payForm {
+		background: #fff;
+		padding: 20px;
+		display: grid;
+		align-items: center;
+		grid-template: 	"h4 s b";
+		h4 {
+			margin: 0;
+			grid-area: h4;
+		}
+		.buttonTRb {
+			justify-self: end;
+			grid-area: b;
+		}
+	}
 }
 @media (max-width: 1100px) {
     .user_full {

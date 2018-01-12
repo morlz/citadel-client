@@ -82,7 +82,7 @@ export default {
 			display: grid;
 			justify-content: stretch;
 			.search {
-				background-image: url("../components/img/ic_search_black_24px.svg");
+				background-image: url("../assets/images/ic_search_black_24px.svg");
 				background-position: 97% 50%;
 				background-repeat: no-repeat;
 				padding: 15px 40px 15px 20px;

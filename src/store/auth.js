@@ -1,4 +1,6 @@
 import api from '@/api/index'
+import axios from 'axios'
+
 
 const state = {
     user: {},
@@ -70,6 +72,22 @@ const actions = {
 	reOnReqSend({ commit }){
 		commit("setToken", "")
 	},
+	addCash ({ commit, dispatch, state }, payload) {
+		let url = "http://edu.it-citadel.ru/payment.php?",
+			params = {
+				paymentGo: true,
+				sum: payload,
+				login: state.user.login
+			}
+
+		for (var prop in params) {
+			if (params.hasOwnProperty(prop)) {
+				url += `${prop}=${params[prop]}&`
+			}
+		}
+
+		window.location.href = url
+	}
 }
 
 const mutations = {

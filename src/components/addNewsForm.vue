@@ -79,10 +79,6 @@ export default {
 
 <style lang="less">
 
-@import url('../lib/vue-timepickr/VueTimepickr.min.css');
-@import url('../../node_modules/flatpickr/dist/flatpickr.css');
-
-
 .addNewsForm {
     padding: 20px;
     background: #fff;

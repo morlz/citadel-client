@@ -13,10 +13,18 @@
             <div class="images">
                 <gallery :images="parseJSONimages(dis.images)" :edit="edit" />
             </div>
-			<h3>Предстоящие занятия</h3>
-			<div class="canOpenWrapper">
-				<lection v-for="lesson, index in nextLessons" :key="index" :content="lesson" />
-				<div v-if="!nextLessons || !nextLessons.length">В данный момент занятий нет</div>
+
+			<div class="tabs">
+				<div class="head" v-if="isAdmin">
+					<div class="item" @click="currentLessonTab = 0" :class="{ selected: currentLessonTab == 0 }">Предстоящие</div>
+					<div class="item" @click="currentLessonTab = 1" :class="{ selected: currentLessonTab == 1 }">Все</div>
+					<div class="item" @click="currentLessonTab = 2" :class="{ selected: currentLessonTab == 2 }">Без даты</div>
+				</div>
+
+				<div class="canOpenWrapper">
+					<lection v-for="lesson, index in adminLessonsFiltred" :key="index" :content="lesson" />
+					<div v-if="!adminLessonsFiltred || !adminLessonsFiltred.length">В данный момент занятий нет</div>
+				</div>
 			</div>
         </section>
 
@@ -57,11 +65,20 @@
 			<div class="images">
                 <gallery :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages" />
             </div>
-			<h3>Предстоящие занятия</h3>
-			<div class="canOpenWrapper">
-				<lection v-for="lesson, index in nextLessons" :key="index" :content="lesson" />
-				<div v-if="!nextLessons || !nextLessons.length">В данный момент занятий нет</div>
+
+			<div class="tabs">
+				<div class="head">
+					<div class="item" @click="currentLessonTab = 0" :class="{ selected: currentLessonTab == 0 }">Предстоящие</div>
+					<div class="item" @click="currentLessonTab = 1" :class="{ selected: currentLessonTab == 1 }">Все</div>
+					<div class="item" @click="currentLessonTab = 2" :class="{ selected: currentLessonTab == 2 }">Без даты</div>
+				</div>
+
+				<div class="canOpenWrapper">
+					<lection v-for="lesson, index in adminLessonsFiltred" :key="index" :content="lesson" />
+					<div v-if="!adminLessonsFiltred || !adminLessonsFiltred.length">В данный момент занятий нет</div>
+				</div>
 			</div>
+
 			<addLectionForm/>
         </section>
 
@@ -73,6 +90,16 @@
 				<h3>Преподаватели</h3>
 				<user_prev v-for="(prepod, index) in disPrepods" :id="prepod" :key="index" />
 				<div v-if="!dis.prepods">В данный момент преподавателей нет</div>
+			</div>
+			<h3>Фильтр занятий</h3>
+			<div class="lessonsFilter mather">
+				<h4>По дате</h4>
+				<p>Все занятия в выбраном промежутке</p>
+				<flat-pickr v-model="lessonFilterLocal.date" :config="dateFilterConfig" />
+				<label v-if="isAdmin && false">
+					<input type="checkbox" v-model="lessonFilterLocal.showAll">
+					Отображать все
+				</label>
 			</div>
         </section>
 
@@ -105,7 +132,8 @@ export default {
 			lessonFilterLocal: {
 				date: "",
 				showAll: false
-			}
+			},
+			currentLessonTab: 0
         }
     },
 	mixins: [mixins],
@@ -144,6 +172,21 @@ export default {
 		nextLessons(){
 			if (this.filtredLessons != -1) return this.filtredLessons
 			return this.lessons ? this.lessons.filter(el => el.id_cource == this.dis.id && new Date().valueOf() < new Date(el.date).valueOf() ) : []
+		},
+		adminLessonsFiltred(){
+			if (!this.lessons) return
+			switch (this.currentLessonTab) {
+				case 0:
+					return this.nextLessons
+					break;
+				case 1:
+					return this.lessons.filter(el => el.id_cource == this.dis.id)
+					break;
+				case 2:
+					return this.lessons.filter(el => el.id_cource == this.dis.id && el.date == "0000-00-00 00:00:00")
+					break;
+
+			}
 		},
 		disPrepods(){
 			if (!this.dis.prepods) return []
@@ -235,6 +278,31 @@ export default {
     display: grid;
     grid-gap: 20px;
     grid-template: "big small" auto ~"/" 65% 35%;
+	.tabs {
+		.head {
+			margin: 20px 5px;
+			background: #fff;
+			height: 40px;
+			display: grid;
+			grid-auto-flow: column;
+			justify-items: stretch;
+			align-items: center;
+			text-align: center;
+			> div {
+				border-bottom: 1px solid transparent;
+				transition: all 0.3s ease-in-out;
+				padding: 10px;
+				box-sizing: border-box;
+				cursor: pointer;
+				&:hover {
+					color: #448aff;
+				}
+			}
+			.selected {
+				border-bottom: 1px solid #448aff;
+			}
+		}
+	}
     .photoS {
         display: none;
         text-align: center;
