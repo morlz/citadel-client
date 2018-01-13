@@ -4,3 +4,8 @@
 сборка: npm run build
 
 остановить дев сервер: просто убить его процессы (node.exe)
+
+как залить изменения на гит:
+git add .
+git commit -m "тут комент"
+git push origin new
