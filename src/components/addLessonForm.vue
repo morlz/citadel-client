@@ -18,7 +18,7 @@
 		<vue-slider v-model="editFields.space" :min="0" :max="36"/>
 
         <h4 class="dur">Длительность</h4>
-        <vue-slider v-model="editFields.duration" :formatter="timeFormat" :min="0" :max="360" />
+		<input type="text" placeholder="Длительность (мин)" v-model="editFields.duration">
 
 		<h4>Дата и время занятия</h4>
 		<flat-pickr v-model="editFields.date" :config="FP" />
@@ -124,6 +124,10 @@ export default {
     padding: 20px;
     background: #fff;
     box-sizing: border-box;
+	input {
+		width: 100%;
+		box-sizing: border-box;
+	}
     .title {
         margin-top: 0;
     }

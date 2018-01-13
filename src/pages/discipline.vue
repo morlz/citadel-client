@@ -14,18 +14,8 @@
                 <gallery :images="parseJSONimages(dis.images)" :edit="edit" />
             </div>
 
-			<div class="tabs">
-				<div class="head" v-if="isAdmin">
-					<div class="item" @click="currentLessonTab = 0" :class="{ selected: currentLessonTab == 0 }">Предстоящие</div>
-					<div class="item" @click="currentLessonTab = 1" :class="{ selected: currentLessonTab == 1 }">Все</div>
-					<div class="item" @click="currentLessonTab = 2" :class="{ selected: currentLessonTab == 2 }">Без даты</div>
-				</div>
-
-				<div class="canOpenWrapper">
-					<lection v-for="lesson, index in adminLessonsFiltred" :key="index" :content="lesson" />
-					<div v-if="!adminLessonsFiltred || !adminLessonsFiltred.length">В данный момент занятий нет</div>
-				</div>
-			</div>
+			<h3>Занятия</h3>
+			<lessons :cource-id="dis.id" />
         </section>
 
         <section class="small">
@@ -57,29 +47,20 @@
 				<div class="button" @click="updateCource(editFields)">Сохранить изменения</div>
 			</div>
             <input class="title" type="text" v-model="editFields.title">
+
 			<h3>Краткое описание:</h3>
 			<input type="text" v-model="editFields.littleText" placeholder="Краткое описание">
+
 			<h3>Полное описание:</h3>
             <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
+
 			<h3>Изображения</h3>
 			<div class="images">
                 <gallery :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages" />
             </div>
 
-			<div class="tabs">
-				<div class="head">
-					<div class="item" @click="currentLessonTab = 0" :class="{ selected: currentLessonTab == 0 }">Предстоящие</div>
-					<div class="item" @click="currentLessonTab = 1" :class="{ selected: currentLessonTab == 1 }">Все</div>
-					<div class="item" @click="currentLessonTab = 2" :class="{ selected: currentLessonTab == 2 }">Без даты</div>
-				</div>
-
-				<div class="canOpenWrapper">
-					<lection v-for="lesson, index in adminLessonsFiltred" :key="index" :content="lesson" />
-					<div v-if="!adminLessonsFiltred || !adminLessonsFiltred.length">В данный момент занятий нет</div>
-				</div>
-			</div>
-
-			<addLectionForm/>
+			<h3>Занятия</h3>
+			<lessons :cource-id="dis.id" />
         </section>
 
         <section class="small">
@@ -118,11 +99,10 @@ import gallery from '@/components/gallery.vue'
 import user_prev from '@/components/user_prev.vue'
 import prepod_select from '@/components/prepod_select.vue'
 import photoSelect from '@/components/photoSelect.vue'
-import lection from '@/components/lection.vue'
-import addLectionForm from '@/components/addLectionForm.vue'
 import regForm from '@/components/regForm.vue'
 import recordedUsers from '@/components/recordedUsers.vue'
 import mixins from '@/components/mixins.vue'
+import lessons from '@/components/lessons.vue'
 
 
 export default {
@@ -156,38 +136,6 @@ export default {
 			if (data.images) this.editFields.images = JSON.parse(data.images)
 			return data
 		},
-		imagesUrls () {
-			return this.editFields.images.join("\n")
-		},
-		filtredLessons(){
-			if (!this.lessonFilter || !this.lessonFilter.date) return -1
-			return this.lessons.filter(lesson => {
-				if (lesson.id_cource != this.dis.id) return
-				let { date: dates } = this.lessonFilter
-				if (dates.length == 1) return new Date(dates[0]).valueOf() < new Date(lesson.date).valueOf()
-				if (new Date(dates[0]).valueOf() < new Date(lesson.date).valueOf() && new Date(dates[1]).valueOf() > new Date(lesson.date).valueOf()) return !0
-				return
-			})
-		},
-		nextLessons(){
-			if (this.filtredLessons != -1) return this.filtredLessons
-			return this.lessons ? this.lessons.filter(el => el.id_cource == this.dis.id && new Date().valueOf() < new Date(el.date).valueOf() ) : []
-		},
-		adminLessonsFiltred(){
-			if (!this.lessons) return
-			switch (this.currentLessonTab) {
-				case 0:
-					return this.nextLessons
-					break;
-				case 1:
-					return this.lessons.filter(el => el.id_cource == this.dis.id)
-					break;
-				case 2:
-					return this.lessons.filter(el => el.id_cource == this.dis.id && el.date == "0000-00-00 00:00:00")
-					break;
-
-			}
-		},
 		disPrepods(){
 			if (!this.dis.prepods) return []
 			return JSON.parse(this.dis.prepods).filter(el => el)
@@ -204,11 +152,10 @@ export default {
         Quill,
 		prepod_select,
 		photoSelect,
-		lection,
-		addLectionForm,
 		regForm,
 		flatPickr,
-		recordedUsers
+		recordedUsers,
+		lessons
     },
     methods: {
         ...mapActions([
@@ -216,7 +163,6 @@ export default {
 			'remove',
 			'alert',
 			'updateCource',
-			'getLectionsByCource',
 			'updateLessonFilter'
         ]),
         onEditorChange({
@@ -241,7 +187,6 @@ export default {
     },
     created() {
         this.getDiscipline( this.$route.params.id )
-		this.getLectionsByCource( this.$route.params.id )
     }
 }
 </script>
@@ -278,31 +223,6 @@ export default {
     display: grid;
     grid-gap: 20px;
     grid-template: "big small" auto ~"/" 65% 35%;
-	.tabs {
-		.head {
-			margin: 20px 5px;
-			background: #fff;
-			height: 40px;
-			display: grid;
-			grid-auto-flow: column;
-			justify-items: stretch;
-			align-items: center;
-			text-align: center;
-			> div {
-				border-bottom: 1px solid transparent;
-				transition: all 0.3s ease-in-out;
-				padding: 10px;
-				box-sizing: border-box;
-				cursor: pointer;
-				&:hover {
-					color: #448aff;
-				}
-			}
-			.selected {
-				border-bottom: 1px solid #448aff;
-			}
-		}
-	}
     .photoS {
         display: none;
         text-align: center;

@@ -13,7 +13,7 @@ module.exports = {
 		proxyTable: {
 			external: {
 				"/public": {
-					target: "http://localhost/www15/blog"
+					target: "http://localhost/citadel-server"
 				},
 			},
 			local: {

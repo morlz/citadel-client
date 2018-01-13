@@ -27,10 +27,8 @@
 					<div class="email">{{data.email}}</div>
 				</div>
 
-				<h3 v-if="currentUserRegs.length">Запись на занятия</h3>
-				<div class="regs" v-for="reg, index in currentUserRegs">
-					<reg :key="index" :content="reg" />
-				</div>
+				<h3>Запись на занятия</h3>
+				<userRegs :user-id="data.id" />
 
 				<h3 v-if="data.id == user.id || isAdmin">Транзакции</h3>
 				<user-transactions v-if="data.id == user.id || isAdmin" :key="data.id" />
@@ -76,6 +74,9 @@
 					<div class="passConfirmErr" v-show="editFields.password != editFields.password2 && editFields.password2.length">Пароли не совпадают</div>
 				</div>
 
+				<h3>Запись на занятия</h3>
+				<userRegs :user-id="data.id" />
+
 				<h3 v-if="data.id == user.id || isAdmin">Транзакции</h3>
 				<user-transactions v-if="data.id == user.id || isAdmin" :key="data.id" />
 			</section>
@@ -95,7 +96,7 @@ import {
 } from 'vuex'
 
 import photoSelect from '@/components/photoSelect.vue'
-import reg from '@/components/reg.vue'
+import userRegs from '@/components/userRegs.vue'
 import role_select from '@/components/role_select.vue'
 import userTransactions from '@/components/userTransactions.vue'
 import mixins from '@/components/mixins.vue'
@@ -111,7 +112,7 @@ export default {
 	mixins: [mixins],
 	components: {
 		photoSelect,
-		reg,
+		userRegs,
 		role_select,
 		userTransactions
 	},
@@ -119,7 +120,6 @@ export default {
 		...mapActions([
 			'setCurrentUser',
 			'updateUser',
-			'getUserRegs',
 			'addCash'
 		]),
 		...mapMutations([
@@ -153,7 +153,6 @@ export default {
 			'isWorker',
 			'user',
 			'logined',
-			'currentUserRegs',
 			'currentUserBalance'
 		]),
 		data () {
@@ -165,14 +164,8 @@ export default {
 			return data
 		}
 	},
-	watch: {
-		user () {
-			if (this.user.id == this.$route.params.id || this.isAdmin) this.getUserRegs( this.$route.params.id )
-		}
-	},
 	mounted () {
 		this.setCurrentUser( this.$route.params.id )
-		if (this.user.id == this.$route.params.id || this.isAdmin) this.getUserRegs( this.$route.params.id )
 	}
 }
 </script>

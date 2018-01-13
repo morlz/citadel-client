@@ -46,6 +46,10 @@ export default {
 <style lang="less">
 	.selectWithSearch {
 		position: relative;
+		input {
+			width: 100%;
+			box-sizing: border-box;
+		}
 		&:hover {
 			> .items {
 				opacity: 1;
@@ -89,6 +93,10 @@ export default {
 				border-radius: 3px;
 				border: 1px solid rgba(0, 0, 0, 0);
 				cursor: pointer;
+				transition: all 0.3s ease-in-out;
+				&:hover {
+					color: #4285f4;
+				}
 			}
 			.selected {
 				border: 1px solid #448aff;

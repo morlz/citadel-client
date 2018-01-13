@@ -9,7 +9,7 @@ import admin from './admin'
 import categories from './category'
 import auth from './auth'
 import alert from './alert'
-import lection from './lection'
+import lesson from './lesson'
 
 
 Vue.use(Vuex)
@@ -24,6 +24,6 @@ export default new Vuex.Store({
 		categories,
 		auth,
 		alert,
-		lection
+		lesson
     }
 })

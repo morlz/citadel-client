@@ -8,9 +8,16 @@
 				<div class="spaceNumbers">{{ data.filled }} / {{ data.space }}</div>
 			</div>
 
-			<div class="description">Стоимость {{data.price}} р.<br> Длительность {{ durationFormat }} <br> Дата {{ dateFormat }} <br> Время {{ timeFormat }}</div>
+			<div class="description">
+				Стоимость {{data.price}} р.<br>
+				Длительность {{ durationFormat }} <br>
+				Дата {{ dateFormat }} <br>
+				Время {{ timeFormat }} <br>
+				Центр {{ lessonCenter }}
+			</div>
 
-			<div class="arrow"></div>
+			<div class="arrow" />
+
 			<div class="content">
 				<div v-html="data.description"></div>
 			</div>
@@ -28,7 +35,7 @@
 		<div v-if="localEdit" class="editLocal">
 			<input type="text" class="title" v-model="editFields.title" placeholder="Название">
 
-			<div class="arrow"></div>
+			<div class="arrow" />
 
 			<div class="content">
 				<h4>Преподаватель</h4>
@@ -99,7 +106,8 @@ export default {
 			'edit',
 			'quillOptions',
 			'logined',
-			'isUser'
+			'isUser',
+			'centers'
 		]),
 		data () {
 			let data = this.content || {}
@@ -132,6 +140,10 @@ export default {
 		},
 		regButton () {
 			return new Date().valueOf() < new Date(this.data.date).valueOf()
+		},
+		lessonCenter () {
+			let center = this.centers.find(el => el.id == this.data.id_center)
+			return center ? center.title : 'Не назначен'
 		}
 	},
 	methods: {

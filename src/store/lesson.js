@@ -12,7 +12,8 @@ const state = {
 	currentUsersRegistred: [],
 	currentUsersRegistredShow: false,
 	allRegistredLessons: [],
-	registerTypes: []
+	registerTypes: [],
+	paymentTypes: []
 }
 
 const actions = {
@@ -153,6 +154,16 @@ const actions = {
 			commit('registerTypesSet', data)
 		}).catch(err => dispatch('handleCode', err))
 	},
+	getPaymentTypes({ commit, dispatch }){
+		api.invoke({
+			method: 'get',
+			data: {
+				type: "paymentTypes"
+			}
+		}).then(({ data }) => {
+			commit('paymentTypesSet', data)
+		}).catch(err => dispatch('handleCode', err))
+	},
 }
 
 const mutations = {
@@ -203,7 +214,8 @@ const mutations = {
 		if (les) les.filled++
 		if (state.currentLesson) state.currentLesson.filled++
 	},
-	registerTypesSet: (state, payload) => state.registerTypes = payload
+	registerTypesSet: (state, payload) => state.registerTypes = payload,
+	paymentTypesSet: (state, payload) => state.paymentTypes = payload,
 }
 
 const getters = {
@@ -231,7 +243,8 @@ const getters = {
 	currentLesson({ currentLesson }){
 		return currentLesson
 	},
-	registerTypes: state => state.registerTypes
+	registerTypes: state => state.registerTypes,
+	paymentTypes: state => state.paymentTypes,
 }
 
 export default {

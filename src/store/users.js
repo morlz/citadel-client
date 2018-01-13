@@ -163,6 +163,16 @@ const actions = {
 			commit("updateRegStatus", res.data.reg)
 		})
 		.catch(err => dispatch('handleCode', err))
+	},
+	updateUserReg({ commit, dispatch }, data){
+		data.type = 'updateReg'
+		api.invoke({
+			method: 'put',
+			data
+		}).then(({ data }) => {
+			commit('removeUserRegFromCache', data[0].id)
+			commit('appendUserReg', data)
+		}).catch(err => dispatch('handleCode', err))
 	}
 }
 
@@ -180,12 +190,9 @@ const mutations = {
 	setCurrent(state, data){
 		state.current = Object.assign({}, data, {transactions: []})
 	},
-	reciveCurrentUserRegs(state, data){
-		state.currentUserRegs = data
-	},
-	removeUserRegFromCache(state, id){
-		state.currentUserRegs = state.currentUserRegs.filter(el => el.id != id)
-	},
+	reciveCurrentUserRegs: (state, payload) => state.currentUserRegs = payload,
+	appendUserReg: (state, payload) => state.currentUserRegs = [...payload, ...state.currentUserRegs],
+	removeUserRegFromCache: (state, id) => state.currentUserRegs = state.currentUserRegs.filter(el => el.id != id),
 	updateRegStatus: (state, payload) => state.currentUserRegs = [...state.currentUserRegs.filter(el => el.id != payload.id), payload],
 	setCachedTransactions: (state, payload) => state.currentUserTransactions = payload,
 	addTransactionToCache: (state, payload) => state.currentUserTransactions = [payload, ...state.currentUserTransactions],
