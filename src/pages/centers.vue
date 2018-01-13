@@ -18,7 +18,7 @@
                 <div class="email">{{data.email}}</div>
                 <div class="location">{{data.address}}</div>
             </div>
-            <div class="map" v-html="data.map"></div>
+            <div class="map" v-html="data.map"/>
         </div>
 
         <h3>Курсы</h3>
@@ -94,6 +94,17 @@ import gallery from '@/components/gallery.vue'
 import mixins from '@/components/mixins.vue'
 import centerNews from '@/components/centerNews.vue'
 import addNewsForm from '@/components/addNewsForm.vue'
+
+
+/*
+<iframe
+	src="https://yandex.ru/map-widget/v1/?um=constructor%3A782964a15eeec93eeba837866f7c79bbe8644009a137fe36c714024c81f55789&amp;source=constructor"
+	width="100%"
+	height="400"
+	frameborder="0"
+>
+</iframe>
+*/
 
 export default {
     data() {

@@ -199,7 +199,7 @@ const getters = {
 	users: state => state.cached.filter(user => user.id_role == 3),
 	allUsers: state => state.cached,
 	currentUser: state => state.current,
-	currentUserRegs: state => state.currentUserRegs.sort(api.sortFnFactory(date => new Date(data).valueOf())),
+	currentUserRegs: state => state.currentUserRegs.sort(api.sortFnFactory(date => new Date(date).valueOf())),
 	cachedTransactions: state => state.currentUserTransactions.sort(api.sortFnFactory('id')),
 	currentUserBalance: state => state.currentUserTransactions.reduce((summ, el) => el.amount + summ, 0)
 }

@@ -21,14 +21,14 @@
 					<div class="buttonTRb" @click="addCash(paySumm)">Пополнить</div>
 				</div>
 
-				<h3>Контакты</h3>
-				<div class="contacts">
+				<h3 v-if="user.id == data.id || isAdmin">Контакты</h3>
+				<div class="contacts" v-if="user.id == data.id || isAdmin">
 					<div class="phone">{{data.phone}}</div>
 					<div class="email">{{data.email}}</div>
 				</div>
 
-				<h3>Запись на занятия</h3>
-				<userRegs :user-id="data.id" />
+				<h3 v-if="user.id == data.id || isAdmin">Запись на занятия</h3>
+				<userRegs :user-id="data.id" v-if="user.id == data.id || isAdmin" />
 
 				<h3 v-if="data.id == user.id || isAdmin">Транзакции</h3>
 				<user-transactions v-if="data.id == user.id || isAdmin" :key="data.id" />

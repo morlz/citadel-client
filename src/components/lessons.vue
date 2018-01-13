@@ -11,7 +11,7 @@
 			</div>
 		</div>
 
-		<add-lesson-form />
+		<add-lesson-form v-if="isAdmin" />
 	</div>
 </template>
 

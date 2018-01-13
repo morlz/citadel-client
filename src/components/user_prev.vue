@@ -83,14 +83,13 @@ export default {
 		background-size: 90%;
 	}
 	.name {
+		width: ~"calc(100% - 20px)";
 		margin: 10px;
         font-size: 26px;
         line-height: 26px;
         padding: 0;
 		background: #fff;
-		white-space: nowrap;
-		overflow: hidden;
-
+		box-sizing: border-box;
     }
 	.contacts {
 		line-height: 40px;

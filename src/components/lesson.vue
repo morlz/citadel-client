@@ -13,13 +13,13 @@
 				Длительность {{ durationFormat }} <br>
 				Дата {{ dateFormat }} <br>
 				Время {{ timeFormat }} <br>
-				Центр {{ lessonCenter }}
+				{{ lessonCenter }}
 			</div>
 
 			<div class="arrow" />
 
 			<div class="content">
-				<div v-html="data.description"></div>
+				<div v-html="data.description"/>
 			</div>
 
 			<div class="buttonsWrapper">
@@ -45,10 +45,10 @@
 				<center_select :content="editFields.id_center" @selected="onCenterSelected" />
 
 				<h4 class="dur">Количество мест</h4>
-				<vue-slider v-model="editFields.space" :min="0" :max="36"></vue-slider>
+				<vue-slider v-model="editFields.space" :min="0" :max="36"/>
 
 				<h4 class="dur">Длительность</h4>
-				<vue-slider v-model="editFields.duration" :formatter="durationFormatE" :min="0" :max="360"></vue-slider>
+				<input type="text" placeholder="Длительность (мин)" v-model="editFields.duration">
 
 				<h4>Дата и время занятия</h4>
 				<flat-pickr v-model="editFields.date" :config="FP"></flat-pickr>
@@ -57,7 +57,7 @@
 				<input type="text" v-model="editFields.price" placeholder="Цена">
 
 				<h4>Описание</h4>
-				<quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"></quill-editor>
+				<quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"/>
 			</div>
 
 			<div class="buttonsWrapper">
