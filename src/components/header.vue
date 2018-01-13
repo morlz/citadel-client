@@ -145,7 +145,7 @@ header {
     header {
         overflow: hidden;
         .lBox {
-            grid-template: "st" "logo" "mt" "bt";
+            grid-template: "mt" "logo" "st" "bt";
         }
         .rBox {
             grid-auto-flow: row;

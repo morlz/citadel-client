@@ -128,7 +128,7 @@ export default {
             return data
         },
         centerCources() {
-            return this.disciplines
+            return this.disciplines.filter(el => el.id_center == this.currentCenter.id)
         },
         centerPrepods() {
             return this.currentCenterPrepods
@@ -138,6 +138,9 @@ export default {
         },
 		centerNews(){
 			return this.allCenterNews.filter(el => el.center_id == this.editFields.id || el.center_id == null)
+		},
+		currentCenterId () {
+			return this.$router.params.id
 		}
     },
     components: {
@@ -153,7 +156,7 @@ export default {
         ...mapActions([
             'getCenter',
             'getUsers',
-            'getAllDisciplines',
+            'getCenterCources',
             'updateCenter',
             'remove',
             'getCenterPrepods',
@@ -181,7 +184,7 @@ export default {
     },
     mounted() {
         this.getCenter(this.$route.params.id)
-        this.getAllDisciplines()
+        this.getCenterCources(this.$route.params.id)
         this.getCenterPrepods(this.$route.params.id)
 		this.getCenterNews(this.$route.params.id)
     }

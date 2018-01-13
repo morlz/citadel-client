@@ -6,11 +6,11 @@
 			Цена: {{ data.lesson.price }}
 		</div>
 		<div class="status">
-			Статус: {{ data.status.title }}
+			Статус: {{ data.type.title }}
 		</div>
 		<div class="buttons">
 			<div class="buttonTRb" @click="removeRecordUser({ id: data.id, id_lesson: data.lesson.id })" v-if="new Date(data.lesson.date).valueOf() > new Date().valueOf()">Отменить</div>
-			<div class="buttonTRb">Оплатить</div>
+			<div class="buttonTRb" @click="payReg({ id: data.id })" v-if="data.type.id == 1">Оплатить</div>
 			<router-link class="buttonTRb" :to="{ path: `/cource/${data.lesson.id_cource}` }">Подробнее о курсе</router-link>
 		</div>
 	</div>
@@ -39,7 +39,8 @@ export default {
 	},
 	methods: {
 		...mapActions([
-			'removeRecordUser'
+			'removeRecordUser',
+			'payReg'
 		])
 	}
 }

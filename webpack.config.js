@@ -19,7 +19,7 @@ var config = {
             'process.env': {
                 'NODE_ENV': process.env.NODE_ENV == 'dev' ? '"dev"' : '"production"'
             },
-			'serverAddr' : process.env.NODE_ENV == 'dev' ? '`http://95.72.78.110/www15/blog/public`' : "'public'",
+			'serverAddr' : process.env.NODE_ENV == 'dev' ? '`/www15/blog/public`' : "'public'",
         })
 	],
     resolve: {

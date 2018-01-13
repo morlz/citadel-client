@@ -1,8 +1,8 @@
 import api from '@/api/index'
 
 const sortTransactionsByDate = (a, b) => {
-	if (new Date(a.date).valueOf() > new Date(b.date).valueOf()) return -1
-	if (new Date(a.date).valueOf() < new Date(b.date).valueOf()) return 1
+	if (a.id > b.id) return -1
+	if (a.id < b.id) return 1
 	return 0
 }
 
@@ -143,6 +143,27 @@ const actions = {
 		.then(res => commit("updateTransactionInCache", res.data))
 		.catch(err => dispatch('handleCode', err))
 	},
+	payReg ({ commit, dispatch }, { id }) {
+		api.invoke({
+			method: 'post',
+			data: {
+				type: "pay",
+				id
+			}
+		})
+		.then(res => {
+			if (res.data.error) {
+				if (res.data.error.status == 304)
+					dispatch('alert', {
+						content: res.data.error.message
+					})
+				return
+			}
+			commit("addTransactionToCache", res.data.pay)
+			commit("updateRegStatus", res.data.reg)
+		})
+		.catch(err => dispatch('handleCode', err))
+	}
 }
 
 const mutations = {
@@ -165,6 +186,7 @@ const mutations = {
 	removeUserRegFromCache(state, id){
 		state.currentUserRegs = state.currentUserRegs.filter(el => el.id != id)
 	},
+	updateRegStatus: (state, payload) => state.currentUserRegs = [...state.currentUserRegs.filter(el => el.id != payload.id), payload],
 	setCachedTransactions: (state, payload) => state.currentUserTransactions = payload,
 	addTransactionToCache: (state, payload) => state.currentUserTransactions = [payload, ...state.currentUserTransactions],
 	updateTransactionInCache: (state, payload) => state.currentUserTransactions = [payload, ...state.currentUserTransactions.filter(el => el.id != payload.id)],
@@ -177,7 +199,8 @@ const getters = {
 	allUsers: state => state.cached,
 	currentUser: state => state.current,
 	currentUserRegs: state => state.currentUserRegs || [],
-	cachedTransactions: state => state.currentUserTransactions.sort(sortTransactionsByDate)
+	cachedTransactions: state => state.currentUserTransactions.sort(sortTransactionsByDate),
+	currentUserBalance: state => state.currentUserTransactions.reduce((summ, el) => el.amount + summ, 0)
 }
 
 export default {

@@ -59,6 +59,18 @@ const actions = {
 			commit('addNewsToCache', data)
 		}).catch(err => dispatch('handleCode', err))
 	},
+	getCenterCources ({ commit, dispatch }, id){
+		console.log(id);
+		api.invoke({
+			method: 'get',
+			data: {
+				type: 'getCenterCources',
+				id
+			}
+		}).then(({ data }) => {
+			commit('addDisToCache', data)
+		}).catch(err => dispatch('handleCode', err))
+	},
 	addNews({dispatch, commit}, data){
 		data.type = 'news'
 		api.invoke({

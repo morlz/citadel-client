@@ -1,24 +1,20 @@
 <template>
 	<div class="recordedUserWrapper">
 		<div class="recordedUser" v-if="!localEdit">
-			<router-link class="title" :to="{ path: `/user/${reg.user.id}` }">{{ reg.user.name }}</router-link>
+			<router-link class="title" :to="{ path: `/user/${reg.user ? reg.user.id : ''}` }">{{ reg.user ? reg.user.name : '' }}</router-link>
 			<div class="statuses">
-				<div class="status" :data-tooltip="reg.status.description" :class="{tooltip : reg.status.description}">{{ reg.status.title }}</div>
-				<div class="status" :data-tooltip="reg.payment.description" :class="{tooltip : reg.payment.description}">{{ reg.payment.title }} </div>
+				<div class="status">{{ reg.type ? reg.type.title : '' }} </div>
+				<div class="status">{{ reg.comment }}</div>
 			</div>
 			<div class="button" @click="localEdit=!0">Изменить</div>
 		</div>
 		<div class="recordedUser edit" v-if="localEdit">
-			<router-link class="title" :to="{ path: `/user/${reg.user.id}` }">{{ reg.user.name }}</router-link>
+			<router-link class="title" :to="{ path: `/user/${reg.user ? reg.user.id : ''}` }">{{ reg.user ? reg.user.name : '' }}</router-link>
 			<div class="statuses">
 				<h4>Статус</h4>
-				<input type="text" v-model="editFields.status.title">
-				<h4>Описание статуса</h4>
-				<input type="text" v-model="editFields.status.description">
-				<h4>Статус оплаты</h4>
-				<input type="text" v-model="editFields.payment.title">
-				<h4>описание статуса оплаты</h4>
-				<input type="text" v-model="editFields.payment.description">
+				<select-with-search :value="editFields.type_id" proplabel="title" :data="registerTypes" @select="selectType" />
+				<h4>Коммент</h4>
+				<input type="text" v-model="editFields.comment">
 			</div>
 			<div class="buttons">
 				<div class="buttonTRb" @click="saveRecordedUser">Сохранить</div>
@@ -31,14 +27,20 @@
 </template>
 
 <script>
+
+//:data-tooltip="reg.payment.description" :class="{tooltip : reg.payment.description}"
 import {
     mapActions,
     mapGetters,
 	mapMutations
 } from 'vuex'
+import selectWithSearch from '@/components/selectWithSearch.vue'
 
 export default {
 	props: ['content'],
+	components: {
+		selectWithSearch
+	},
 	data () {
 		return {
 			search: "",
@@ -47,6 +49,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters([
+			'registerTypes'
+		]),
 		reg () {
 			let data = this.content
 			this.editFields = Object.assign({}, data)
@@ -61,6 +66,9 @@ export default {
 		saveRecordedUser () {
 			this.updateRegistredUserForCurrentLesson(this.editFields)
 			this.localEdit = !1
+		},
+		selectType(type) {
+			this.editFields.type_id = type.id
 		}
 	}
 }

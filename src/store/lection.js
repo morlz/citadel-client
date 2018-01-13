@@ -11,7 +11,8 @@ const state = {
 	currentLesson: {},
 	currentUsersRegistred: [],
 	currentUsersRegistredShow: false,
-	allRegistredLessons: []
+	allRegistredLessons: [],
+	registerTypes: []
 }
 
 const actions = {
@@ -66,7 +67,7 @@ const actions = {
 			data
 		}).then(() => {
 			dispatch('alert', {
-				content: "Вы зарегестрированы"
+				content: "Вы записаны"
 			})
 			dispatch('lessonRegStateForUser', data.lesson.id)
 			commit('incrementLessonFilled', data.lesson.id)
@@ -100,7 +101,7 @@ const actions = {
 			data
 		}).then(({ data }) => {
 			commit('removeUserFromCache', data.id)
-			commit('addRegistredUserToCache', [data])
+			commit('addRegistredUserToCache', data)
 		}).catch(err => dispatch('handleCode', err))
 	},
 	removeRecordUser ({ commit, dispatch }, { id, id_lesson }) {
@@ -141,7 +142,17 @@ const actions = {
 		}).then(({ data }) => {
 			commit('addLectionToCache', data)
 		}).catch(err => dispatch('handleCode', err))
-	}
+	},
+	getRegisterTypes({ commit, dispatch }){
+		api.invoke({
+			method: 'get',
+			data: {
+				type: "registerTypes"
+			}
+		}).then(({ data }) => {
+			commit('registerTypesSet', data)
+		}).catch(err => dispatch('handleCode', err))
+	},
 }
 
 const mutations = {
@@ -153,10 +164,7 @@ const mutations = {
 	removeUserFromCache(state, id){
 		state.currentUsersRegistred = state.currentUsersRegistred.filter(el => el.id != id)
 	},
-	addRegistredUserToCache(state, data){
-		let toCache = data.filter(dta => !state.currentUsersRegistred.find(cached => cached.id == dta.id))
-		state.currentUsersRegistred = [...state.currentUsersRegistred, ...toCache]
-	},
+	addRegistredUserToCache: (state, payload) => state.currentUsersRegistred = [...state.currentUsersRegistred.filter(el => !payload.find(el2 => el2.id == el.id)), ...payload],
 	updateLessonFilter(state, data){
 		state.lessonFilter = Object.assign(state.lessonFilter, data)
 	},
@@ -194,7 +202,8 @@ const mutations = {
 		let les = state.cached.find(el => el.id == id)
 		if (les) les.filled++
 		if (state.currentLesson) state.currentLesson.filled++
-	}
+	},
+	registerTypesSet: (state, payload) => state.registerTypes = payload
 }
 
 const getters = {
@@ -221,7 +230,8 @@ const getters = {
 	},
 	currentLesson({ currentLesson }){
 		return currentLesson
-	}
+	},
+	registerTypes: state => state.registerTypes
 }
 
 export default {

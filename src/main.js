@@ -44,7 +44,7 @@ const routes = [
 	{ path: '/allLessons', component: allLessons },
 	{ path: '/recs', component: pages, props: { id: 1 } },
 	{ path: '/', component: pages, props: { id: 2 } },
-	{ path: '/work', component: pages, props: { id: 3 } },
+	{ path: '/payment', component: pages, props: { id: 3 } },
 	{ path: '*', component: page404, name: 'page404' }
 ]
 

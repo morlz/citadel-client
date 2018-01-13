@@ -3,7 +3,7 @@
 		<div class="backButton" @click="hideCurrentUsers"></div>
 		<div class="currentUsersRegistred mather">
 			<div class="content">
-				<h4 class="title">Зарегестрированые пользователи</h4>
+				<h4 class="title">Зарегистрированные пользователи</h4>
 				<input type="text" v-model="search" class="search">
 				<div class="users">
 					<recordedUser v-for="user, index in searched" :content="user" :key="index"></recordedUser>
@@ -37,6 +37,9 @@ export default {
 		recordedUser
 	},
     methods: {
+		...mapActions([
+			'getRegisterTypes'
+		]),
 		...mapMutations([
 			'hideCurrentUsers'
 		])
@@ -51,6 +54,9 @@ export default {
 			if (!this.search.length) return this.currentUsersRegistredContent
 			return this.currentUsersRegistredContent.filter(el => this.searchFn(el, this.search))
 		}
+	},
+	mounted () {
+		this.getRegisterTypes()
 	}
 }
 </script>

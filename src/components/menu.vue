@@ -51,12 +51,12 @@ export default {
 					childs: this.catChilds
 				},
 				{
-					name: "Документы",
+					name: "Документы и реквизиты",
 					path: "/work"
 				},
 				{
-					name: "Реквизиты",
-					path: "/recs"
+					name: "Оплата",
+					path: "/payment"
 				},
 				{
 					name: "GOD",

@@ -23,7 +23,6 @@ const state = {
 	FP: {
 		enableTime: true,
 		time_24hr: true,
-		minDate: new Date()
 	},
 	editButtonShow: false
 }
