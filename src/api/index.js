@@ -1,10 +1,19 @@
 import cookie from './cookie'
 import axios from 'axios'
 
-//const serverAddr = `http://localhost/www15/blog/public`
-//const serverAddr = `cit2/public`
+const sortFnFactory = (field, revert = false) => {
+	return (a, b) => {
+		if (typeof field == 'function') {
+			if (field(a) > field(b)) return revert ? 1 : -1
+			if (field(a) < field(b)) return revert ? -1 : 1
+		}
+		if (a[field] > b[field]) return revert ? 1 : -1
+		if (a[field] < b[field]) return revert ? -1 : 1
+		return 0
+	}
+}
 
-//const serverAddr = process.env.NODE_ENV == 'development' ? '/www15/blog/public' : 'public'
+
 const serverAddr = 'public'
 
 export default {
@@ -27,5 +36,6 @@ export default {
         if (process.env.NODE_ENV == 'dev') console.log("req:", data.data, "api responce:", apiResponce)
         return apiResponce
     },
-	cookie
+	cookie,
+	sortFnFactory
 }

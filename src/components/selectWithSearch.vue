@@ -1,9 +1,9 @@
 <template>
 	<div class="selectWithSearch">
 		<input type="text" placeholder="Search" v-model="search">
-		<div class="currentSelected" v-if="selected"> {{ label(selected) }} </div>
+		<div class="currentSelected" v-if="selected" v-html="label(item)" />
 		<ul class="items" v-if="data">
-			<li v-if="searched.length" v-for="item, index in searched" @click="select(item)" class="mather" :class="{selected: isSelected(item)}"> {{ label(item) }} </li>
+			<li v-if="searched.length" v-for="item, index in searched" @click="select(item)" class="mather" :class="{selected: isSelected(item)}" v-html="label(item)" />
 			<li v-if="!searched.length">Данных нет</li>
 		</ul>
 	</div>
@@ -28,7 +28,14 @@ export default {
 			return data.id == this.value
 		},
 		label (item) {
-			return item[this.proplabel || 'name']
+			if (!this.proplabel)
+				return item.name
+
+			if (typeof this.proplabel == 'string')
+				return item[this.proplabel]
+
+			if (typeof this.proplabel == 'function')
+				return this.proplabel(item)
 		}
     },
 	computed: {

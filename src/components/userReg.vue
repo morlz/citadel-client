@@ -34,10 +34,10 @@
 				<select-with-search :data="paymentTypesWithNull" proplabel="title" @select="paymentTypeSelect" :value="editFields.payment_type_id" />
 			</div>
 
-			<div class="paymentDataId">
+			<div class="paymentDataId" v-if="this.editFields.payment_type_id != 3">
 				<h4>Данные оплаты</h4>
 
-				<select-with-search :data="cachedTransactionsWithNull" proplabel="amount" @select="paymentDataSelect" :value="editFields.payment_data_id" />
+				<select-with-search :data="paymentData" :proplabel="paymentDataLabel" @select="paymentDataSelect" :value="editFields.payment_data_id" />
 			</div>
 
 			<div class="buttons">
@@ -87,6 +87,15 @@ export default {
 		},
 		paymentTypesWithNull () {
 			return [{ title: "NULL", id: null }, ...this.paymentTypes]
+		},
+		paymentData () {
+			switch (this.editFields.payment_type_id) {
+				case 1:
+					return this.cachedTransactionsWithNull
+					break;
+				default:
+					return []
+			}
 		}
 	},
 	methods: {
@@ -104,10 +113,12 @@ export default {
 		},
 		paymentTypeSelect (type) {
 			this.editFields.payment_type_id = type.id
+			this.editFields.payment_data_id = null
 		},
 		paymentDataSelect (data) {
 			this.editFields.payment_data_id = data.id
-		}
+		},
+		paymentDataLabel: item => item.created_at ? `<div class="dGrid"><div>${item.amount}</div><div>${item.created_at}</div></div>` : `NULL`
 	}
 }
 </script>
@@ -127,6 +138,13 @@ export default {
 		display: grid;
 		grid-auto-flow: column;
 		justify-content: end;
+	}
+	.dGrid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		> div:nth-child(2) {
+			text-align: right;
+		}
 	}
 }
 </style>

@@ -219,9 +219,7 @@ const mutations = {
 }
 
 const getters = {
-	lessons ({ cached }) {
-		return cached
-	},
+	lessons: state => state.cached.sort( api.sortFnFactory(date => new Date(date).valueOf()) ),
 	regFormContent ({ regFormContent }) {
 		return regFormContent
 	},

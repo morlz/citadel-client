@@ -1,11 +1,5 @@
 import api from '@/api/index'
 
-const sortTransactionsByDate = (a, b) => {
-	if (a.id > b.id) return -1
-	if (a.id < b.id) return 1
-	return 0
-}
-
 const state = {
     cached: [],
 	current: {},
@@ -205,8 +199,8 @@ const getters = {
 	users: state => state.cached.filter(user => user.id_role == 3),
 	allUsers: state => state.cached,
 	currentUser: state => state.current,
-	currentUserRegs: state => state.currentUserRegs || [],
-	cachedTransactions: state => state.currentUserTransactions.sort(sortTransactionsByDate),
+	currentUserRegs: state => state.currentUserRegs.sort(api.sortFnFactory(date => new Date(data).valueOf())),
+	cachedTransactions: state => state.currentUserTransactions.sort(api.sortFnFactory('id')),
 	currentUserBalance: state => state.currentUserTransactions.reduce((summ, el) => el.amount + summ, 0)
 }
 
