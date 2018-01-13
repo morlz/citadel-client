@@ -60,7 +60,6 @@ const actions = {
 		}).catch(err => dispatch('handleCode', err))
 	},
 	getCenterCources ({ commit, dispatch }, id){
-		console.log(id);
 		api.invoke({
 			method: 'get',
 			data: {

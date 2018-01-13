@@ -20,7 +20,7 @@
 						:sitekey="reCaptchaKey"
 						@verify="reOnVerify"
 					    @expired="reOnExpired"
-						ref="recaptcha"
+						ref="recaptchaIn"
 						:key="1"
 					/>
 					<div class="buttons">
@@ -44,7 +44,7 @@
 						:sitekey="reCaptchaKey"
 						@verify="reOnVerify"
 						@expired="reOnExpired"
-						ref="recaptcha"
+						ref="recaptchaUp"
 						:key="2"
 					/>
 					<div class="buttons">
@@ -110,7 +110,7 @@ export default {
 		]),
 		signInClose(){
 			this.setSignInFormOpen(false)
-			this.$refs.recaptcha.reset()
+			this.$refs.recaptchaIn.reset()
 		},
 		signInHandler(){
 			//this.$refs.recaptcha.reset()
@@ -124,7 +124,7 @@ export default {
 		},
 		signUpClose(){
 			this.setSignUpFormOpen(false)
-			this.$refs.recaptcha.reset()
+			this.$refs.recaptchaUp.reset()
 		},
 		signUpHandler(){
 			this.signup({

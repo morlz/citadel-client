@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
 
-import quill from 'vue-quill'
 import Quill from 'vue-quill-editor'
 import { VueMasonryPlugin } from 'vue-masonry'
 import VueCarousel from 'vue-carousel'
 import VueCookie from 'vue-cookie'
 
-Vue.use( quill )
 Vue.use( Quill )
 Vue.use( VueMasonryPlugin )
 Vue.use( VueCarousel )
