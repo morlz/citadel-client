@@ -10,7 +10,8 @@
 				Статус: {{ data.type ? data.type.title : '...' }}
 			</div>
 			<div class="buttons">
-				<div class="buttonTRb" @click="removeRecordUser({ id: data.id, id_lesson: data.lesson ? data.lesson.id : '...' })" v-if="new Date(data.lesson ? data.lesson.date : null).valueOf() > new Date().valueOf()">Отменить</div>
+				<div class="buttonTRb" @click="removeRecordUser({ id: data.id, id_lesson: data.lesson ? data.lesson.id : '...' })" v-if="showButtonCancel">Отменить</div>
+				<div class="buttonTRb" @click="fakeCancelHandle" v-if="showButtonCancelFake">Отменить</div>
 				<div class="buttonTRb" @click="payReg({ id: data.id })" v-if="data.type && data.type.id == 1">Оплатить</div>
 				<div class="buttonTRb" @click="localEdit = true" v-if="isAdmin">Редактировать</div>
 				<router-link class="buttonTRb" :to="{ path: `/cource/${data.lesson ? data.lesson.id_cource : '...'}` }">Подробнее о курсе</router-link>
@@ -96,13 +97,23 @@ export default {
 				default:
 					return []
 			}
+		},
+		showButtonCancelDate () {
+			return new Date(this.data.lesson ? this.data.lesson.date : null).valueOf() > new Date().valueOf()
+		},
+		showButtonCancel () {
+			return this.showButtonCancelDate && this.data.type.id == 1
+		},
+		showButtonCancelFake () {
+			return this.showButtonCancelDate && this.data.type.id != 1
 		}
 	},
 	methods: {
 		...mapActions([
 			'removeRecordUser',
 			'payReg',
-			'updateUserReg'
+			'updateUserReg',
+			'alert'
 		]),
 		save() {
 			this.updateUserReg(this.editFields)
@@ -118,7 +129,12 @@ export default {
 		paymentDataSelect (data) {
 			this.editFields.payment_data_id = data.id
 		},
-		paymentDataLabel: item => item.created_at ? `<div class="dGrid"><div>${item.amount}</div><div>${item.created_at}</div></div>` : `NULL`
+		paymentDataLabel: item => item.created_at ? `<div class="dGrid"><div>${item.amount}</div><div>${item.created_at}</div></div>` : `NULL`,
+		fakeCancelHandle () {
+			this.alert({
+				content: "Занятие уже подтверждено либо оплачено. Обратитесь к администору."
+			})
+		}
 	}
 }
 </script>

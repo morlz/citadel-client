@@ -5,8 +5,8 @@
 			В данный момент транзакций нет
 		</div>
 
-		<h3 v-if="isAdmin && edit">Добавить транзакцию</h3>
-		<add-user-transaction-form v-if="isAdmin && edit"/>
+		<h3 v-if="isAdmin">Добавить транзакцию</h3>
+		<add-user-transaction-form v-if="isAdmin"/>
 	</div>
 </template>
 <script>
