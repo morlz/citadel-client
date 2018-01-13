@@ -5,9 +5,82 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>Учебный центр "Цитадель"</title>
+	<style>
+		body, html {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			overflow-y: scroll;
+		}
+
+		.curtains {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			pointer-events: none;
+			z-index: 999999;
+			background: transparent;
+			transition: all 0.4s ease-in-out;
+		}
+
+		.curtains .curtain {
+			background: #fff;
+			width: 50%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			overflow: hidden;
+			transition: all 0.4s ease-in;
+			background-image: url("./static/logoCitadel.a70886d.png");
+			background-repeat: no-repeat;
+		}
+
+		.curtains .leftCurtain {
+			left: -50%;
+			background-position: calc(100% + 162px) 50%;
+		}
+
+		.curtains .rightCurtain {
+			right: -50%;
+			background-position: -162px 50%;
+		}
+
+		.curtains .rightCurtain .curt {
+			margin-left: -100%;
+		}
+
+		.curtainsActive {
+			pointer-events: all;
+			background: rgba(0, 0, 0, 0.5);
+		}
+
+		.curtainsActive .leftCurtain {
+			left: 0;
+		}
+
+		.curtainsActive .rightCurtain {
+			right: 0;
+		}
+	</style>
 </head>
 
 <body>
+	<div class="curtains curtainsActive">
+		<div class="leftCurtain curtain">
+			<canvas class="curt"></canvas>
+		</div>
+		<div class="rightCurtain curtain">
+			<canvas class="curt"></canvas>
+		</div>
+	</div>
+
+
 	<div id="app"></div>
 
 	<!-- built files will be auto injected -->

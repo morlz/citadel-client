@@ -18,8 +18,9 @@ import store from '@/store/index'
 Vue.config.productionTip = false
 
 const mounted = () => {
-	//window.curtains.loaded.big = true
-	//window.curtains.open()
+	console.log("big loaded");
+	window.curtains.loaded.big = true
+	window.curtains.open()
 }
 
 const unsync = sync(store, router)
