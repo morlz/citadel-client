@@ -1,21 +1,18 @@
 <template>
 	<div class="reg mather">
-		<div class="normal" v-if="!localEdit" :class="{ regOpen: open }" @click="open = !open">
+		<div class="normal" v-if="!localEdit">
 			<div class="title">{{ data.lesson ? data.lesson.title : '...' }}</div>
 			<div class="description">
 				Дата и время занятия: {{ data.lesson ? data.lesson.date : '...' }} <br>
-				Цена: {{ data.lesson ? data.lesson.price : '...' }} <br>
-				{{ regCenter }}
+				Цена: {{ data.lesson ? data.lesson.price : '...' }}
 			</div>
 			<div class="status">
 				Статус: {{ data.type ? data.type.title : '...' }}
 			</div>
-			<div class="arrow"/>
-			<div class="content" v-html="data.lesson ? data.lesson.description : '...'"/>
 			<div class="buttons">
-				<div class="buttonTRb" @click.stop="removeRecordUser({ id: data.id, id_lesson: data.lesson ? data.lesson.id : '...' })" v-if="new Date(data.lesson ? data.lesson.date : null).valueOf() > new Date().valueOf()">Отменить</div>
-				<div class="buttonTRb" @click.stop="payReg({ id: data.id })" v-if="data.type && data.type.id == 1">Оплатить</div>
-				<div class="buttonTRb" @click.stop="localEdit = true" v-if="isAdmin">Редактировать</div>
+				<div class="buttonTRb" @click="removeRecordUser({ id: data.id, id_lesson: data.lesson ? data.lesson.id : '...' })" v-if="new Date(data.lesson ? data.lesson.date : null).valueOf() > new Date().valueOf()">Отменить</div>
+				<div class="buttonTRb" @click="payReg({ id: data.id })" v-if="data.type && data.type.id == 1">Оплатить</div>
+				<div class="buttonTRb" @click="localEdit = true" v-if="isAdmin">Редактировать</div>
 				<router-link class="buttonTRb" :to="{ path: `/cource/${data.lesson ? data.lesson.id_cource : '...'}` }">Подробнее о курсе</router-link>
 			</div>
 		</div>
@@ -66,7 +63,6 @@ export default {
 	data () {
 		return {
 			localEdit: false,
-			open: false,
 			editFields: {}
 		}
 	},
@@ -78,8 +74,7 @@ export default {
 			'isAdmin',
 			'paymentTypes',
 			'registerTypes',
-			'cachedTransactions',
-			'centers'
+			'cachedTransactions'
 		]),
 		data () {
 			let data = this.content || {}
@@ -101,11 +96,6 @@ export default {
 				default:
 					return []
 			}
-		},
-		regCenter () {
-			if (!this.data.lesson) return '...'
-			let center = this.centers.find(el => el.id == this.data.lesson.id_cource)
-			return center ? center.title : '[Место удалено]'
 		}
 	},
 	methods: {
@@ -137,7 +127,6 @@ export default {
 .reg {
 	padding: 20px;
 	background: #fff;
-	position: relative;
 	.title {
 		margin: 10px 0;
 		color: #444;
@@ -157,41 +146,5 @@ export default {
 			text-align: right;
 		}
 	}
-	.normal {
-		transition: all 0.3s ease-in-out;
-		cursor: pointer;
-		border-top: 1px solid transparent;
-	    border-bottom: 1px solid transparent;
-		.content {
-			transition: all 0.3s ease-in-out;
-			opacity: 0;
-			max-height: 0;
-			overflow: hidden;
-		}
-		.arrow {
-			position: absolute;
-			top: 25px;
-			right: 20px;
-			width: 35px;
-			height: 35px;
-			background: url("../assets/images/ARROW.svg") no-repeat 50% 50%;
-			background-size: 25px;
-			transition: all 0.3s ease-in-out;
-		}
-	}
-	.regOpen {
-		padding: 20px 0;
-	    border-top: 1px solid rgb(225, 225, 225);
-	    border-bottom: 1px solid rgb(225, 225, 225);
-		.arrow {
-			top: 70px;
-			transform: rotateX(-180deg);
-		}
-		.content {
-			opacity: 1;
-			max-height: 1000px;
-		}
-	}
 }
-
 </style>
