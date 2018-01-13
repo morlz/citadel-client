@@ -3,7 +3,7 @@
 		<article class="user_full" v-if="!edit && !localEdit">
 			<section class="big">
 				<div class="adminButton">
-					<div class="button" @click="localEdit = !localEdit" v-if="logined && user.id == data.id">Изменить профиль</div>
+					<div class="button" @click="localEdit = !localEdit" v-if="user.id == data.id">Изменить профиль</div>
 				</div>
 
 				<h2>{{data.name}}</h2>
@@ -14,8 +14,8 @@
 				<h3>Роль</h3>
 				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
 
-				<h3 v-if="data.balance !== undefined">Баланс {{ currentUserBalance }} руб</h3>
-				<div class="payForm mather" v-if="logined">
+				<h3 v-if="(user.id == data.id || isAdmin) && data.balance !== undefined">Баланс {{ currentUserBalance }} руб</h3>
+				<div class="payForm mather" v-if="(user.id == data.id || isAdmin)">
 					<h4>Пополнение баланса онлайн</h4>
 					<input type="text" v-model="paySumm" placeholder="Сумма платежа">
 					<div class="buttonTRb" @click="addCash(paySumm)">Пополнить</div>

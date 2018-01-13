@@ -11,12 +11,12 @@
     </div>
     <div class="rBox">
         <h2 class="contacts">
-				<div class="phone">+7(985)522-32-42</div>
-				<div class="email">admin@it-citadel.ru</div>
-			</h2>
-        <auth></auth>
+			<div class="phone">+7(985)522-32-42</div>
+			<div class="email">admin@it-citadel.ru</div>
+		</h2>
+        <auth/>
     </div>
-    <mainMenu></mainMenu>
+    <mainMenu/>
 </header>
 </template>
 

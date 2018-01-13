@@ -1,5 +1,5 @@
 <template>
-	<div class="regs mather">
+	<div class="regs">
 		<user-reg :key="index+'-'+reg.id" :content="reg" v-for="reg, index in currentUserRegs" />
 	</div>
 </template>
@@ -61,5 +61,8 @@ export default {
 </script>
 
 <style lang="less">
-
+	.regs {
+		display: grid;
+		grid-gap: 10px;
+	}
 </style>

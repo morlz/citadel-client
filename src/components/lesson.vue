@@ -28,7 +28,7 @@
 				<div class="buttonTRb register" v-if="isAdmin && edit" @click="deleteLesson($event, data.id)">Удалить</div>
 				<div class="buttonTRb register" v-if="!edit && isUser && !data.registred && new Date(data.date).valueOf() > new Date().valueOf()" @click="openRegFormHandler" >Записаться</div>
 				<div class="buttonTRb register" v-if="!edit && !isUser && new Date(data.date).valueOf() > new Date().valueOf()" @click="alertNoRegistred" >Записаться</div>
-				<div class="buttonTR register" v-if="data.registred">Вы записаны</div>
+				<router-link class="buttonTR register" :to="{ path: `/user/${user.id}` }" v-if="data.registred">Вы записаны</router-link>
 			</div>
 		</div>
 
@@ -107,7 +107,8 @@ export default {
 			'quillOptions',
 			'logined',
 			'isUser',
-			'centers'
+			'centers',
+			'user'
 		]),
 		data () {
 			let data = this.content || {}
