@@ -12,6 +12,7 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+const PROXY_PRESET = process.env.PROXY || "external"
 
 const devWebpackConfig = merge(baseWebpackConfig, {
 	module: {
@@ -37,7 +38,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 			}
 			: false,
 		publicPath: config.dev.assetsPublicPath,
-		proxy: config.dev.proxyTable,
+		proxy: config.dev.proxyTable[PROXY_PRESET] ? config.dev.proxyTable[PROXY_PRESET] : {},
 		quiet: true, // necessary for FriendlyErrorsPlugin
 		watchOptions: {
 			poll: config.dev.poll
