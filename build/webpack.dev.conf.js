@@ -12,7 +12,7 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
-const PROXY_PRESET = process.env.PROXY || "external"
+const PROXY_PRESET = process.env.PROXY_PRESET || "external"
 
 const devWebpackConfig = merge(baseWebpackConfig, {
 	module: {

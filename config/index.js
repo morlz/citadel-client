@@ -18,7 +18,7 @@ module.exports = {
 			},
 			local: {
 				"/public": {
-					target: "http://localhost/public"
+					target: "http://localhost/"
 				},
 			}
 		},
