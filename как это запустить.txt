@@ -2,3 +2,5 @@
 
 разработка: PROXY_PRESET=local HOST=localhost npm run dev
 сборка: npm run build
+
+остановить дев сервер: просто убить его процессы (node.exe)
