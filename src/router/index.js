@@ -21,7 +21,8 @@ const scrollBehavior = (to, from, savedPosition) => {
 		return {}
 
 	//window.curtains.sctollToTop()
-	return {}
+	//return {}
+	return { x: 0, y: 0 }
 }
 
 const routes = [
