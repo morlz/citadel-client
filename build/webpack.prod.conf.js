@@ -65,7 +65,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 		// you can customize output by editing /index.html
 		// see https://github.com/ampedandwired/html-webpack-plugin
 		new CompressionPlugin({
-			test: /\.js$/
+			test: /\.(js|css|ttf|woff|woff2)$/
 		}),
 		new HtmlWebpackPlugin({
 			filename: config.build.index,
