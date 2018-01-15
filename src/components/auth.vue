@@ -40,6 +40,7 @@
 					<input type="password" placeholder="Пароль" v-model="signupFrom.password">
 					<input type="password" placeholder="Пароль (ещё раз)" v-model="signupFrom.confirmPassword">
 					<div class="passwordCompareError" v-if="signupFrom.password != signupFrom.confirmPassword && signupFrom.confirmPassword.length">Пароли не совпадают!</div>
+					<div class="passwordCompareError" v-if="signupFrom.password.length < 6">Пароль должен содержать не менее 6 символов</div>
 					<vue-recaptcha
 						:sitekey="reCaptchaKey"
 						@verify="reOnVerify"
