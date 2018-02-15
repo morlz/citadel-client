@@ -2,7 +2,7 @@
 	<div class="photoSelect mather">
 		<div class="tabs">
 			<div class="url buttonTR" @click="thisTab = 'url'" :class="{selected: thisTab == 'url'}">URL</div>
-			<div class="fileLoad buttonTR" @click="thisTab = 'file'" :class="{selected: thisTab == 'file'}">File</div>
+			<div class="fileLoad buttonTR" :class="{selected: thisTab == 'file'}">File</div> <!-- @click="thisTab = 'file'" -->
 		</div>
 
 		<div class="content">
@@ -71,6 +71,10 @@ export default {
 			}
 			.selected {
 				border-bottom: 1px solid #448aff;
+			}
+			.fileLoad {
+				opacity: 0.3;
+				cursor: default;
 			}
 		}
 		.content {

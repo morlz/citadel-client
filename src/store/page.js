@@ -91,6 +91,17 @@ const actions = {
 			commit('receive_currentPage', data)
 			commit('toggleEditMutation', false)
 		}).catch(err => dispatch('handleCode', err))
+	},
+	async getAllNews ({ commit }) {
+		let res = await api.invoke({
+			method: 'get',
+			data: {
+				type: 'news'
+			}
+		})
+
+		if (!res || !res.data) return
+		commit('addNewsToCache', res.data)
 	}
 }
 

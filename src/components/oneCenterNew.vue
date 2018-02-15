@@ -1,6 +1,6 @@
 <template>
 	<div class="newWrapperWrapper">
-		<router-link class="newWrapper" :to="{ path: `/centers/${$route.params.id}/${data.id}` }">
+		<router-link class="newWrapper" :to="{ path: `/centers/${centerId}/${data.id}` }">
 			<div class="new mather" :style="{ 'background-image': getBackgroundImage() }">
 				<h3 class="title">{{data.title}}</h3>
 			</div>
@@ -65,12 +65,16 @@ export default {
 		...mapGetters([
 			'edit',
 			'isAdmin',
-			'quillOptions'
+			'quillOptions',
+			'centers'
 		]),
 		data () {
 			let data = this.content
             this.editFields = Object.assign({}, data)
             return data
+		},
+		centerId () {
+			return this.data.center_id || (this.centers ? this.centers[0].id : 1)
 		}
 	},
     methods: {
@@ -101,7 +105,7 @@ export default {
             this.remove({
                 type: 'news',
                 id,
-				to: `/centers/${this.$route.params.id}`
+				to: `/centers/${centerId}`
             })
         }
     }

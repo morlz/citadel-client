@@ -4,6 +4,12 @@
 			<h2>{{data.title}}</h2>
 			<div class="content" v-html="data.content"></div>
 			<gallery class="allImages" :images="parseJSONimages(data.images)" :edit="edit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
+
+			<template v-if="isHome && news.length">
+				<h2>Новости</h2>
+				<centerNews :content="news" />
+			</template>
+
 		</article>
 
 		<article v-if="edit && data" class="edit">
@@ -13,6 +19,11 @@
 			<input type="text" v-model="editFields.title" class="title">
 			<quill-editor :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)" />
 			<gallery class="allImages" :images="parseJSONimages(editFields.images)" :edit="edit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
+
+			<template v-if="isHome && news.length">
+				<h2>Новости</h2>
+				<centerNews :content="news" />
+			</template>
 		</article>
 	</div>
 </template>
@@ -24,11 +35,13 @@ import {
 } from 'vuex'
 import mixins from '@/components/mixins.vue'
 import gallery from '@/components/gallery.vue'
+import centerNews from '@/components/centerNews.vue'
 
 export default {
 	props: ['id'],
 	components: {
-		gallery
+		gallery,
+		centerNews
 	},
 	data() {
 		return {
@@ -54,18 +67,26 @@ export default {
 		...mapGetters([
 			'currentPage',
 			'edit',
-			'quillOptions'
+			'quillOptions',
+			'allCenterNews'
 		]),
 		data () {
 			let page = this.currentPage
 			this.editFields = Object.assign({}, page)
 			return page
+		},
+		isHome () {
+			return this.id == 2
+		},
+		news () {
+			return this.allCenterNews || []
 		}
 	},
 	methods: {
 		...mapActions([
 			'setCurrent',
-			'updatePage'
+			'updatePage',
+			'getAllNews'
 		]),
 		onEditorChange({
             editor,
@@ -80,6 +101,7 @@ export default {
 	},
 	mounted () {
 		this.setCurrent(this.$route.params.id || this.id)
+		this.getAllNews()
 	}
 }
 </script>
