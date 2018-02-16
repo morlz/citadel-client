@@ -16,6 +16,7 @@ import mainHeader 	from '@/components/header.vue'
 import mainFooter 	from '@/components/footer.vue'
 import alert 		from '@/components/alert.vue'
 
+
 export default {
 	name: 'app',
 	components: {

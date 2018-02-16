@@ -9,51 +9,73 @@ export default {}
 //@import url( 'https://cdn.quilljs.com/1.2.6/quill.snow.css');
 
 @import url('../assets/styles/flatpickr.css');
-@import url( '../assets/styles/quill.snow.css');
-@import url( '../assets/styles/blueimp-gallery.min.css');
+@import url('../assets/styles/quill.snow.css');
+@import url('../assets/styles/blueimp-gallery.min.css');
 
-@import url( 'https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://fonts.gstatic.com/s/materialicons/v36/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2") format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+@font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Thin'), local('RobotoSlab-Thin'), url('../assets/fonts/robotoslabthin.woff2') format('woff2'), url('../assets/fonts/robotoslabthin.woff') format('woff'), url('../assets/fonts/robotoslabthin.ttf') format('truetype');
+    src: local('Roboto Slab Thin'), local('RobotoSlab-Thin'), url("../assets/fonts/robotoslabthin.woff2") format('woff2'), url("../assets/fonts/robotoslabthin.woff") format('woff'), url("../assets/fonts/robotoslabthin.ttf") format('truetype');
     font-weight: 100;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url('../assets/fonts/robotoslablight.woff2') format('woff2'), url('../assets/fonts/robotoslablight.woff') format('woff'), url('../assets/fonts/robotoslablight.ttf') format('truetype');
+    src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url("../assets/fonts/robotoslablight.woff2") format('woff2'), url("../assets/fonts/robotoslablight.woff") format('woff'), url("../assets/fonts/robotoslablight.ttf") format('truetype');
     font-weight: 300;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url('../assets/fonts/robotoslabregular.woff2') format('woff2'), url('../assets/fonts/robotoslabregular.woff') format('woff'), url('../assets/fonts/robotoslabregular.ttf') format('truetype');
+    src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url("../assets/fonts/robotoslabregular.woff2") format('woff2'), url("../assets/fonts/robotoslabregular.woff") format('woff'), url("../assets/fonts/robotoslabregular.ttf") format('truetype');
     font-weight: 400;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto Slab';
-    src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url('../assets/fonts/robotoslabbold.woff2') format('woff2'), url('../assets/fonts/robotoslabbold.woff') format('woff'), url('../assets/fonts/robotoslabbold.ttf') format('truetype');
+    src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url("../assets/fonts/robotoslabbold.woff2") format('woff2'), url("../assets/fonts/robotoslabbold.woff") format('woff'), url("../assets/fonts/robotoslabbold.ttf") format('truetype');
     font-weight: 700;
     font-style: normal;
 }
 
 * {
-	&::-webkit-scrollbar-track {
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		border-radius: 10px;
-		background-color: #F5F5F5;
-	}
-	&::-webkit-scrollbar {
-		width: 12px;
-		background-color: #F5F5F5;
-	}
-	&::-webkit-scrollbar-thumb {
-		border-radius: 10px;
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-		background-color: #dadada;
-	}
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #dadada;
+    }
 }
 
 html {
@@ -69,7 +91,7 @@ body {
     font-family: Roboto, Arial, sans-serif;
     background: #F6F6F6;
     font-size: 16px;
-	.contentWrapper {}
+    .contentWrapper {}
 }
 
 h2 {
@@ -157,40 +179,39 @@ a {
     background-position: 0 50%;
 }
 
-
 .phone {
-	.boxWithIconBase;
+    .boxWithIconBase;
     background-image: url("../assets/images/ic_phone_black_24px.svg");
 }
 
 .email {
-	.boxWithIconBase;
+    .boxWithIconBase;
     background-image: url("../assets/images/ic_email_black_24px.svg");
 }
 
 .location {
-	.boxWithIconBase;
+    .boxWithIconBase;
     background-image: url("../assets/images/location-pin.svg");
 }
 
 .adminIcon {
-	.boxWithIconBase;
+    .boxWithIconBase;
     background-image: url("../assets/images/admin-with-cogwheels.svg");
 }
 
 .prepodIcon {
-	.boxWithIconBase;
+    .boxWithIconBase;
     background-image: url("../assets/images/teacher.svg");
-	background-size: auto 30px;
+    background-size: auto 30px;
 }
 
 .userIcon {
-	.boxWithIconBase;
+    .boxWithIconBase;
     background-image: url("../assets/images/graduate-student-avatar.svg");
 }
 
 .emailConfirmIcon {
-	.boxWithIconBase;
+    .boxWithIconBase;
     background-image: url("../assets/images/mail-black-envelope-symbol.svg");
 }
 
@@ -199,7 +220,6 @@ a {
     background-image: url("../assets/images/portrait.svg");
     background-position: 50% 20px;
 }
-
 
 .adminButton {
     display: grid;
@@ -251,16 +271,16 @@ article {
 }
 
 .tooltip {
-	position: relative;
+    position: relative;
     &:before {
         content: attr(data-tooltip);
-		text-align: center;
+        text-align: center;
         box-sizing: border-box;
         display: block;
         background: #fff;
         padding: 20px;
         position: absolute;
-		pointer-events: none;
+        pointer-events: none;
         left: 50%;
         top: -30px;
         margin-left: -150px;
@@ -270,13 +290,13 @@ article {
         border-radius: 5px;
         opacity: 0;
         transition: 0.25s ease-in-out;
-		box-shadow: 0 7px 9px 0 rgba(0,0,0,0.15);
+        box-shadow: 0 7px 9px 0 rgba(0,0,0,0.15);
     }
     &:after {
         content: '';
         display: block;
         position: absolute;
-		pointer-events: none;
+        pointer-events: none;
         top: 35px;
         left: 50%;
         margin-left: -8px;

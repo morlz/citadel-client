@@ -1,33 +1,36 @@
 <template>
-	<div class="newWrapperWrapper">
-		<router-link class="newWrapper" :to="{ path: `/centers/${centerId}/${data.id}` }">
-			<div class="new mather" :style="{ 'background-image': getBackgroundImage() }">
-				<h3 class="title">{{data.title}}</h3>
-			</div>
+	<div class="new">
+		<router-link class="new__link" :to="{ path: `/centers/${centerId}/${data.id}` }">
+			<div class="new__bg mather" :style="bgStyle"/>
+			<h3 class="new__title">{{data.title}}</h3>
 		</router-link>
-		<div class="full mather" :class="{ open }" v-if="!(edit || localEdit)">
-			<h2 class="title">{{data.title}}</h2>
-			<div class="contentWrapper">
-				<div class="content" v-html="data.content"></div>
-				<gallery class="allImages" :images="parseJSONimages(data.images)" :edit="edit || localEdit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
-			</div>
-			<div class="buttons" v-if="isAdmin">
+
+		<modal v-model="modalOpen" v-if="!(edit || localEdit)" @input="iHandler">
+			<div slot="header">{{data.title}}</div>
+
+			<div v-html="data.content"/>
+			<gallery class="allImages" :images="parseJSONimages(data.images)" :edit="edit || localEdit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
+
+			<template v-if="isAdmin" slot="buttons">
 				<div class="buttonTRb" @click="localEdit = true">Редактироваить</div>
 				<div class="buttonTR" @click="removeNew(data.id)">Удалить</div>
+			</template>
+		</modal>
+
+		<modal v-model="modalOpen" v-else="!(edit || localEdit) && data">
+			<div slot="header">
+				<input type="text" class="title" v-model="editFields.title" placeholder="Название">
 			</div>
-		</div>
-		<div class="full mather edit" :class="{ open }" v-else="!(edit || localEdit) && data">
-			<input type="text" class="title" v-model="editFields.title" placeholder="Название">
-			<div class="contentWrapper">
-				<quill-editor :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)" class="content" />
-				<gallery class="allImages" :images="parseJSONimages(editFields.images)" :edit="edit || localEdit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
-			</div>
-			<div class="buttons" v-if="isAdmin">
+
+			<quill-editor :content="editFields.content" :options="quillOptions" @change="onEditorChange($event)" class="content" />
+			<gallery class="allImages" :images="parseJSONimages(editFields.images)" :edit="edit || localEdit" @imagesChanged="updateImages" :perpage="perPageIamagesCount" />
+
+			<template v-if="isAdmin" slot="buttons">
 				<div class="buttonTRb" @click="updateNewsHandler">Сохранить</div>
 				<div class="buttonTRb" @click="localEdit = false">Отменить</div>
 				<div class="buttonTR" @click="removeNew(data.id)">Удалить</div>
-			</div>
-		</div>
+			</template>
+		</modal>
 	</div>
 </template>
 
@@ -38,16 +41,25 @@ import {
 } from 'vuex'
 import mixins from '@/components/mixins.vue'
 import gallery from '@/components/gallery.vue'
+import Modal from '@/components/Modal.vue'
 //import TWEEN from 'tweenjs/tween.js/src/Tween.js'
 
 export default {
-    props: ['content', 'open'],
+    props: {
+		content: {},
+		open: {
+			type: Boolean,
+			default: a => false
+		}
+	},
     mixins: [mixins],
 	components: {
-		gallery
+		gallery,
+		Modal
 	},
     data() {
         return {
+			modalOpen: false,
 			localEdit: false,
 			editFields: {},
 			perPageIamagesCount: [
@@ -61,6 +73,11 @@ export default {
             ]
 		}
     },
+	watch: {
+		open (n) {
+			this.modalOpen = n
+		}
+	},
 	computed: {
 		...mapGetters([
 			'edit',
@@ -75,6 +92,11 @@ export default {
 		},
 		centerId () {
 			return this.data.center_id || (this.centers ? this.centers[0].id : 1)
+		},
+		bgStyle () {
+			return {
+				backgroundImage: this.getBackgroundImage()
+			}
 		}
 	},
     methods: {
@@ -107,77 +129,52 @@ export default {
                 id,
 				to: `/centers/${centerId}`
             })
-        }
-    }
+        },
+		iHandler (e) {
+			if (e) return
+			router.push(`/centers/${this.centerId}`)
+		}
+    },
+	mounted () {
+		this.modalOpen = this.open
+	}
 }
 </script>
 
-<style lang="less" scoped>
-.newWrapperWrapper {
+<style lang="less">
+.new {
 	width: 100%;
 	height: 100%;
-	.newWrapper {
+	&__link {
 		width: 100%;
 		height: 100%;
-		display: block;
-	    text-decoration: none;
-	    .new {
-			width: 100%;
-			height: 100%;
-	        transition: all 0.3s ease-in-out;
-	        background-size: cover;
-	        background-color: #fff;
-	        background-position: center;
-			box-sizing: border-box;
-			display: grid;
-			align-items: end;
-			padding-top: 200px;
-	        .title {
-	            margin: 0;
-	            padding: 10px;
-	            color: #fff;
-	            font-size: 24px;
-	            background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 60%, transparent);
-	        }
-	    }
-	}
-	.full {
-		position: fixed;
-		width: 90%;
-		height: 90%;
-		top: 5%;
-		left: 5%;
-		background: #fff;
-		z-index: 26;
-		opacity: 0;
-		pointer-events: none;
-		transition: all 0.3s ease-in-out;
-		padding: 20px;
 		box-sizing: border-box;
 		display: grid;
-		grid-template-rows: minmax(80px, auto) minmax(80px, 100%) 20px;
-		align-content: flex-start;
-		.title {
-			margin: 10px;
-		}
-		.contentWrapper {
-			overflow-y: scroll;
-			.content {
-				padding: 10px 20px;
-			}
-			.allImages {
-				width: ~"calc(100% - 20px)";
-			}
-		}
-		.buttons {
-			display: grid;
-			grid-auto-flow: column;
-			justify-content: end;
-		}
+		align-content: end;
+		height: 250px;
+		position: relative;
+		text-decoration: none;
 	}
-	.open {
-		opacity: 1;
-		pointer-events: all;
+
+	&__bg {
+		transition: all 0.3s ease-in-out;
+		background-size: cover;
+		background-color: #fff;
+		background-position: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	&__title {
+		position: relative;
+		margin: 0;
+		padding: 10px;
+		color: #fff;
+		font-size: 24px;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 60%, transparent);
 	}
 }
 </style>
