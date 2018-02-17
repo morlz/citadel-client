@@ -11,6 +11,7 @@ import auth from './auth'
 import alert from './alert'
 import lesson from './lesson'
 import app from '@/store/app/index'
+import file from '@/store/file'
 
 Vue.use(Vuex)
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
 		auth,
 		alert,
 		lesson,
-		app
+		app,
+		file
     }
 })

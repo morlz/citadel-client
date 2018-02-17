@@ -2,7 +2,7 @@
 	<div class="photoSelect mather">
 		<div class="tabs">
 			<div class="url buttonTR" @click="thisTab = 'url'" :class="{selected: thisTab == 'url'}">URL</div>
-			<div class="fileLoad buttonTR" :class="{selected: thisTab == 'file'}">File</div> <!-- @click="thisTab = 'file'" -->
+			<div class="fileLoad buttonTR" @click="thisTab = 'file'" :class="{selected: thisTab == 'file'}">File</div>
 		</div>
 
 		<div class="content">
@@ -10,7 +10,7 @@
 			<input type="text" v-model="localUrl" v-show="thisTab == 'url'" placeholder="Image url">
 		</div>
 
-		<img :src="previewSrc" alt="preview" v-show="previewSrc" class="preview" id="c">
+		<img :src="formatedPreviwUrl" alt="Предпросмотр" v-show="formatedPreviwUrl" class="preview" id="c">
 
 		<div class="buttonTRb" v-if="addbtn" @click="save">Добавить</div>
 	</div>
@@ -28,13 +28,32 @@ export default {
 			previewSrc: ""
         }
     },
+	computed: {
+		formatedPreviwUrl () {
+			// index === 0
+			// найдено на 1 позиции
+			if (!this.previewSrc.indexOf('src="'))
+				return this.previewSrc.substr(5, this.previewSrc.length - 6)
+
+			return this.previewSrc
+		}
+	},
 	methods: {
 		changeFile (e) {
-			this.localUrl = window.URL.createObjectURL( e.target.files[0] )
+			let fr = new FileReader()
+			fr.addEventListener('load', this.setDataUrl)
+			fr.addEventListener('error', content => this.$store.dispatch('alert', { content }))
+			fr.readAsDataURL(e.target.files[0])
 		},
 		save () {
 			this.$emit("save", this.localUrl)
 			if (this.addbtn) this.localUrl = ''
+		},
+		setDataUrl (e) {
+			if (!e.target || !e.target.result)
+				return this.$store.dispatch('alert', { content: "Ошибка кодирования файла" })
+
+			this.localUrl = `src="${e.target.result}"`
 		}
 	},
 	watch: {
@@ -73,8 +92,8 @@ export default {
 				border-bottom: 1px solid #448aff;
 			}
 			.fileLoad {
-				opacity: 0.3;
-				cursor: default;
+				//opacity: 0.3;
+				//cursor: default;
 			}
 		}
 		.content {
