@@ -1,28 +1,31 @@
 <template>
-	<div class="centersWrapper">
-	    <article class="center" v-if="!edit && data">
-	        <h2 class="title"> {{data.title}} </h2>
-	        <div class="content" v-html="data.description"></div>
+	<div class="category" :class="{ 'category-edit': edit }">
+	    <article class="category__content" v-if="!edit && data">
+	        <h2 class="category__title"> {{data.title}} </h2>
+	        <div class="category__description" v-html="data.description"/>
 
 	        <h3>Курсы</h3>
-	        <div class="couces mather" v-if="categoryCources && categoryCources.length">
-				<canopen v-for="(cource, index) in categoryCources" :content="cource" :key="index" />
+	        <div class="category__couces mather" v-if="categoryCources && categoryCources.length">
+				<cources-list :content="categoryCources"/>
 	        </div>
+
 			<div v-if="!categoryCources || !categoryCources.length">В данный момент курсов нет</div>
 	    </article>
 
-		<article class="center edit" v-if="edit && data">
+		<article class="category__content" v-if="edit && data">
 			<div class="adminButton" v-if="isAdmin">
 				<div class="button" @click="removeCategory(data.id)">Удалить категорию</div>
 				<div class="button" @click="updateCat(data.id)">Сохранить изменения</div>
 			</div>
-			<input type="text" class="title" v-model="editFields.title">
-			<quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
+
+			<input type="text" class="category__title" v-model="editFields.title">
+			<quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" class="category__description"/>
 
 			<h3>Курсы</h3>
-	        <div class="couces mather" v-if="categoryCources && categoryCources.length">
-				<canopen v-for="(cource, index) in categoryCources" :content="cource" :key="index" />
+	        <div class="category__couces mather" v-if="categoryCources && categoryCources.length">
+				<cources-list :content="categoryCources"/>
 	        </div>
+
 			<div v-if="!categoryCources || !categoryCources.length">В данный момент курсов нет</div>
 
 			<div class="adminButton" v-if="isAdmin">
@@ -33,13 +36,19 @@
 </template>
 
 <script>
+//<canopen v-for="(cource, index) in categoryCources" :content="cource" :key="index" />
 import {
     mapActions,
     mapGetters
 } from 'vuex'
 import canopen from '@/components/canOpen.vue'
+import CourcesList from '@/components/CourcesList.vue'
 
 export default {
+	components: {
+		canopen,
+		CourcesList
+	},
     data() {
         return {
             editFields: {}
@@ -62,9 +71,6 @@ export default {
         categoryCources() {
             return this.disciplines.filter(dis => dis.category == this.$route.params.id) || []
         }
-    },
-    components: {
-		canopen
     },
     methods: {
         ...mapActions([
@@ -100,88 +106,26 @@ export default {
 
 <style lang="less" scoped>
 
-.edit {
-	.quill-editor {
-		margin-top: 20px;
+.category {
+	&__title {
+		width: 100%;
+		margin-bottom: 10px;
 	}
-	.contacts {
-		.textWrapper {
-			input {
-				width: 100%;
-			}
+
+	&__couces {
+		background: #fff;
+		padding: 20px;
+	}
+
+	&-edit {
+		.category__title {
+			margin-top: 20px;
+			font-size: 24px;
+		}
+		.quill-editor {
+			margin-top: 20px;
 		}
 	}
 }
 
-.centersWrapper {
-    .center {
-		box-sizing: border-box;
-        .photo {
-            img {
-                width: 100%;
-            }
-        }
-        .contacts {
-            display: grid;
-            grid-template: "t m"
-						~"/" 50% 50%;
-			.textWrapper {
-				box-sizing: border-box;
-				padding: 20px;
-				line-height: 28px;
-				> div {
-					padding: 8px 60px;
-					margin: 10px 0;
-				}
-			}
-            .map > * {
-                width: 100%;
-            }
-        }
-		.couces {
-			width: 100%;
-			box-sizing: border-box;
-			background: #fff;
-			padding: 10px;
-		}
-		.prepods {
-			width: 100%;
-			display: grid;
-			grid-gap: 20px;
-			justify-content: space-around;
-			grid-template-columns: repeat(auto-fill, 300px);
-			.prepod {
-				width: 300px;
-				background: #fff;
-				text-decoration: none;
-				.photo {
-					width: 300px;
-					height: 300px;
-					background-position: 50% 0;
-					background-size: cover;
-				}
-				.name {
-					margin: 15px 0;
-					font-size: 26px;
-			        line-height: 26px;
-			        padding: 10px;
-					text-align: center;
-					white-space: nowrap;
-				}
-			}
-		}
-    }
-}
-
-@media (max-width: 800px) {
-	.centersWrapper {
-		.center {
-			.contacts {
-				grid-template: 	"t"
-								"m"
-							~"/" 100%;
-			}
-		}
-	}
-}
 </style>

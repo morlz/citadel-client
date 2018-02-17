@@ -23,7 +23,7 @@
 
         <h3>Курсы</h3>
         <div class="couces mather" v-if="centerCources.length">
-            <canopen v-for="(cource, index) in centerCources" :content="cource" :key="index"></canopen>
+			<cources-list :content="centerCources"/>
         </div>
 		<div v-else="centerCources.length">В данный момент курсов нет</div>
 
@@ -63,7 +63,7 @@
 
         <h3>Курсы</h3>
         <div class="couces mather" v-if="centerCources.length">
-            <canopen v-for="(cource, index) in centerCources" :content="cource" :key="index" />
+            <cources-list :content="centerCources"/>
         </div>
 
 		<div v-else="centerCources.length">В данный момент курсов нет</div>
@@ -94,6 +94,7 @@ import gallery from '@/components/gallery.vue'
 import mixins from '@/components/mixins.vue'
 import centerNews from '@/components/centerNews.vue'
 import addNewsForm from '@/components/addNewsForm.vue'
+import CourcesList from '@/components/CourcesList.vue'
 
 
 /*
@@ -107,6 +108,16 @@ import addNewsForm from '@/components/addNewsForm.vue'
 */
 
 export default {
+	components: {
+		user_prev,
+		Quill,
+		canopen,
+		photoSelect,
+		gallery,
+		centerNews,
+		addNewsForm,
+		CourcesList
+	},
     data() {
         return {
             editFields: {},
@@ -153,15 +164,6 @@ export default {
 		currentCenterId () {
 			return this.$router.params.id
 		}
-    },
-    components: {
-        user_prev,
-        Quill,
-        canopen,
-        photoSelect,
-        gallery,
-		centerNews,
-		addNewsForm
     },
     methods: {
         ...mapActions([
