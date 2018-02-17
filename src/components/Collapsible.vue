@@ -85,9 +85,10 @@ export default {
 	transition: all 0.4s ease-in-out;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;
+	padding: 0 10px;
 
 	&-open {
-		padding: 20px 0;
+		padding: 20px 10px;
 		border-top: 1px solid rgb(225, 225, 225);
 		border-bottom: 1px solid rgb(225, 225, 225);
 	}
