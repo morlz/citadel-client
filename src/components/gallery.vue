@@ -27,7 +27,7 @@
 
 		<div v-if="edit">
 			<h3>Добавить изображение</h3>
-			<photoSelect :content="addImageSrc" @save="addImage" :addbtn="1"></photoSelect>
+			<mz-image value="" @input="addImage" edit button/>
 		</div>
 
 	</div>
@@ -35,8 +35,9 @@
 </template>
 
 <script>
-import VueGallery from 'vue-gallery'
-import photoSelect from '@/components/photoSelect.vue'
+import gallery from 'vue-gallery'
+import MzImage from '@/components/MzImage.vue'
+
 import {
     mapActions,
     mapGetters
@@ -52,10 +53,10 @@ export default {
         };
     },
     components: {
-        'gallery': VueGallery,
+        gallery,
 		Carousel,
     	Slide,
-		photoSelect
+		MzImage
     },
 	methods: {
 		addImage(newImage){
@@ -67,10 +68,14 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters([]),
+		imagesArray () {
+			if (typeof this.images == 'string')
+				return JSON.parse(this.images) || []
+
+			return this.images || []
+		},
 		imagesLocal () {
-			if (typeof this.images == 'string') return JSON.parse(this.images)
-			return this.images
+			return this.imagesArray.map(image => !image.indexOf('src="') ? image.substr(5, image.length - 6) : image)
 		},
 		perPageCustom () {
 			if (this.perpage) return this.perpage

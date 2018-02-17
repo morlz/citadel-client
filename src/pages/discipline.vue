@@ -8,7 +8,9 @@
 
         <section class="big">
             <h2 class="title"> {{ dis.title }} </h2>
-            <div class="photoS"> <img :src="dis.logo"> </div>
+            <div class="photoS">
+				<mz-image v-model="dis.logo"/>
+			</div>
             <div class="content" v-html="dis.description"></div>
             <div class="images">
                 <gallery :images="parseJSONimages(dis.images)" :edit="edit" />
@@ -19,7 +21,9 @@
         </section>
 
         <section class="small">
-            <div class="photoB"> <img :src="dis.logo"> </div>
+            <div class="photoB">
+				<mz-image v-model="dis.logo"/>
+			</div>
             <div class="prepods">
                 <h3>Преподаватели</h3>
                 <user_prev v-for="(prepod, index) in disPrepods" :id="prepod" :key="index" />
@@ -65,7 +69,7 @@
 
         <section class="small">
 			<h3>Логотип</h3>
-			<photoSelect :content="editFields.logo" @save="updateLogo" />
+			<mz-image v-model="editFields.logo" edit/>
 
 			<div class="prepods">
 				<h3>Преподаватели</h3>
@@ -98,12 +102,11 @@ import flatPickr from 'vue-flatpickr-component'
 import gallery from '@/components/gallery.vue'
 import user_prev from '@/components/user_prev.vue'
 import prepod_select from '@/components/prepod_select.vue'
-import photoSelect from '@/components/photoSelect.vue'
 import regForm from '@/components/regForm.vue'
 import recordedUsers from '@/components/recordedUsers.vue'
 import mixins from '@/components/mixins.vue'
 import lessons from '@/components/lessons.vue'
-
+import MzImage from '@/components/MzImage.vue'
 
 export default {
     data() {
@@ -151,7 +154,7 @@ export default {
         gallery,
         Quill,
 		prepod_select,
-		photoSelect,
+		MzImage,
 		regForm,
 		flatPickr,
 		recordedUsers,
@@ -180,9 +183,6 @@ export default {
 		},
 		updateImages(newData){
 			this.editFields.images = JSON.stringify(newData)
-		},
-		updateLogo(newData){
-			this.editFields.logo = newData
 		}
     },
     created() {

@@ -8,7 +8,9 @@
 
 				<h2>{{data.name}}</h2>
 
-				<div class="photoS"><img :src="data.photo"></div>
+				<div class="photoS">
+					<mz-image v-model="data.photo"/>
+				</div>
 				<div class="description" v-html="data.description"></div>
 
 				<h3>Роль</h3>
@@ -34,7 +36,9 @@
 				<user-transactions v-if="data.id == user.id || isAdmin" :key="data.id" />
 			</section>
 			<section class="small">
-				<div class="photoB"><img :src="data.photo"></div>
+				<div class="photoB">
+					<mz-image v-model="data.photo"/>
+				</div>
 				<div class="cources"></div>
 			</section>
 		</article>
@@ -46,7 +50,7 @@
 					<div class="button" @click="updateUserHandler">Сохранить изменения</div>
 				</div>
 				<input type="text" class="title" v-model="editFields.name">
-				<photoSelect class="photoS" :content="editFields.photo" @save="changePhoto" />
+				<mz-image v-model="editFields.photo" class="photoS" edit/>
 				<quill-editor v-if="isAdmin || isWorker" :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
 
 				<div v-if="isAdmin">
@@ -81,7 +85,7 @@
 				<user-transactions v-if="data.id == user.id || isAdmin" :key="data.id" />
 			</section>
 			<section class="small">
-				<photoSelect class="photoB" :content="editFields.photo" @save="changePhoto" />
+				<mz-image v-model="editFields.photo" class="photoB" edit/>
 				<div class="cources"></div>
 			</section>
 		</article>
@@ -95,11 +99,12 @@ import {
 	mapMutations
 } from 'vuex'
 
-import photoSelect from '@/components/photoSelect.vue'
 import userRegs from '@/components/userRegs.vue'
 import role_select from '@/components/role_select.vue'
 import userTransactions from '@/components/userTransactions.vue'
 import mixins from '@/components/mixins.vue'
+
+import MzImage from '@/components/MzImage.vue'
 
 export default {
 	data () {
@@ -111,10 +116,10 @@ export default {
 	},
 	mixins: [mixins],
 	components: {
-		photoSelect,
 		userRegs,
 		role_select,
-		userTransactions
+		userTransactions,
+		MzImage
 	},
 	methods: {
 		...mapActions([
@@ -125,9 +130,6 @@ export default {
 		...mapMutations([
 			'toggleEditMutation'
 		]),
-		changePhoto (newPhoto) {
-			this.editFields.photo = newPhoto
-		},
 		onEditorChange({
             editor,
             html,

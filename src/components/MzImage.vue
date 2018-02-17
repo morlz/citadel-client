@@ -1,7 +1,7 @@
 <template>
 <div class="mz-image">
-	<img src="url" v-if="!url"/>
-	<photo-select :content="url" v-if="edit" @save="updateUrl" />
+	<img :src="url" v-if="!edit" class="mz-image__img"/>
+	<photo-select :content="url" v-if="edit" @save="updateUrl" :addbtn="button"/>
 </div>
 </template>
 
@@ -17,7 +17,14 @@ import PhotoSelect from '@/components/photoSelect.vue'
 export default {
 	props: {
 		edit: Boolean,
-		value: String
+		value: {
+			type: String,
+			default: a => ""
+		},
+		button: {
+			type: Boolean,
+			default: a => false
+		},
 	},
     components: {
 		PhotoSelect
@@ -54,6 +61,9 @@ export default {
 
 <style lang="less">
 .mz-image {
-
+	width: 100%;
+	&__img {
+		width: 100%;
+	}
 }
 </style>

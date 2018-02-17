@@ -3,7 +3,9 @@
     <article class="center" v-if="!edit">
         <h2 class="title"> {{data.title}} </h2>
 
-        <div class="photo"> <img :src="data.logo" alt=""></div>
+        <div class="photo">
+			<mz-image v-model="data.logo"/>
+		</div>
 
         <div class="content" v-html="data.description"></div>
 
@@ -43,7 +45,7 @@
             <div class="button" @click="updateCenter(editFields)">Сохранить изменения</div>
         </div>
         <input type="text" class="title" v-model="editFields.title">
-        <photoSelect :content="editFields.logo" @save="updateLogo"></photoSelect>
+		<mz-image v-model="editFields.logo" edit/>
         <quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)" />
 
         <div class="images">
@@ -89,7 +91,7 @@ import {
 import Quill from 'vue-quill-editor'
 import user_prev from '@/components/user_prev.vue'
 import canopen from '@/components/canOpen.vue'
-import photoSelect from '@/components/photoSelect.vue'
+import MzImage from '@/components/MzImage.vue'
 import gallery from '@/components/gallery.vue'
 import mixins from '@/components/mixins.vue'
 import centerNews from '@/components/centerNews.vue'
@@ -112,7 +114,7 @@ export default {
 		user_prev,
 		Quill,
 		canopen,
-		photoSelect,
+		MzImage,
 		gallery,
 		centerNews,
 		addNewsForm,
@@ -184,9 +186,6 @@ export default {
         },
         updateImages(newData) {
             this.editFields.images = JSON.stringify(newData)
-        },
-        updateLogo(newData) {
-            this.editFields.logo = newData
         },
         removeCenter(id) {
             this.remove({
