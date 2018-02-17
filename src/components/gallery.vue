@@ -60,11 +60,11 @@ export default {
     },
 	methods: {
 		addImage(newImage){
-			this.$emit("imagesChanged", [...this.imagesLocal, newImage])
+			this.$emit("imagesChanged", [...this.imagesArray, newImage])
 		},
 		removeImage(e, index) {
 			e.stopPropagation()
-			this.$emit("imagesChanged", this.imagesLocal.filter((el, i) => i != index))
+			this.$emit("imagesChanged", this.imagesArray.filter((el, i) => i != index))
 		}
 	},
 	computed: {
