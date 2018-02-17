@@ -27,7 +27,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 
 const routes = [
 	{ path: '/discipline/:id', component: discipline },
-	{ path: '/cource/:id', component: discipline },
+	{ path: '/cource/:id/:lesson?', component: discipline, props: route => ({ lesson: route.params.lesson }) },
 	//{ path: '/centers/:id', component: centers },
 	{ path: '/centers/:id/:newId?', component: centers, name: "news", props: route => ({ openNew: route.params.newId }) },
 	{ path: '/cat/:id', component: cat },

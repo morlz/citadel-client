@@ -24,7 +24,7 @@ export default {
 		mainHeader,
 		mainFooter,
 		alert
-	},
+	}
 }
 </script>
 

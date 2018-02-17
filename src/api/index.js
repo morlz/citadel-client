@@ -12,9 +12,17 @@ const sortFnFactory = (field, revert = false) => {
 		return 0
 	}
 }
-
-
 const serverAddr = 'public'
+
+let domReady = false
+const wait = (time = 300) => new Promise(resolve => setTimeout(resolve, time))
+const ready = async a => {
+	if (domReady) return
+	await wait(100)
+	return await ready()
+}
+
+window.onload = a => domReady = true
 
 export default {
     async invoke(data) {
@@ -36,6 +44,8 @@ export default {
         if (process.env.NODE_ENV == 'dev') console.log("req:", data.data, "api responce:", apiResponce)
         return apiResponce
     },
+	wait,
+	ready,
 	cookie,
 	sortFnFactory
 }

@@ -6,7 +6,7 @@
 			</div>
 
 			<div class="canOpenWrapper">
-				<lesson v-for="lesson, index in lessonsToShow" :key="index" :content="lesson" />
+				<lesson v-for="lesson, index in lessonsToShow" :key="index" :content="lesson" ref="lessons"/>
 				<div v-if="!lessonsToShow.length">В данный момент занятий нет</div>
 			</div>
 		</div>
@@ -25,8 +25,16 @@ import {
 import lesson from '@/components/lesson.vue'
 import addLessonForm from '@/components/addLessonForm.vue'
 
+import { tween, easing } from 'popmotion'
+import api from '@/api'
+
 export default {
-	props: ["courceId"],
+	props: {
+		courceId: {},
+		scrollTo: {
+			default: a => false
+		}
+	},
 	data () {
 		return {
 			currentTab: "next",
@@ -34,7 +42,9 @@ export default {
 				{ name: "Предстоящие", value: "next" },
 				{ name: "Все", value: "all" },
 				{ name: "Без даты", value: "nodate" },
-			]
+			],
+			scrolled: false,
+			scrollThrottle: false
 		}
 	},
 	components: {
@@ -44,6 +54,16 @@ export default {
 	watch: {
 		courceId () {
 			this.load()
+		},
+		currentCourceLessons () {
+			this.scrolled = false
+			if (this.scrollTo)
+				this.scroll(this.scrollTo)
+		},
+		scrollTo () {
+			this.scrolled = false
+			if (this.scrollTo)
+				this.scroll(this.scrollTo)
 		}
 	},
 	computed: {
@@ -76,11 +96,40 @@ export default {
 			'getLectionsByCource'
 		]),
 		load () {
-			if (this.courceId != undefined) this.getLectionsByCource( this.courceId )
+			if (this.courceId != undefined)
+				this.getLectionsByCource( this.courceId )
+		},
+		scroll (id) {
+			if (this.scrollThrottle)
+				clearTimeout(this.scrollThrottle)
+
+			this.scrollThrottle = setTimeout(a => this.scrollAnimation(id), 100)
+		},
+		async scrollAnimation (id) {
+			await api.ready()
+			if (!this.$refs.lessons)
+				return setTimeout(a => this.scroll(id), 30)
+
+			if (this.scrolled) return
+			this.scrolled = true
+			let lesson = this.$refs.lessons.find(el => el.content.id == id)
+			if (!lesson) return
+			if (!lesson.$el)
+				return setTimeout(a => this.scroll(id), 30)
+
+			let rect = lesson.$el.getBoundingClientRect()
+			let to = document.documentElement.scrollTop + (rect.top - 100 > 0 ? rect.top - 100 : 0)
+			let animation = tween({ from: document.documentElement.scrollTop, to, ease: easing.easeInOut })
+			animation.start({
+				update: v => document.documentElement.scrollTop = v,
+				complete: a => lesson.opened = true
+			})
 		}
 	},
 	mounted () {
 		this.load()
+		if (this.scrollTo)
+			this.scroll(this.scrollTo)
 	}
 }
 </script>

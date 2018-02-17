@@ -17,7 +17,7 @@
             </div>
 
 			<h3>Занятия</h3>
-			<lessons :cource-id="dis.id" />
+			<lessons :cource-id="dis.id" :scroll-to="lesson" />
         </section>
 
         <section class="small">
@@ -40,7 +40,6 @@
 				</label>
 			</div>
         </section>
-
     </article>
 
     <article class="discipline edit" v-if="edit && dis">
@@ -64,7 +63,7 @@
             </div>
 
 			<h3>Занятия</h3>
-			<lessons :cource-id="dis.id" />
+			<lessons :cource-id="dis.id" :scroll-to="lesson"/>
         </section>
 
         <section class="small">
@@ -109,6 +108,9 @@ import lessons from '@/components/lessons.vue'
 import MzImage from '@/components/MzImage.vue'
 
 export default {
+	props: {
+		lesson: [String, Number]
+	},
     data() {
         return {
 			editFields: {},

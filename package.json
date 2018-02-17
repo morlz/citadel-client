@@ -13,6 +13,7 @@
     "axios": "^0.17.1",
     "dateformat": "^3.0.2",
     "js-cookie": "^2.2.0",
+    "popmotion": "^8.1.10",
     "vue": "^2.5.2",
     "vue-carousel": "^0.6.5",
     "vue-cookie": "^1.1.4",
