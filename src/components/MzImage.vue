@@ -1,7 +1,7 @@
 <template>
 <div class="mz-image">
 	<img :src="url" v-if="!edit" class="mz-image__img"/>
-	<photo-select :content="url" v-if="edit" @save="updateUrl" :addbtn="button"/>
+	<mz-image-select :content="value" v-if="edit" @save="updateUrl" :addbtn="button"/>
 </div>
 </template>
 
@@ -12,7 +12,7 @@ import {
 	mapMutations
 } from 'vuex'
 
-import PhotoSelect from '@/components/photoSelect.vue'
+import MzImageSelect from '@/components/MzImageSelect.vue'
 
 export default {
 	props: {
@@ -27,7 +27,7 @@ export default {
 		},
 	},
     components: {
-		PhotoSelect
+		MzImageSelect
     },
 	data () {
 		return {}
