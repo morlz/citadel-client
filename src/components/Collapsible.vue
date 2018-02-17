@@ -23,7 +23,7 @@
 	</div>
 
 	<slide-transition>
-		<div class="mz-collapsible__content" v-if="open" @click.stop>
+		<div class="mz-collapsible__content" v-show="open" @click.stop>
 			<div class="mz-collapsible__contentSide" v-if="$slots.left">
 				<slot name="left"/>
 			</div>
