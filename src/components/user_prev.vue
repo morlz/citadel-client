@@ -58,7 +58,7 @@ export default {
 			if (this.user) return this.user || {}
 		},
 		image () {
-			if (!this.data.photo.indexOf('src="'))
+			if (this.data.photo && !this.data.photo.indexOf('src="'))
 				return this.data.photo.substr(5, this.data.photo.length - 6)
 
 			return this.data.photo
