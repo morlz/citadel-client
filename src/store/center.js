@@ -1,6 +1,7 @@
 import api from '@/api/index'
 
 const state = {
+	all: false,
     cached: [],
 	current: {},
 	currentCenterPrepods: [],
@@ -8,15 +9,16 @@ const state = {
 }
 
 const actions = {
-    getCenters({ commit }) {
-		api.invoke({
+    async getCenters({ commit, state }) {
+		if (state.all) return
+
+		let res = await api.invoke({
 			method: 'get',
-			data: {
-				type: 'center'
-			}
-		}).then(({ data }) => {
-            commit('receive_centers', data)
-        })
+			data: { type: 'center' }
+		})
+
+		if (!res || !res.data) return
+		commit('receive_centers', res.data)
     },
 	getCenter (state, id) {
 		let finded = state.getters.centers.find(center => center.id == id)
@@ -107,6 +109,7 @@ const mutations = {
 	},
     receive_centers(state, data) {
         state.cached = data
+		state.all = true
     },
 	receive_currentCenter(state, data) {
         state.current = data

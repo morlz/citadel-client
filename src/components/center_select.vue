@@ -2,7 +2,7 @@
 	<div class="center_select">
 		<input type="text" placeholder="Search" v-model="search">
 		<div class="selectedCenter selected" v-if="selectedCenter"> {{ selectedCenter.title }} </div>
-		<ul class="centers" v-if="this.centers">
+		<ul class="centers" v-if="this.centerList">
 			<li v-if="searched.length" v-for="(cent, index) in searched" @click="select(cent)" class="mather" :class="{selected: isSelected(cent)}"> {{ cent.title }} </li>
 			<li v-if="!searched.length">Нет центров</li>
 		</ul>
@@ -17,7 +17,14 @@ import {
 } from 'vuex'
 
 export default {
-    props: ['content'],
+    props: {
+		content: {},
+		value: {},
+		allowNull: {
+			type: Boolean,
+			dafault: a => false
+		}
+	},
     data() {
         return {
             search: ""
@@ -29,17 +36,22 @@ export default {
 		]),
 		select(cent) {
 			this.$emit('selected', cent.id )
+			this.$emit('input', cent.id )
 		},
 		isSelected (cent) {
-			return cent.id == this.content
+			return cent.id == this.content || cent.id == this.value
 		}
     },
 	computed: {
 		...mapGetters([
 			'centers'
 		]),
+		centerList () {
+			if (!this.allowNull) return this.centers
+			return [{ title: "Не выбран", id: "" }, ...this.centers]
+		},
 		searched () {
-			return this.centers.filter(center => {
+			return this.centerList.filter(center => {
 				let finded = false || !this.search.length
 				for (var prop in center) {
 					if (center.hasOwnProperty(prop) && center[prop]) {
@@ -50,7 +62,7 @@ export default {
 			})
         },
 		selectedCenter () {
-			return this.centers.find(el => el.id == this.content)
+			return this.centerList.find(el => el.id == this.content || el.id == this.value)
 		}
 	},
 	mounted () {
@@ -73,10 +85,14 @@ export default {
 				pointer-events: none;
 			}
 		}
+		input {
+			width: 100%;
+			box-sizing: border-box;
+		}
 		.selectedCenter {
 			width: 100%;
 			padding: 10px;
-			top: 0;
+			top: -5px;
 			left: 0;
 			position: absolute;
 			opacity: 1;

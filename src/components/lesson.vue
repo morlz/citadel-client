@@ -16,7 +16,7 @@
 
 			<div class="lesson__space tooltip space" slot="headerRight" data-tooltip="Занятые / все места" @click="showRegistredUsers( $event, data.id )">
 				<div class="space__icon"/>
-				<div class="space__numbers">{{ data.filled }} / {{ data.space }}</div>
+				<div class="space__numbers">{{ filled }} / {{ data.space }}</div>
 			</div>
 
 			<div class="lesson__content" v-html="data.description"/>
@@ -121,7 +121,7 @@ export default {
 			return data
 		},
 		filled () {
-			return this.data.space - 1
+			return this.data.filled || 0
 		},
 		durationFormat () {
 			let time = this.data.duration

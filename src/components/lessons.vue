@@ -2,8 +2,17 @@
 	<div class="lessonsWrapper">
 		<div class="tabs">
 			<div class="head mather" v-if="isAdmin">
-				<div class="tab" v-for="tab, index in tabs" @click="currentTab = tab.value" :class="{ selected: tab.value == currentTab }">{{ tab.name }}</div>
+				<div class="tab" v-for="tab, index in tabsDate" @click="currentDate = tab.value" :class="{ selected: tab.value == currentDate }">{{ tab.name }}</div>
 			</div>
+
+			<div class="head mather" v-if="isAdmin">
+				<div class="tab" v-for="tab, index in tabsCenter" @click="currentCenter = tab.value" :class="{ selected: tab.value == currentCenter || tab.value == 'center' && +currentCenter }">{{ tab.name }}</div>
+			</div>
+
+			<div class="head mather" v-if="currentCenterShow">
+				<center-select v-model="currentCenterModel" allow-null/>
+			</div>
+
 
 			<div class="canOpenWrapper mather">
 				<lesson v-for="lesson, index in lessonsToShow" :key="index" :content="lesson" ref="lessons"/>
@@ -25,6 +34,8 @@ import {
 import lesson from '@/components/lesson.vue'
 import addLessonForm from '@/components/addLessonForm.vue'
 
+import CenterSelect from '@/components/center_select.vue'
+
 import { tween, easing } from 'popmotion'
 import api from '@/api'
 
@@ -35,21 +46,30 @@ export default {
 			default: a => false
 		}
 	},
+	components: {
+		addLessonForm,
+		lesson,
+		CenterSelect
+	},
 	data () {
 		return {
-			currentTab: "next",
-			tabs: [
-				{ name: "Предстоящие", value: "next" },
+			currentDate: "next",
+			currentCenter: "center",
+			tabsDate: [
 				{ name: "Все", value: "all" },
+				{ name: "Предстоящие", value: "next" },
+				{ name: "Прошедшие", value: "prev" },
+				{ name: "С датой", value: "date" },
 				{ name: "Без даты", value: "nodate" },
+			],
+			tabsCenter: [
+				{ name: "Все", value: "all" },
+				{ name: "Без центра", value: "nocenter" },
+				{ name: "С центром", value: "center" },
 			],
 			scrolled: false,
 			scrollThrottle: false
 		}
-	},
-	components: {
-		addLessonForm,
-		lesson
 	},
 	watch: {
 		courceId () {
@@ -74,20 +94,56 @@ export default {
 		currentCourceLessons () {
 			return this.lessons.filter(el => el.id_cource == this.courceId) || []
 		},
-		lessonsToShow () {
-			switch (this.currentTab) {
+		filtredByDate () {
+			switch (this.currentDate) {
+				case "all":
+					return this.currentCourceLessons
+					break;
 				case "next":
 					let now = new Date().valueOf()
 					return this.currentCourceLessons.filter(el => new Date(el.date).valueOf() >= now)
 					break;
-				case "all":
-					return this.currentCourceLessons
+				case "prev":
+					return this.currentCourceLessons.filter(el => new Date(el.date).valueOf() < now)
+					break;
+				case "date":
+					return this.currentCourceLessons.filter(el => el.date != null && el.date != "0000-00-00 00:00:00")
 					break;
 				case "nodate":
-					return this.currentCourceLessons.filter(el => el.date == null)
+					return this.currentCourceLessons.filter(el => el.date == null || el.date == "0000-00-00 00:00:00")
 					break;
 				default:
 					return []
+			}
+		},
+		filtredBySenter () {
+			switch (this.currentCenter) {
+				case "all":
+					return this.filtredByDate
+					break;
+				case "center":
+					return this.filtredByDate.filter(el => el.id_center !== null)
+					break;
+				case "nocenter":
+					return this.filtredByDate.filter(el => el.id_center === null)
+					break;
+				default:
+					return this.filtredByDate.filter(el => el.id_center === this.currentCenter)
+			}
+		},
+		lessonsToShow () {
+			return this.filtredBySenter
+		},
+		currentCenterShow () {
+			return this.currentCenter != 'all' && this.currentCenter != 'nocenter'
+		},
+		currentCenterModel: {
+			get () {
+				if (this.currentCenter == 'center') return ""
+				return this.currentCenter
+			},
+			set (n) {
+				this.currentCenter = n ? n : 'center'
 			}
 		}
 	},
@@ -146,7 +202,7 @@ export default {
 			justify-items: stretch;
 			align-items: center;
 			text-align: center;
-			> div {
+			> .tab {
 				border-bottom: 1px solid transparent;
 				transition: all 0.3s ease-in-out;
 				padding: 10px;
