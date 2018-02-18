@@ -176,4 +176,15 @@ export default {
 	}
 }
 
+@media screen and (max-width: 650px) {
+	.mz-collapsible {
+		&__header {
+			grid-template: auto auto ~"/" 1fr max-content;
+		}
+
+		&__title {
+			grid-area: ~"1 / 1 / 3 / 2";
+		}
+	}
+}
 </style>

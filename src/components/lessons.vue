@@ -9,7 +9,7 @@
 				<div class="tab" v-for="tab, index in tabsCenter" @click="currentCenter = tab.value" :class="{ selected: tab.value == currentCenter || tab.value == 'center' && +currentCenter }">{{ tab.name }}</div>
 			</div>
 
-			<div class="head mather" v-if="currentCenterShow">
+			<div class="head mather notabs" v-if="currentCenterShow">
 				<center-select v-model="currentCenterModel" allow-null/>
 			</div>
 
@@ -214,6 +214,11 @@ export default {
 			justify-items: stretch;
 			align-items: center;
 			text-align: center;
+			&:not(.notabs) {
+				grid-template-columns: repeat(auto-fit, minmax(120px, auto));
+				grid-auto-flow: dense;
+				height: auto;
+			}
 			> .tab {
 				border-bottom: 1px solid transparent;
 				transition: all 0.3s ease-in-out;
@@ -230,4 +235,5 @@ export default {
 		}
 	}
 }
+
 </style>

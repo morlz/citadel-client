@@ -296,4 +296,17 @@ export default {
 	}
 }
 
+@media screen and (max-width: 650px) {
+	.lesson {
+		&__descripionList {
+			padding: 0;
+		}
+		.space {
+			&__icon {
+				display: none;
+			}
+		}
+	}
+}
+
 </style>
