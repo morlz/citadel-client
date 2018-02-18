@@ -6,11 +6,12 @@
 			</div>
 
 			<div class="lesson__descripion" slot="description">
-				Стоимость {{ data.price }} р.<br>
-				Длительность {{ durationFormat }} <br>
-				Дата {{ dateFormat }}<br>
-				Время {{ timeFormat }} <br>
-				{{ lessonCenter }}
+				<ul class="lesson__descripionList">
+					<li>Стоимость {{ data.price }} р.</li>
+					<li>{{ dateFormat ? `Дата ${dateFormat}` : `Дата и время не указаны` }}</li>
+					<li v-if="timeFormat">{{ timeFormat ? `Время ${timeFormat}` : `` }}</li>
+					<li>{{ lessonCenter }}</li>
+				</ul>
 			</div>
 
 			<div class="lesson__space tooltip space" slot="headerRight" data-tooltip="Занятые / все места" @click="showRegistredUsers( $event, data.id )">
@@ -52,7 +53,7 @@
 				<input class="lesson__field" type="text" placeholder="Длительность (мин)" v-model="editFields.duration"/>
 
 				<h4>Дата и время занятия</h4>
-				<flat-pickr class="lesson__field" v-model="editFields.date" :config="FP"/>
+				<flat-pickr class="lesson__field" v-model="fpModel" :config="FP"/>
 
 				<h4>Цена</h4>
 				<input class="lesson__field" type="text" v-model="editFields.price" placeholder="Цена"/>
@@ -147,7 +148,17 @@ export default {
 		},
 		lessonCenter () {
 			let center = this.centers.find(el => el.id == this.data.id_center)
-			return center ? center.title : 'Не назначен'
+			return center ? center.title : 'Центр не назначен'
+		},
+		fpModel: {
+			get () {
+				if (this.editFields.date == "0000-00-00 00:00:00") return
+				return dateFormat(new Date(this.editFields.date), "yyyy-mm-dd HH:MM:ss")
+			},
+			set (n) {
+				if (!n) n = "0000-00-00 00:00:00"
+				this.editFields.date = n
+			}
 		}
 	},
 	methods: {
@@ -262,6 +273,10 @@ export default {
 		input {
 			width: 100%;
 		}
+	}
+
+	&__descripionList {
+		list-style: none;
 	}
 }
 
