@@ -34,7 +34,7 @@
 		<transition name="fade">
 			<div class="modalWrapper" :class="{ modalOpen: signUpFormOpen }" @click="signUpClose">
 				<div class="modal mather" @click="stopProp">
-					<input type="text" placeholder="Имя" v-model="signupFrom.name">
+					<input type="text" placeholder="Фамилия Имя Отчество (полностью)" v-model="signupFrom.name">
 					<input type="text" placeholder="Логин" v-model="signupFrom.login">
 					<input type="text" placeholder="email" v-model="signupFrom.email">
 					<input type="password" placeholder="Пароль" v-model="signupFrom.password">

@@ -1,6 +1,6 @@
 <template>
 	<div class="center_select">
-		<input type="text" placeholder="Search" v-model="search">
+		<input type="text" placeholder="Поиск" v-model="search">
 		<div class="selectedCenter selected" v-if="selectedCenter"> {{ selectedCenter.title }} </div>
 		<ul class="centers" v-if="this.centerList">
 			<li v-if="searched.length" v-for="(cent, index) in searched" @click="select(cent)" class="mather" :class="{selected: isSelected(cent)}"> {{ cent.title }} </li>
@@ -48,7 +48,7 @@ export default {
 		]),
 		centerList () {
 			if (!this.allowNull) return this.centers
-			return [{ title: "Не выбран", id: "" }, ...this.centers]
+			return [{ title: "Выберите учебную площадку", id: "" }, ...this.centers]
 		},
 		searched () {
 			return this.centerList.filter(center => {
