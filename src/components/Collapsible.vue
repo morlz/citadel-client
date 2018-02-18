@@ -121,7 +121,6 @@ export default {
 	&__iconArrow {
 		width: 35px;
 		height: 35px;
-		margin-top: -20px;
 		background: url("../assets/images/ARROW.svg") no-repeat 50% 50%;
 		background-size: 25px;
 		transition: all 0.4s ease-in-out;
