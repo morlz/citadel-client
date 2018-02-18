@@ -6,12 +6,6 @@
 </template>
 
 <script>
-import {
-    mapActions,
-    mapGetters,
-	mapMutations
-} from 'vuex'
-
 import MzImageSelect from '@/components/MzImageSelect.vue'
 
 export default {
@@ -29,13 +23,7 @@ export default {
     components: {
 		MzImageSelect
     },
-	data () {
-		return {}
-	},
 	computed: {
-		...mapGetters([
-
-		]),
 		url () {
 			// index === 0
 			// найдено на 1 позиции
@@ -46,12 +34,6 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions([
-
-		]),
-		...mapMutations([
-
-		]),
 		updateUrl (e) {
 			this.$emit('input', e)
 		}

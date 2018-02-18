@@ -1,9 +1,3 @@
-import {
-	mapActions,
-	mapGetters,
-	mapMutations
-} from 'vuex'
-
 const css = (element, css) => {
 	let style = element.style
 

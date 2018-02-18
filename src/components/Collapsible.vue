@@ -50,12 +50,6 @@
 </template>
 
 <script>
-import {
-    mapActions,
-    mapGetters,
-	mapMutations
-} from 'vuex'
-
 import SlideTransition from '@/components/SlideTransition.js'
 
 export default {
@@ -77,23 +71,12 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters([
-
-		]),
 		opened () {
 			if (this.value === undefined)
 				return this.open
 
 			return this.value
 		}
-	},
-	methods: {
-		...mapActions([
-
-		]),
-		...mapMutations([
-
-		])
 	},
 }
 </script>

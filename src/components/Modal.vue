@@ -35,24 +35,12 @@ export default {
 			default: a => false
 		}
 	},
-    components: {
-
-    },
-	data () {
-		return {}
-	},
 	computed: {
 		...mapGetters([
 			'app_view_mobile'
 		])
 	},
 	methods: {
-		...mapActions([
-
-		]),
-		...mapMutations([
-
-		]),
 		close () {
 			this.$emit('input', false)
 		}

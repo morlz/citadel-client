@@ -90,7 +90,6 @@ import {
 } from 'vuex'
 import Quill from 'vue-quill-editor'
 import user_prev from '@/components/user_prev.vue'
-import canopen from '@/components/canOpen.vue'
 import MzImage from '@/components/MzImage.vue'
 import gallery from '@/components/gallery.vue'
 import mixins from '@/components/mixins.vue'
@@ -113,7 +112,6 @@ export default {
 	components: {
 		user_prev,
 		Quill,
-		canopen,
 		MzImage,
 		gallery,
 		centerNews,
