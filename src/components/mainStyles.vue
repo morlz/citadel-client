@@ -159,6 +159,18 @@ textarea {
     .buttonTR;
     color: #4285f4;
 }
+.buttonTRbi {
+	.buttonTRb;
+	text-transform: none;
+}
+.buttonTRri {
+	.buttonTRbi;
+	color: red;
+}
+.buttonTRgi {
+	.buttonTRbi;
+	color: gray;
+}
 
 .mather {
     transition: all 0.3s ease-in-out;
@@ -274,6 +286,7 @@ article {
     position: relative;
     &:before {
         content: attr(data-tooltip);
+		font-family: "Roboto", Arial, sans-serif;
         text-align: center;
         box-sizing: border-box;
         display: block;
@@ -290,7 +303,7 @@ article {
         border-radius: 5px;
         opacity: 0;
         transition: 0.25s ease-in-out;
-        box-shadow: 0 7px 9px 0 rgba(0,0,0,0.15);
+        box-shadow: 0 2px 5px 2px rgba(0,0,0,0.20);
     }
     &:after {
         content: '';

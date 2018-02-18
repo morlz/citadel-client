@@ -1,5 +1,5 @@
 <template>
-<div class="mz-collapsible" @click="open = !open" :class="{ 'mz-collapsible-open': open }">
+<div class="mz-collapsible" @click="open = !open" :class="{ 'mz-collapsible-open': opened }">
 	<div class="mz-collapsible__header">
 		<div class="mz-collapsible__title">
 			<slot name="title">
@@ -13,17 +13,19 @@
 			</slot>
 		</div>
 
-		<div class="mz-collapsible__icon">
+		<div class="mz-collapsible__headerRight" v-if="$slots.headerRight">
 			<slot name="headerRight"/>
+		</div>
 
+		<div class="mz-collapsible__icon">
 			<slot name="icon">
-				<div class="mz-collapsible__iconArrow" :class="{ 'mz-collapsible__iconArrow-opened' : open }"/>
+				<div class="mz-collapsible__iconArrow" :class="{ 'mz-collapsible__iconArrow-opened' : opened }"/>
 			</slot>
 		</div>
 	</div>
 
 	<slide-transition>
-		<div class="mz-collapsible__content" v-show="open" @click.stop>
+		<div class="mz-collapsible__content" v-show="opened" @click.stop>
 			<div class="mz-collapsible__contentSide" v-if="$slots.left">
 				<slot name="left"/>
 			</div>
@@ -39,7 +41,9 @@
 	</slide-transition>
 
 	<div class="mz-collapsible__buttons" v-if="$slots.buttonsOpen || $slots.buttons">
-		<slot name="buttonsOpen" v-if="open"/>
+		<slide-transition>
+			<slot name="buttonsOpen" v-if="opened"/>
+		</slide-transition>
 		<slot name="buttons"/>
 	</div>
 </div>
@@ -55,6 +59,7 @@ import {
 import SlideTransition from '@/components/SlideTransition.js'
 
 export default {
+	props: ['value'],
     components: {
 		SlideTransition
     },
@@ -63,10 +68,24 @@ export default {
 			open: false
 		}
 	},
+	watch: {
+		open (n) {
+			this.$emit('input', n)
+		},
+		value (n) {
+			this.open = n
+		}
+	},
 	computed: {
 		...mapGetters([
 
-		])
+		]),
+		opened () {
+			if (this.value === undefined)
+				return this.open
+
+			return this.value
+		}
 	},
 	methods: {
 		...mapActions([
@@ -95,7 +114,7 @@ export default {
 
 	&__header {
 		display: grid;
-		grid-template-columns: 1fr 35px;
+		grid-template-columns: 1fr max-content max-content;
 		align-items: center;
 	}
 
@@ -132,6 +151,16 @@ export default {
 		display: grid;
 		grid-auto-flow: column;
 		justify-content: end;
+		> div {
+			display: grid;
+			grid-auto-flow: column;
+			justify-content: end;
+			align-items: center;
+			&::-webkit-scrollbar {
+				width: 0;
+				height: 0;
+			}
+		}
 	}
 }
 

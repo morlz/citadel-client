@@ -1,11 +1,11 @@
 <template>
 	<div class="lessonsWrapper">
 		<div class="tabs">
-			<div class="head" v-if="isAdmin">
+			<div class="head mather" v-if="isAdmin">
 				<div class="tab" v-for="tab, index in tabs" @click="currentTab = tab.value" :class="{ selected: tab.value == currentTab }">{{ tab.name }}</div>
 			</div>
 
-			<div class="canOpenWrapper">
+			<div class="canOpenWrapper mather">
 				<lesson v-for="lesson, index in lessonsToShow" :key="index" :content="lesson" ref="lessons"/>
 				<div v-if="!lessonsToShow.length">В данный момент занятий нет</div>
 			</div>

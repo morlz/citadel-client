@@ -1,73 +1,73 @@
 <template>
-	<div class="canOpenLection" :class="{opened: opened || localEdit}" @click="opened = !opened || localEdit">
-		<div v-if="!localEdit">
-			<div class="title"> {{data.title}} </div>
-
-			<div class="space tooltip" data-tooltip="Занятые / все места" @click="showRegistredUsers( $event, data.id )">
-				<div class="spaceIcon"></div>
-				<div class="spaceNumbers">{{ data.filled }} / {{ data.space }}</div>
+	<collapsible class="lesson" :class="{ 'lesson-opened': opened || localEdit }" @input="collapsibleInput" :value="opened || localEdit">
+		<template v-if="!localEdit">
+			<div class="lesson__title" slot="name">
+				{{ data.title }}
 			</div>
 
-			<div class="description">
-				Стоимость {{data.price}} р.<br>
+			<div class="lesson__descripion" slot="description">
+				Стоимость {{ data.price }} р.<br>
 				Длительность {{ durationFormat }} <br>
-				Дата {{ dateFormat }} <br>
+				Дата {{ dateFormat }}<br>
 				Время {{ timeFormat }} <br>
 				{{ lessonCenter }}
 			</div>
 
-			<div class="arrow" />
-
-			<div class="content">
-				<div v-html="data.description"/>
+			<div class="lesson__space tooltip space" slot="headerRight" data-tooltip="Занятые / все места" @click="showRegistredUsers( $event, data.id )">
+				<div class="space__icon"/>
+				<div class="space__numbers">{{ data.filled }} / {{ data.space }}</div>
 			</div>
 
-			<div class="buttonsWrapper">
-				<div class="buttonTRb" @click="localEdit = !localEdit" v-if="isAdmin" >Редактировать</div>
+			<div class="lesson__content" v-html="data.description"/>
+
+			<div slot="buttonsOpen">
+				<i class="material-icons tooltip buttonTRri" data-tooltip="Удалить" @click.stop="deleteLesson($event, data.id)" v-if="isAdmin">delete</i>
+				<i class="material-icons tooltip buttonTRbi" data-tooltip="Редактировать" @click.stop="localEdit = !localEdit" v-if="isAdmin">edit</i>
 				<div class="buttonTRb" v-if="isAdmin && edit" @click="copy">Провести</div>
-				<div class="buttonTRb register" v-if="isAdmin && edit" @click="deleteLesson($event, data.id)">Удалить</div>
-				<div class="buttonTRb register" v-if="!edit && isUser && !data.registred && new Date(data.date).valueOf() > new Date().valueOf()" @click="openRegFormHandler" >Записаться</div>
-				<div class="buttonTRb register" v-if="!edit && !isUser && new Date(data.date).valueOf() > new Date().valueOf()" @click="alertNoRegistred" >Записаться</div>
-				<router-link class="buttonTR register" :to="{ path: `/user/${user.id}` }" v-if="data.registred">Вы записаны</router-link>
 			</div>
-		</div>
 
-		<div v-if="localEdit" class="editLocal">
-			<input type="text" class="title" v-model="editFields.title" placeholder="Название">
+			<div slot="buttons">
+				<i class="material-icons tooltip buttonTRbi" data-tooltip="Копировать ссылку" @click.stop="copyLink">content_copy</i>
+				<div class="buttonTRb" v-if="!edit && isUser && !data.registred && new Date(data.date).valueOf() > new Date().valueOf()" @click="openRegFormHandler" >Записаться</div>
+				<div class="buttonTRb" v-if="!edit && !isUser && new Date(data.date).valueOf() > new Date().valueOf()" @click="alertNoRegistred" >Записаться</div>
+				<router-link class="buttonTR" :to="{ path: `/user/${user.id}` }" v-if="data.registred">Вы записаны</router-link>
+			</div>
+		</template>
 
-			<div class="arrow" />
 
-			<div class="content">
+		<template v-if="localEdit">
+			<input type="text" class="lesson__title" v-model="editFields.title" placeholder="Название" slot="name">
+
+			<div class="lesson__content">
 				<h4>Преподаватель</h4>
-		        <prepod_select :content="editFields.id_worker" @selected="onPrepodSelected" />
+				<prepod_select class="lesson__field" :content="editFields.id_worker" @selected="onPrepodSelected" />
 
 				<h4>Центр</h4>
-				<center_select :content="editFields.id_center" @selected="onCenterSelected" />
+				<center_select class="lesson__field" :content="editFields.id_center" @selected="onCenterSelected" />
 
-				<h4 class="dur">Количество мест</h4>
+				<h4 class="lesson__sliderName">Количество мест</h4>
 				<vue-slider v-model="editFields.space" :min="0" :max="36"/>
 
-				<h4 class="dur">Длительность</h4>
-				<input type="text" placeholder="Длительность (мин)" v-model="editFields.duration">
+				<h4 class="lesson__sliderName">Длительность</h4>
+				<input class="lesson__field" type="text" placeholder="Длительность (мин)" v-model="editFields.duration"/>
 
 				<h4>Дата и время занятия</h4>
-				<flat-pickr v-model="editFields.date" :config="FP"></flat-pickr>
+				<flat-pickr class="lesson__field" v-model="editFields.date" :config="FP"/>
 
 				<h4>Цена</h4>
-				<input type="text" v-model="editFields.price" placeholder="Цена">
+				<input class="lesson__field" type="text" v-model="editFields.price" placeholder="Цена"/>
 
 				<h4>Описание</h4>
 				<quill-editor :content="editFields.description" :options="quillOptions" @change="onEditorChange($event)"/>
 			</div>
 
-			<div class="buttonsWrapper">
-				<div class="buttonTRb" @click="localEdit = !localEdit || !data">Отменить</div>
-				<div class="buttonTRb" @click="save">Сохранить</div>
+			<template slot="buttons">
+				<i class="material-icons tooltip buttonTRgi" data-tooltip="Отменить" @click="localEdit = !localEdit || !data">cancel</i>
+				<i class="material-icons tooltip buttonTRbi" data-tooltip="Сохранить" @click="save">save</i>
 				<div class="buttonTRb" @click="openRegFormHandler" v-if="regButton">Записаться</div>
-			</div>
-
-		</div>
-	</div>
+			</template>
+		</template>
+	</collapsible>
 </template>
 
 <script>
@@ -83,6 +83,8 @@ import prepod_select from '@/components/prepod_select.vue'
 import center_select from '@/components/center_select.vue'
 import dateFormat from 'dateformat'
 
+import Collapsible from '@/components/Collapsible'
+
 export default {
 	props: ['content'],
 	data () {
@@ -96,7 +98,8 @@ export default {
 		vueSlider,
 		flatPickr,
 		center_select,
-		prepod_select
+		prepod_select,
+		Collapsible
 	},
 	computed: {
 		...mapGetters([
@@ -220,12 +223,67 @@ export default {
 					{ name: "Ок" }
 				]
 			})
+		},
+		collapsibleInput (n) {
+			this.opened = n
+		},
+		copyLink () {
+			let input = document.createElement('input')
+			input.style.opacity = 0
+			input.style.top = 0
+			input.style.position = 'absolute'
+			input.value = `${window.location.origin}/#/cource/${this.data.id_cource}/${this.data.id}`
+			document.documentElement.appendChild(input)
+			input.select()
+			document.execCommand('copy')
+			input.remove()
 		}
 	}
 }
 </script>
 
 <style lang="less">
+
+.lesson {
+	&__title {
+		padding: 10px 0;
+		color: #444;
+		font-size: 24px;
+		font-weight: 400;
+		line-height: 20px;
+		cursor: pointer;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	&__field {
+		margin: 0 10px;
+		width: ~"calc(100% - 20px)";
+		input {
+			width: 100%;
+		}
+	}
+}
+
+.space {
+	display: grid;
+	grid-auto-flow: column;
+	align-items: center;
+	transition: all .3s ease-in-out;
+	grid-gap: 10px;
+	&__icon {
+		background: url('../assets/images/люди.png') no-repeat;
+		background-size: 100%;
+		width: 48px;
+		height: 48px;
+	}
+
+	&__numbers {
+
+	}
+}
+
+/*
 
 .canOpenLection {
 	box-sizing: border-box;
@@ -380,4 +438,6 @@ export default {
 		grid-auto-flow: row;
 	}
 }
+*/
+
 </style>
