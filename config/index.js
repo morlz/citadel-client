@@ -48,10 +48,14 @@ module.exports = {
 
 	build: {
 		// Template for index.html
-		index: path.resolve(__dirname, '../dist/index.html'),
+		//index: path.resolve(__dirname, '../dist/index.html'),
+									// cit-cl cit	c:/
+		index: path.resolve(__dirname, '..', '..', '..', 'xampp', 'htdocs', 'index.html'),
 
 		// Paths
-		assetsRoot: path.resolve(__dirname, '../dist'),
+		//assetsRoot: path.resolve(__dirname, '../dist'),
+										//	cit-cl cit	c:/
+		assetsRoot: path.resolve(__dirname, '..', '..', '..', 'xampp', 'htdocs'),
 		assetsSubDirectory: 'static',
 		assetsPublicPath: '/',
 
@@ -61,7 +65,7 @@ module.exports = {
 
 		productionSourceMap: true,
 		// https://webpack.js.org/configuration/devtool/#production
-		devtool: '#source-map',
+		devtool: 'none',//'#source-map',
 
 		// Gzip off by default as many popular static hosts such as
 		// Surge or Netlify already gzip all static assets for you.
