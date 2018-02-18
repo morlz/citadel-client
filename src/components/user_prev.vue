@@ -1,11 +1,11 @@
 <template>
 	<router-link class="user_prev mather" :to="{ path: `/user/${data.id}` }">
 		<div class="image" :style="{
-			'background-image' : data.photo ? `url('${data.photo}')` : '',
+			'background-image' : image ? `url('${image}')` : '',
 			'width' : width || '300px',
 			'height' : width || '300px'
 			}"
-			:class="{ noImage: !data.photo }"></div>
+			:class="{ noImage: !image }"></div>
 		<h2 class="name"> {{ data.name }}</h2>
 	    <div class="contactsWrapper">
 	        <div class="contacts">
@@ -56,6 +56,12 @@ export default {
 		data () {
 			if (this.id) return this.allUsers.find(el => el.id == this.id) || {}
 			if (this.user) return this.user || {}
+		},
+		image () {
+			if (!this.data.photo.indexOf('src="'))
+				return this.data.photo.substr(5, this.data.photo.length - 6)
+
+			return this.data.photo
 		}
 	},
 	mounted () {

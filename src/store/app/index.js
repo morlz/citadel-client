@@ -17,6 +17,8 @@ const actions = {
 		let randomMemeIndex = (Math.round(Math.random() * state.memes.count)),
 			memUrl = window.location.origin + state.memes.path + randomMemeIndex + '.gif'
 
+		/*'http://edu.it-citadel.ru'*/
+
 		setTimeout(a => console.image(memUrl), 5e3)
 	}
 }
