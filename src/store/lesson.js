@@ -219,28 +219,14 @@ const mutations = {
 }
 
 const getters = {
-	lessons: state => state.cached.sort( api.sortFnFactory(date => new Date(date).valueOf()) ),
-	regFormContent ({ regFormContent }) {
-		return regFormContent
-	},
-	regFormShow ({ regFormShow }) {
-		return regFormShow
-	},
-	addLectionData({ addLectionData }){
-		return addLectionData
-	},
-	lessonFilter({ lessonFilter }){
-		return lessonFilter
-	},
-	currentUsersRegistredContent ({ currentUsersRegistred }) {
-		return currentUsersRegistred
-	},
-	currentUsersRegistredShow({ currentUsersRegistredShow }){
-		return currentUsersRegistredShow
-	},
-	currentLesson({ currentLesson }){
-		return currentLesson
-	},
+	lessons: state => state.cached.sort( api.sortFnFactory(lesson => lesson.date && lesson.date != "0000-00-00 00:00:00"? new Date(lesson.date).valueOf() : 0 ) ),
+	regFormContent: state => state.regFormContent,
+	regFormShow: state => state.regFormShow,
+	addLectionData: state => state.addLectionData,
+	lessonFilter: state => state.lessonFilter,
+	currentUsersRegistredContent: state => state.currentUsersRegistred,
+	currentUsersRegistredShow: state => state.currentUsersRegistredShow,
+	currentLesson: state => state.currentLesson,
 	registerTypes: state => state.registerTypes,
 	paymentTypes: state => state.paymentTypes,
 }

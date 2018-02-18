@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 
-			<div class="lesson__space tooltip space" slot="headerRight" data-tooltip="Занятые / все места" @click="showRegistredUsers( $event, data.id )">
+			<div class="lesson__space tooltip space" slot="headerRight" data-tooltip="Занятые / все места" @click.stop="showRegistredUsers( data.id )">
 				<div class="space__icon"/>
 				<div class="space__numbers">{{ filled }} / {{ data.space }}</div>
 			</div>
@@ -24,7 +24,7 @@
 			<div slot="buttonsOpen">
 				<i class="material-icons tooltip buttonTRri" data-tooltip="Удалить" @click.stop="deleteLesson($event, data.id)" v-if="isAdmin">delete</i>
 				<i class="material-icons tooltip buttonTRbi" data-tooltip="Редактировать" @click.stop="localEdit = !localEdit" v-if="isAdmin">edit</i>
-				<div class="buttonTRb" v-if="isAdmin && edit" @click="copy">Провести</div>
+				<div class="buttonTRb" v-if="isAdmin && edit" @click.stop="copy">Провести</div>
 			</div>
 
 			<div slot="buttons">
@@ -194,7 +194,6 @@ export default {
             this.editFields.description = html
         },
 		copy(e){
-			e.stopPropagation()
 			let data = this.editFields
 			data.date = new Date()
 			this.addLectionDataSet(data)
@@ -207,8 +206,7 @@ export default {
 				redirect: false
 			})
 		},
-		showRegistredUsers ( e, lessonId ) {
-			e.stopPropagation()
+		showRegistredUsers ( lessonId ) {
 			if (!this.isAdmin) return
 			this.showCurrentUsers()
 			this.getRegistredUsersForCurrentLesson( lessonId )

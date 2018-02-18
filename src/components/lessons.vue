@@ -89,7 +89,8 @@ export default {
 	computed: {
 		...mapGetters([
 			'lessons',
-			'isAdmin'
+			'isAdmin',
+			'lessonFilter'
 		]),
 		currentCourceLessons () {
 			return this.lessons.filter(el => el.id_cource == this.courceId) || []
@@ -131,8 +132,19 @@ export default {
 					return this.filtredByDate.filter(el => el.id_center === this.currentCenter)
 			}
 		},
+		filtredByDateRange () {
+			if (!this.lessonFilter.date || this.lessonFilter.date.length !== 2)
+				return this.filtredBySenter
+
+			return this.filtredBySenter.filter(el => {
+				if (!el.date || el.date == "0000-00-00 00:00:00") return
+				if (new Date(el.date).valueOf() < new Date(this.lessonFilter.date[0]).valueOf()) return
+				if (new Date(el.date).valueOf() > new Date(this.lessonFilter.date[1]).valueOf()) return
+				return true
+			})
+		},
 		lessonsToShow () {
-			return this.filtredBySenter
+			return this.filtredByDateRange
 		},
 		currentCenterShow () {
 			return this.currentCenter != 'all' && this.currentCenter != 'nocenter'
