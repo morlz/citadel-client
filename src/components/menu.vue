@@ -47,7 +47,7 @@ export default {
 					childs: this.plChilds
 				},
 				{
-					name: "Курсы",
+					name: "Направления",
 					childs: this.catChilds
 				},
 				{
