@@ -13,7 +13,6 @@
 				<center-select v-model="currentCenterModel" allow-null/>
 			</div>
 
-
 			<div class="canOpenWrapper mather">
 				<lesson v-for="lesson, index in lessonsToShow" :key="index" :content="lesson" ref="lessons"/>
 				<div v-if="!lessonsToShow.length">В данный момент занятий нет</div>

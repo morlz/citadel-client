@@ -75,14 +75,10 @@ export default {
 			'lessons'
 		]),
 		searched () {
-			let search = (el, q) => {
-				return this.searchFn(el, q)
-			}
+			if (!this.search.length)
+				return this.lessons
 
-			if (!this.search.length) {
-				return this.lessons.sort(this.sortByDate).reverse()
-			}
-			return this.lessons.filter(el => search(el, this.search)).sort(sortByDate).reverse()
+			return this.lessons.filter(el => this.searchFn(el, this.search))
 		}
 	},
 	mounted () {

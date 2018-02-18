@@ -1,5 +1,5 @@
 <template>
-	<div class="currentUsersRegistredWrapper" :class="{currentUsersRegistredWrapperActive: currentUsersRegistredShow}">
+	<div class="currentUsersRegistredWrapper" :class="{currentUsersRegistredWrapperActive: currentUsersRegistredShow}" v-if="isAdmin">
 		<div class="backButton" @click="hideCurrentUsers"></div>
 		<div class="currentUsersRegistred mather">
 			<div class="content">
@@ -46,6 +46,7 @@ export default {
     },
 	computed: {
 		...mapGetters([
+			'isAdmin',
 			'edit',
 			'currentUsersRegistredShow',
 			'currentUsersRegistredContent'
