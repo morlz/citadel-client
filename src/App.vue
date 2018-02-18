@@ -24,6 +24,9 @@ export default {
 		mainHeader,
 		mainFooter,
 		alert
+	},
+	mounted () {
+		this.$store.dispatch('app_init')
 	}
 }
 </script>
