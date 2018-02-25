@@ -100,11 +100,11 @@ export default {
 					return this.currentCourceLessons
 					break;
 				case "next":
-					let now = new Date().valueOf()
-					return this.currentCourceLessons.filter(el => new Date(el.date).valueOf() >= now)
+					return this.currentCourceLessons.filter(el => new Date(el.date).valueOf() >= Date.now())
 					break;
 				case "prev":
-					return this.currentCourceLessons.filter(el => new Date(el.date).valueOf() < now)
+
+					return this.currentCourceLessons.filter(el => new Date(el.date).valueOf() < Date.now())
 					break;
 				case "date":
 					return this.currentCourceLessons.filter(el => el.date != null && el.date != "0000-00-00 00:00:00")
@@ -224,6 +224,7 @@ export default {
 				padding: 10px;
 				box-sizing: border-box;
 				cursor: pointer;
+				user-select: none;
 				&:hover {
 					color: #448aff;
 				}

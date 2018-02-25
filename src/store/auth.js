@@ -80,14 +80,23 @@ const actions = {
 				login: state.user.login
 			}
 
-		for (var prop in params) {
-			if (params.hasOwnProperty(prop)) {
+		for (var prop in params)
+			if (params.hasOwnProperty(prop))
 				url += `${prop}=${params[prop]}&`
-			}
-		}
 
 		window.location.href = url
-	}
+	},
+	async loginAsUser({ commit, dispatch }, id) {
+		let res = await api.invoke({
+			method: 'get',
+			data: {
+				type: "loginas",
+				id
+			}
+		})
+		if (!res || !res.data) return
+		commit('receive_user', res.data)
+	},
 }
 
 const mutations = {

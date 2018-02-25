@@ -4,6 +4,7 @@
 			<section class="big">
 				<div class="adminButton">
 					<div class="button" @click="localEdit = !localEdit" v-if="user.id == data.id">Изменить профиль</div>
+					<div class="button" @click="loginAsUser(data.id)" v-if="isAdmin && user.id != data.id">Войти под пользователем</div>
 				</div>
 
 				<h2>{{data.name}}</h2>
@@ -125,7 +126,8 @@ export default {
 		...mapActions([
 			'setCurrentUser',
 			'updateUser',
-			'addCash'
+			'addCash',
+			'loginAsUser'
 		]),
 		...mapMutations([
 			'toggleEditMutation'
