@@ -29,16 +29,19 @@ const actions = {
             commit('addUsersToCache', data)
         })
     },
-	getUser({ commit }, id) {
-		api.invoke({
+	async getUser({ commit, state }, id) {
+		if (state.cached.find(el => el.id == id)) return
+
+		let res = await api.invoke({
 			method: 'get',
 			data: {
 				type: 'user',
 				id
 			}
-		}).then(({ data }) => {
-			commit('addUsersToCache', [data])
 		})
+
+		if (!res || !res.data) return
+		commit('addUsersToCache', [res.data])
 	},
 	getPrepods({ commit }) {
 		api.invoke({
