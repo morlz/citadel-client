@@ -8,7 +8,7 @@
 				<div class="prepodIcon tooltip mather" data-tooltip="Преподаватели" @click="searchSetRole('Преподаватель')"></div>
 				<div class="userIcon tooltip mather" data-tooltip="Пользователи" @click="searchSetRole('Пользователь')"></div>
 			</div>
-			<div class="userList" v-masonry fitWidth="true">
+			<div class="userList" v-masonry fit-width="true">
 				<user_prev v-masonry-tile v-for="user, index in searched" :user="user" :key="index" width="300px" />
 			</div>
 		</article>
@@ -79,6 +79,8 @@ export default {
 <style lang="less">
 	.userListWrapper {
 		article {
+			padding: 10px 40px;
+			width: 100%;
 			display: grid;
 			justify-content: stretch;
 			.search {

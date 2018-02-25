@@ -91,7 +91,7 @@ export default {
             return data
 		},
 		centerId () {
-			return this.data.center_id || (this.centers ? this.centers[0].id : 1)
+			return this.data.center_id || (this.centers && this.centers[0] ? this.centers[0].id : 1)
 		},
 		bgStyle () {
 			return {

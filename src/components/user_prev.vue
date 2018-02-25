@@ -11,6 +11,14 @@
 	        <div class="contacts">
 				<div class="phone" v-if="data.phone">{{data.phone}}</div>
 				<div class="email" v-if="data.email">{{data.email}}</div>
+				<div class="balance" v-if="data.balance !== undefined">
+					<i class="material-icons">attach_money</i>
+					{{ data.balance }}
+				</div>
+				<div class="login" v-if="data.login">
+					<i class="material-icons">verified_user</i>
+					{{ data.login }}
+				</div>
 				<div class="role" :class="{ [roleIconClass(data.id_role)]: true }">{{ roleName(data.id_role) }}</div>
 			</div>
 			<div class="editButtons" v-if="edit">
@@ -103,6 +111,22 @@ export default {
 			width: 100%;
 			box-sizing: border-box;
 			min-height: 40px;
+		}
+		.login, .balance {
+			display: grid;
+			grid-auto-flow: column;
+			justify-content: start;
+			box-sizing: border-box;
+			height: 40px;
+			line-height: 40px;
+			i {
+				width: 40px;
+				height: 40px;
+				font-size: 32px;
+				line-height: 40px;
+				box-sizing: border-box;
+				color: black;
+			}
 		}
 	}
     .contactsWrapper {

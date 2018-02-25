@@ -178,8 +178,9 @@ const mutations = {
         state.cached = data
     },
 	addUsersToCache(state, data) {
-		let toCache = data.filter(user => !state.cached.find(cachedUser => cachedUser.id == user.id))
-		state.cached = [...state.cached, ...toCache]
+		if (!data) return
+		let cached = state.cached.filter(user => !data.find(el => el.id == user.id))
+		state.cached = [...cached, ...data]
 	},
 	setCurrent(state, data){
 		state.current = Object.assign({}, data, {transactions: []})
