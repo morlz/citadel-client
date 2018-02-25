@@ -20,6 +20,12 @@
 			</div>
 
 			<div class="lesson__content" v-html="data.description"/>
+			<template v-if="data.id_worker">
+				<h4>Преподаватель</h4>
+				<div class="lesson__prepod">
+					<user-mini :id="data.id_worker"/>
+				</div>
+			</template>
 
 			<div slot="buttonsOpen">
 				<i class="material-icons tooltip buttonTRri" data-tooltip="Удалить" @click.stop="deleteLesson($event, data.id)" v-if="isAdmin">delete</i>
@@ -85,6 +91,7 @@ import center_select from '@/components/center_select.vue'
 import dateFormat from 'dateformat'
 
 import Collapsible from '@/components/Collapsible'
+import UserMini from '@/components/UserMini'
 
 export default {
 	props: ['content'],
@@ -100,7 +107,8 @@ export default {
 		flatPickr,
 		center_select,
 		prepod_select,
-		Collapsible
+		Collapsible,
+		UserMini
 	},
 	computed: {
 		...mapGetters([
@@ -275,6 +283,13 @@ export default {
 
 	&__descripionList {
 		list-style: none;
+	}
+
+	&__prepod {
+		display: grid;
+		grid-auto-flow: column;
+		justify-content: start;
+		padding: 10px;
 	}
 }
 
