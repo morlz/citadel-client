@@ -11,11 +11,11 @@
 	        <div class="contacts">
 				<div class="phone" v-if="data.phone">{{data.phone}}</div>
 				<div class="email" v-if="data.email">{{data.email}}</div>
-				<div class="balance" v-if="data.balance !== undefined">
+				<div class="balance" v-if="data.balance !== undefined && isAdmin">
 					<i class="material-icons">attach_money</i>
 					{{ data.balance }}
 				</div>
-				<div class="login" v-if="data.login">
+				<div class="login" v-if="data.login && isAdmin">
 					<i class="material-icons">verified_user</i>
 					{{ data.login }}
 				</div>
@@ -59,7 +59,8 @@ export default {
 	computed: {
 		...mapGetters([
 			'allUsers',
-			'edit'
+			'edit',
+			'isAdmin'
 		]),
 		data () {
 			if (this.id) return this.allUsers.find(el => el.id == this.id) || {}
