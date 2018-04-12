@@ -1,32 +1,14 @@
-import Vuex from 'vuex'
 import Vue from 'vue'
+import Vuex from 'vuex'
 
-import discipline from './discipline'
-import users from './users'
-import center from './center'
-import page from './page'
-import admin from './admin'
-import categories from './category'
-import auth from './auth'
-import alert from './alert'
-import lesson from './lesson'
-import app from '@/store/app/index'
-import file from '@/store/file'
+import example from './module-example'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-    modules: {
-        discipline,
-		users,
-		center,
-		page,
-		admin,
-		categories,
-		auth,
-		alert,
-		lesson,
-		app,
-		file
-    }
+const store = new Vuex.Store({
+  modules: {
+    example
+  }
 })
+
+export default store

@@ -1,33 +1,16 @@
 <template>
-    <article class="page404 mather">
-		<h2 class="code">404 Page not found!</h2>
-		<div class="message">
-			Oops... Something went wrong!
-		</div>
-    </article>
+  <div class="fixed-center text-center">
+    <p>
+      <img
+        src="~assets/sad.svg"
+        style="width:30vw;max-width:150px;"
+      >
+    </p>
+    <p class="text-faded">Sorry, nothing here...<strong>(404)</strong></p>
+    <q-btn
+      color="secondary"
+      style="width:200px;"
+      @click="$router.push('/')"
+    >Go back</q-btn>
+  </div>
 </template>
-
-<script>
-export default {}
-</script>
-
-<style lang="less">
-.page404 {
-	display: grid;
-	justify-content: center;
-	align-items: center;
-	width: 500px;
-	background: #fff;
-	box-sizing: border-box;
-	margin: 200px auto;
-	text-align: center;
-}
-
-@media ( max-width: 800px ) {
-	.page404 {
-		max-width: 500px;
-		width: 100%;
-		margin: 20px auto;
-	}
-}
-</style>
