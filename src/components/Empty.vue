@@ -1,7 +1,7 @@
 <template>
-	<q-page>
+<div>
 
-	</q-page>
+</div>
 </template>
 
 <script>
@@ -11,6 +11,7 @@ import {
 	MapMutations,
 	mapState
 } from 'vuex'
+
 import {} from 'quasar'
 
 export default {
@@ -21,20 +22,16 @@ export default {
 
 	},
 	watch: {
-		center(n) {
-			console.log(n);
-		}
+
 	},
 	computed: {
-		center () {
-			return this.$store.state.center.cached.one
-		}
+
 	},
 	methods: {
 
 	},
 	async mounted () {
-		this.$store.dispatch('center/getOne', 1)
+
 	},
 	created () {
 

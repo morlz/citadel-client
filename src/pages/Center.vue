@@ -21,20 +21,16 @@ export default {
 
 	},
 	watch: {
-		center(n) {
-			console.log(n);
-		}
+
 	},
 	computed: {
-		center () {
-			return this.$store.state.center.cached.one
-		}
+
 	},
 	methods: {
 
 	},
 	async mounted () {
-		this.$store.dispatch('center/getOne', 1)
+
 	},
 	created () {
 
