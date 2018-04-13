@@ -2,8 +2,13 @@ import core from './core'
 import BaseFactory from './BaseFactory'
 
 class CenterFactory extends BaseFactory {
+	constructor (...args) {
+		super(...args)
+	}
+
 	static async getAll () {
-		return await core.get('centers').map(el => new this(el))
+		let data = await core.get('center')
+		return data.map(el => new this(el)) || []
 	}
 
 	static async getOne (id) {
@@ -12,11 +17,7 @@ class CenterFactory extends BaseFactory {
 }
 
 export default class Center extends CenterFactory {
-	constructor (source) {
-		super()
-
-		for (var prop in source)
-			if (source.hasOwnProperty(prop))
-				this[prop] = source[prop]
+	constructor (...args) {
+		super(...args)
 	}
 }

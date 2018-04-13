@@ -1,7 +1,21 @@
 <template>
-	<q-page>
+<q-card class="q-ma-md">
+	<q-card-media>
+	</q-card-media>
 
-	</q-page>
+	<q-card-title>
+	</q-card-title>
+
+	<q-card-actions>
+		<q-btn color="primary">
+			Профиль
+		</q-btn>
+
+		<q-btn flat color="secondary">
+			Выйти
+		</q-btn>
+	</q-card-actions>
+</q-card>
 </template>
 
 <script>
@@ -11,6 +25,7 @@ import {
 	MapMutations,
 	mapState
 } from 'vuex'
+
 import {} from 'quasar'
 
 export default {

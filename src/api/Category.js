@@ -2,8 +2,13 @@ import core from './core'
 import BaseFactory from './BaseFactory'
 
 class CategoryFactory extends BaseFactory {
+	constructor (...args) {
+		super(...args)
+	}
+
 	static async getAll () {
-		return await core.get('categories').map(el => new this(el))
+		let data = await core.get('category')
+		return data.map(el => new this(el)) || []
 	}
 
 	static async getOne (id) {
@@ -12,11 +17,7 @@ class CategoryFactory extends BaseFactory {
 }
 
 export default class Category extends CategoryFactory {
-	constructor (source) {
-		super()
-
-		for (var prop in source)
-			if (source.hasOwnProperty(prop))
-				this[prop] = source[prop]
+	constructor (...args) {
+		super(...args)
 	}
 }

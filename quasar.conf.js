@@ -26,7 +26,7 @@ module.exports = function(ctx) {
 		},
 		build: {
 			scopeHoisting: true,
-			vueRouterMode: 'history',
+			vueRouterMode: 'hash',
 			// gzip: true,
 			// analyze: true,
 			// extractCSS: false,
@@ -69,7 +69,8 @@ module.exports = function(ctx) {
 				'QCardMedia',
 				'QCardTitle',
 				'QTabs',
-				'QTab'
+				'QTab',
+				'QCollapsible'
 			],
 			directives: [
 				'Ripple'

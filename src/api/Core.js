@@ -8,9 +8,10 @@ class ApiCore extends EventEmitter {
 	async invoke (url, options = {}, method = 'get') {
 		const req = { [method === 'get' ? 'params' : 'data']: options }
 
+		url = path.join(domain, url)
+
 		if (options.id !== undefined) {
-			console.log(domain, url, '/' + options.id);
-			url = path.join(domain, url, '/' + options.id)
+			url = path.join(url, '/' + options.id)
 			delete options.id
 		}
 

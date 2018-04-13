@@ -2,6 +2,10 @@ import core from './core'
 import BaseFactory from './BaseFactory'
 
 class LessonFactory extends BaseFactory {
+	constructor (...args) {
+		super(...args)
+	}
+
 	static async getAll () {
 		return await core.get('lessons').map(el => new this(el))
 	}
@@ -12,11 +16,7 @@ class LessonFactory extends BaseFactory {
 }
 
 export default class Lesson extends LessonFactory {
-	constructor (source) {
-		super()
-
-		for (var prop in source)
-			if (source.hasOwnProperty(prop))
-				this[prop] = source[prop]
+	constructor (...args) {
+		super(...args)
 	}
 }

@@ -1,21 +1,21 @@
 import core from './core'
 import BaseFactory from './BaseFactory'
 
-class CoruceFactory extends BaseFactory {
+class RecordFactory extends BaseFactory {
 	constructor (...args) {
 		super(...args)
 	}
 
 	static async getAll () {
-		return await core.get('coruces').map(el => new this(el))
+		return await core.get('records').map(el => new this(el))
 	}
 
 	static async getOne (id) {
-		return new this( await core.get('coruce', { id }) )
+		return new this( await core.get('record', { id }) )
 	}
 }
 
-export default class Coruce extends CoruceFactory {
+export default class Record extends RecordFactory {
 	constructor (...args) {
 		super(...args)
 	}

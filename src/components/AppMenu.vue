@@ -1,7 +1,7 @@
 <template>
-	<q-page>
-
-	</q-page>
+	<q-list no-border link inset-delimiter>
+		<app-menu-item :content="menu" initial/>
+	</q-list>
 </template>
 
 <script>
@@ -11,29 +11,32 @@ import {
 	MapMutations,
 	mapState
 } from 'vuex'
+
 import {} from 'quasar'
+import AppMenuItem from '@/components/AppMenuItem'
 
 export default {
 	components: {
-
+		AppMenuItem
 	},
 	props: {
 
 	},
-	watch: {
-
-	},
 	computed: {
-
+		...mapState('menu', [
+			'menu'
+		])
 	},
 	methods: {
-
+		...mapActions ('menu', [
+			'init',
+		]),
 	},
 	async mounted () {
 
 	},
 	created () {
-
+		this.init()
 	},
 	destroyed () {
 

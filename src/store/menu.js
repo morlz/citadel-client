@@ -1,24 +1,41 @@
-import {  } from '@/api'
+import { State, Actions, Mutations, Getters, Modules } from '@/store/Base'
+import Menu from '@/api/Menu'
 
-const state = {
+const state = new State ({
+	menu: {}
+})
 
-}
+const actions = new Actions ({
+	async init ({ dispatch }) {
+		dispatch('refresh')
+		let [categories, centers] = await Promise.all([
+			dispatch('category/getMenuCategories', null, { root: true }),
+			dispatch('center/getMenuCenters', null, { root: true })
+		])
+		dispatch('refresh')
+	},
+	refresh ({ commit, rootGetters }) {
+		commit('menuSet', new Menu( rootGetters['auth/role'] ))
+		if (rootGetters['center/menu'])
+			commit('menuSetChilds', { index: 1, data: rootGetters['center/menu'] })
 
-const actions = {
+		if (rootGetters['category/menu'])
+			commit('menuSetChilds', { index: 2, data: rootGetters['category/menu'] })
+	}
+})
 
-}
+const mutations = new Mutations ({
+	menuSet: (state, payload) => state.menu = payload,
+	menuSetChilds: (state, { index, data }) => state.menu.childs[index].setChilds(data)
+})
 
-const mutations = {
+const getters = new Getters ({
 
-}
+})
 
-const getters = {
+const modules = new Modules ({
 
-}
-
-const modules = {
-
-}
+})
 
 export default {
 	namespaced: true,
