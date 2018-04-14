@@ -19,9 +19,6 @@ export default {
 	components: {
 		AppMenuItem
 	},
-	props: {
-
-	},
 	computed: {
 		...mapState('menu', [
 			'menu'
@@ -32,15 +29,9 @@ export default {
 			'init',
 		]),
 	},
-	async mounted () {
-
-	},
 	created () {
 		this.init()
 	},
-	destroyed () {
-
-	}
 }
 </script>
 

@@ -5,19 +5,38 @@ import path from 'path'
 const domain = '/public'
 
 class ApiCore extends EventEmitter {
-	async invoke (url, options = {}, method = 'get') {
+	async invoke (to, options = {}, method = 'get', i = 0) {
 		const req = { [method === 'get' ? 'params' : 'data']: options }
 
-		url = path.join(domain, url)
+		let url = path.join(domain, to)
+		let auth = {
+			api_token: localStorage.getItem('api_token'),
+			uid: localStorage.getItem('uid')
+		}
+
+		req.params = { ...req.params, ...auth }
 
 		if (options.id !== undefined) {
 			url = path.join(url, '/' + options.id)
 			delete options.id
 		}
 
-		let res = await axios({ ...req, method, url })
+		let res = {}
+		try {
+			res = await axios({ ...req, method, url })
+		} catch (err) {
+			console.log('errr', { ...err });
 
-		if ((!res.data && res.status != 200) || res.data.error)
+			if (err.response && err.response.status === 500 && i < 5) {
+				console.log('500', i);
+				await this._wait(5e2)
+				return await this.invoke(to, options, method, ++i)
+			}
+
+			return {}
+		}
+
+		if (!res.data || res.data.error)
 			return this.handleError(res)
 
 		return res.data
@@ -46,6 +65,10 @@ class ApiCore extends EventEmitter {
 			return this.emit('handledError', data.error)
 
 		return this.emit('unhadledError', data)
+	}
+
+	_wait (time = 300) {
+		return new Promise(resolve => setTimeout(resolve, time))
 	}
 }
 

@@ -70,7 +70,10 @@ module.exports = function(ctx) {
 				'QCardTitle',
 				'QTabs',
 				'QTab',
-				'QCollapsible'
+				'QTabPane',
+				'QCollapsible',
+				'QInput',
+				'QField'
 			],
 			directives: [
 				'Ripple'
