@@ -13,7 +13,12 @@ const state = new State ({
 })
 
 const actions = new Actions ({
-	async getFull () {},
+	async getFull ({ commit }, id) {
+		commit('loadingSet', { one: true })
+		let one = await Category.getFull(id)
+		commit('loadingSet', { one: false })
+		commit('cacheSet', { one })
+	},
 	async getMenuCategories ({ commit }) {
 		commit('loadingSet', { menu: true })
 		let categories = await Category.getAll()

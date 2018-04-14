@@ -9,6 +9,7 @@ import auth from './auth'
 import cource from './cource'
 import category from './category'
 import user from './user'
+import page from './page'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
 		auth,
 		cource,
 		category,
-		user
+		user,
+		page
 	}),
 	strict: true
 })

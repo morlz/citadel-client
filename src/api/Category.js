@@ -11,7 +11,7 @@ class CategoryFactory extends BaseFactory {
 		return data.map(el => new this(el)) || []
 	}
 
-	static async getOne (id) {
+	static async getFull (id) {
 		return new this( await core.get('category', { id }) )
 	}
 }

@@ -20,4 +20,16 @@ export default class Center extends CenterFactory {
 	constructor (...args) {
 		super(...args)
 	}
+
+	get gallery () {
+		let res = []
+
+		if (this.images)
+			res = JSON.parse(this.images)
+
+		if (this.logo)
+			res.unshift(logo)
+
+		return res
+	}
 }

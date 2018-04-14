@@ -7,7 +7,7 @@
 
 		<q-card-title class="AppMenuProfile__title">
 			{{ user.name }}
-			<q-btn icon="account_box" color="primary" round class="AppMenuProfile__button"/>
+			<q-btn icon="account_box" color="primary" round class="AppMenuProfile__button" @click="$router.push(`/user/${user.id}`)" wait-for-ripple/>
 
 			<div slot="subtitle" class="AppMenuProfile__email">
 				<div>
@@ -85,6 +85,10 @@
 			</q-btn>
 		</q-card-actions>
 	</template>
+
+	<q-inner-loading :visible="loading.user">
+		<q-spinner size="50px" color="primary"/>
+	</q-inner-loading>
 </q-card>
 </template>
 
@@ -142,6 +146,9 @@ export default {
 	computed: {
 		...mapState('auth/recaptcha', [
 			'sitekey'
+		]),
+		...mapState('auth', [
+			'loading'
 		]),
 		...mapGetters('auth', [
 			'user',
@@ -257,13 +264,15 @@ export default {
 
 <style lang="stylus">
 .AppMenuProfile
+	position relative
+
 	&__title
 		position relative
 
 	&__button
 		position absolute
 		top 0
-		right 14px
+		right 16px
 		transform translateY(-50%)
 
 	&__balance
@@ -273,4 +282,5 @@ export default {
 
 	&__email
 		color gray
+
 </style>

@@ -7,6 +7,7 @@ import Category from './Category'
 import Record from './Record'
 import Transaction from './Transaction'
 import User from './User'
+import Page from './Page'
 
 export default core
 
@@ -18,5 +19,6 @@ export {
 	Category,
 	Record,
 	Transaction,
-	User
+	User,
+	Page
 }

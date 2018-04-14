@@ -23,7 +23,7 @@ const menu = [
 		icon: 'credit_card'
 	},
 	{
-		name: "Режи бога",
+		name: "Режим бога",
 		hide: !this.isAdmin,
 		icon: 'grade',
 		childs: [

@@ -17,7 +17,7 @@ const state = new State ({
 const actions = new Actions ({
 	async getFull ({ commit, dispatch }, id) {
 		commit('loadingSet', { one: true })
-		let one = await Center.getOne(id)
+		let one = await User.getOne(id)
 		commit('loadingSet', { one: false })
 		commit('cacheSet', { one })
 	},

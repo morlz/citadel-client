@@ -67,11 +67,14 @@ export default class User extends UserFactory {
 		return this.photo
 	}
 
-	get balance () {
+	get account_balance () {
 		return 0
 	}
 
 	get role () {
-		return new Role(this.id_role)
+		if (this.id_role)
+			return new Role(this.id_role)
+
+		return { name: 'loading...' }
 	}
 }

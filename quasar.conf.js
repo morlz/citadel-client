@@ -54,6 +54,7 @@ module.exports = function(ctx) {
 				'QLayoutDrawer',
 				'QPageContainer',
 				'QPage',
+				'QTooltip',
 				'QToolbar',
 				'QToolbarTitle',
 				'QBtn',
@@ -73,7 +74,12 @@ module.exports = function(ctx) {
 				'QTabPane',
 				'QCollapsible',
 				'QInput',
-				'QField'
+				'QField',
+				'QInnerLoading',
+				'QSpinner',
+				'QPageSticky',
+				'QFab',
+				'QFabAction'
 			],
 			directives: [
 				'Ripple'
@@ -84,7 +90,10 @@ module.exports = function(ctx) {
 			]
 		},
 		// animations: 'all' --- includes all animations
-		animations: [],
+		animations: [
+			'zoomInDown',
+			'zoomOutDown'
+		],
 		pwa: {
 			cacheExt: 'js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3',
 			manifest: {

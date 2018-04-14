@@ -43,7 +43,7 @@ const getters = new Getters ({
 	isAdmin: (state, getters) => getters.role === 1,
 	isWorler: (state, getters) => getters.role === 2,
 	isUser: (state, getters) => getters.role === 3,
-	role: state => state.user.role_id,
+	role: state => state.user.id_role,
 	logined: state => !!state.user.id,
 	user: state => state.user,
 })

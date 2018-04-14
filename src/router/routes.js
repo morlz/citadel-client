@@ -2,13 +2,34 @@ export default [
 	{
 		path: '/', component: () => import ('layouts/default'),
 		children: [
-			{ path: '', component: () => import ('pages/index'), props: { id: 1 } },
-			{ path: 'work', component: () => import ('pages/index'), props: { id: 2 } },
-			{ path: 'payment', component: () => import ('pages/index'), props: { id: 3 } },
-			{ path: 'cource/:id/:lesson?', component: () => import ('pages/Cource') },
-			{ path: 'category/:id', component: () => import ('pages/Category') },
-			{ path: 'center/:id/:new?', component: () => import ('pages/Center') },
-			{ path: 'user/:id', component: () => import ('pages/Profile') }
+			{ path: '', component: () => import ('layouts/index'), props: { id: 2 }, children: [
+				{ path: '', component: () => import('pages/Static')  },
+				{ path: 'edit', component: () => import('pages/StaticEdit')  },
+			] },
+			{ path: 'work', component: () => import ('layouts/index'), props: { id: 1 }, children: [
+				{ path: '', component: () => import('pages/Static')  },
+				{ path: 'edit', component: () => import('pages/StaticEdit')  },
+			] },
+			{ path: 'payment', component: () => import ('layouts/index'), props: { id: 3 }, children: [
+				{ path: '', component: () => import('pages/Static')  },
+				{ path: 'edit', component: () => import('pages/StaticEdit')  },
+			] },
+			{ path: 'cource/:id/:lesson?', component: () => import ('layouts/Cource'), children: [
+				{ path: '', component: () => import('pages/Cource')  },
+				{ path: 'edit', component: () => import('pages/CourceEdit')  },
+			] },
+			{ path: 'category/:id', component: () => import ('layouts/Category'), children: [
+				{ path: '', component: () => import('pages/Category')  },
+				{ path: 'edit', component: () => import('pages/CategoryEdit')  },
+			] },
+			{ path: 'center/:id/:new?', component: () => import ('layouts/Center'), children: [
+				{ path: '', component: () => import('pages/Center')  },
+				{ path: 'edit', component: () => import('pages/CenterEdit')  },
+			] },
+			{ path: 'user/:id', component: () => import ('layouts/Profile'), children: [
+				{ path: '', component: () => import('pages/Profile')  },
+				{ path: 'edit', component: () => import('pages/Profile')  },
+			] }
 		]
 	},
 	// Always leave this as last one
