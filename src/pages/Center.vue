@@ -27,8 +27,16 @@
 		</div>
 
 		<h2>Курсы</h2>
+
+		<cource-preview-list :content="cources"/>
+
 		<h2>Преподаватели</h2>
+
+		<user-preview-list :content="workers"/>
+
 		<h2>Новости</h2>
+
+		<new-preview-list :content="news"/>
 
 		<q-page-sticky position="bottom-left" :offset="[18, 18]">
 			<q-fab icon="add" color="primary" direction="up">
@@ -47,12 +55,16 @@
 		</q-page-sticky>
 
 		<q-page-sticky position="bottom-right" :offset="[18, 18]">
-			<q-btn round color="primary" icon="edit" @click="$router.push(`${$route.path}/0/edit`)" wait-for-ripple>
+			<q-btn round color="primary" icon="edit" @click="$router.push(`${$route.path}/edit`)" wait-for-ripple>
 				<q-tooltip self="bottom left">
 					Редактировать
 				</q-tooltip>
 			</q-btn>
 		</q-page-sticky>
+
+		<q-inner-loading :visible="loading">
+			<q-spinner size="50px" color="primary"/>
+		</q-inner-loading>
 	</div>
 </template>
 
@@ -64,11 +76,16 @@ import {
 	mapState
 } from 'vuex'
 import Gallery from '@/components/Gallery'
-import {} from 'quasar'
+import CourcePreviewList from '@/components/CourcePreviewList'
+import UserPreviewList from '@/components/UserPreviewList'
+import NewPreviewList from '@/components/NewPreviewList'
 
 export default {
 	components: {
-		Gallery
+		Gallery,
+		CourcePreviewList,
+		UserPreviewList,
+		NewPreviewList
 	},
 	props: {
 
@@ -78,8 +95,14 @@ export default {
 	},
 	computed: {
 		...mapState('center', {
-			content: state => state.cached.one
-		})
+			content: state => state.cached.one,
+			loading: state => state.loading.one
+		}),
+		...mapGetters('center', [
+			'cources',
+			'workers',
+			'news'
+		]),
 	},
 	methods: {
 

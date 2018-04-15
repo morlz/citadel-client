@@ -33,7 +33,7 @@
 	</template>
 
 	<template v-else>
-		<q-tabs inverted no-pane-border align="justify" v-model="currentTab">
+		<q-tabs inverted no-pane-border align="justify" v-model="currentTab" class="AppMenuProfile__tabs">
 			<q-tab slot="title" name="in" label="Вход" default/>
 			<q-tab slot="title" name="up" label="Регистрация"/>
 
@@ -70,7 +70,7 @@
 			</q-tab-pane>
 		</q-tabs>
 
-		<q-card-actions>
+		<q-card-actions class="AppMenuProfile__actions">
 			<q-btn color="primary" @click="validateForm">
 				<q-popover :disable="!formValid" ref="rePopover">
 					<vue-recaptcha

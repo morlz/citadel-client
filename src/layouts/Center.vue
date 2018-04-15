@@ -18,8 +18,8 @@ export default {
 			'getFull'
 		])
 	},
-	created () {
-		this.getFull(this.$route.params.id)
+	async created () {
+		await this.getFull(this.$route.params.id)
 	}
 }
 </script>

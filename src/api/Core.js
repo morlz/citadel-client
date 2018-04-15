@@ -7,6 +7,8 @@ const domain = '/public'
 class ApiCore extends EventEmitter {
 	async invoke (to, options = {}, method = 'get', i = 0) {
 		const req = { [method === 'get' ? 'params' : 'data']: options }
+		let args = [...Array.from(arguments)]
+		//await this._wait(1000)
 
 		let url = path.join(domain, to)
 		let auth = {
@@ -25,12 +27,15 @@ class ApiCore extends EventEmitter {
 		try {
 			res = await axios({ ...req, method, url })
 		} catch (err) {
-			console.log('errr', { ...err });
+			console.log('err', { ...err })
 
 			if (err.response && err.response.status === 500 && i < 5) {
-				console.log('500', i);
+				console.log('err 500', i);
 				await this._wait(5e2)
-				return await this.invoke(to, options, method, ++i)
+
+				console.log('err args', args)
+				args[3] = ++i
+				return await this.invoke(...args)
 			}
 
 			return {}

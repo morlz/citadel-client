@@ -11,7 +11,12 @@ const state = new State ({
 })
 
 const actions = new Actions ({
-	async getByCource () {},
+	async getByCource ({ commit, dispatch }, cource_id) {
+		commit('loadingSet', { list: true })
+		let list = await Lesson.getByCource(cource_id)
+		commit('loadingSet', { list: false })
+		commit('cachedAppendNoDuplicate', { list })
+	},
 	async getAll () {},
 	async updateLesson () {},
 	async deleteLesson () {}

@@ -11,7 +11,12 @@ const state = new State ({
 })
 
 const actions = new Actions ({
-	async getByUser () {},
+	async getByUser ({ commit, dispatch }, user_id) {
+		commit('loadingSet', { list: true })
+		let list = await Transaction.getByUser(user_id)
+		commit('loadingSet', { list: false })
+		commit('cachedAppendNoDuplicate', { list })
+	},
 	async createTransacion () {},
 	async updateTransaction () {},
 	async deleteTransaction () {},

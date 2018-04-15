@@ -18,6 +18,13 @@ const actions = new Actions ({
 		commit('loadingSet', { user: true })
 		let user = await User.getData()
 		commit('loadingSet', { user: false })
+
+		if (!user.id) {
+			localStorage.removeItem('api_token')
+			localStorage.removeItem('uid')
+			return
+		}
+
 		commit('userSet', user)
 	},
 	async signin ({ commit, dispatch }, payload) {

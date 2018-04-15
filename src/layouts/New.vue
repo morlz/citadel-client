@@ -11,15 +11,23 @@ import {
 	MapMutations,
 	mapState
 } from 'vuex'
+import {} from 'quasar'
+import { QPageSticky } from 'quasar'
 
 export default {
+	components: {
+		QPageSticky
+	},
+	props: {
+		id: Number
+	},
 	methods: {
-		...mapActions('cource', [
+		...mapActions('new', [
 			'getFull'
 		])
 	},
-	async created () {
-		await this.getFull(this.$route.params.id)
+	created () {
+		this.getFull(this.$route.params.id)
 	}
 }
 </script>

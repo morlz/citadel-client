@@ -33,7 +33,7 @@ export default {
 		Gallery
 	},
 	computed: {
-		...mapState('page', {
+		...mapState('new', {
 			content: state => state.cached.one,
 			loading: state => state.loading.one,
 		})

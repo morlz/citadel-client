@@ -24,7 +24,21 @@
 
 		<h2>Запись на занятия</h2>
 
+		<record-list :content="records"/>
+
 		<h2>Транзакции</h2>
+
+		<q-list inset-separator>
+			<q-item v-for="transaction, index in transactions" :key="transaction.id">
+				<q-item-main>
+					{{ transaction.description }}
+				</q-item-main>
+
+				<q-item-side>
+					{{ transaction.amount }}
+				</q-item-side>
+			</q-item>
+		</q-list>
 	</div>
 </template>
 
@@ -36,37 +50,27 @@ import {
 	mapState
 } from 'vuex'
 import Gallery from '@/components/Gallery'
-import {} from 'quasar'
+import RecordList from '@/components/RecordList'
 
 export default {
 	components: {
-		Gallery
-	},
-	props: {
-
-	},
-	watch: {
-
+		Gallery,
+		RecordList
 	},
 	computed: {
 		...mapState('user', {
 			content: state => state.cached.one
-		})
+		}),
+		...mapGetters('user', [
+			'transactions',
+			'records'
+		])
 	},
-	methods: {
-
-	},
-	async mounted () {
-
-	},
-	created () {
-
-	},
-	destroyed () {
-
-	}
 }
 </script>
 
 <style lang="stylus">
+.Profile
+	&__description
+		margin-top 10px
 </style>

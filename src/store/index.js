@@ -10,19 +10,25 @@ import cource from './cource'
 import category from './category'
 import user from './user'
 import page from './page'
+import news from './new'
 
 Vue.use(Vuex)
 
+const modules = new Modules ({
+	menu,
+	center,
+	auth,
+	cource,
+	category,
+	user,
+	page,
+	'new': news
+})
+
+console.log(modules);
+
 const store = new Vuex.Store({
-	modules: new Modules ({
-		menu,
-		center,
-		auth,
-		cource,
-		category,
-		user,
-		page
-	}),
+	modules,
 	strict: true
 })
 

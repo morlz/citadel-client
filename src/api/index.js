@@ -8,6 +8,8 @@ import Record from './Record'
 import Transaction from './Transaction'
 import User from './User'
 import Page from './Page'
+import New from './New'
+import sortFnFactory from './sortFnFactory'
 
 export default core
 
@@ -20,5 +22,7 @@ export {
 	Record,
 	Transaction,
 	User,
-	Page
+	Page,
+	New,
+	sortFnFactory
 }

@@ -2,7 +2,11 @@ import { State, Actions, Mutations, Getters, Modules } from '@/store/Base'
 import Menu from '@/api/Menu'
 
 const state = new State ({
-	menu: {}
+	menu: {},
+	title: {
+		title: '',
+		subtitle: ''
+	}
 })
 
 const actions = new Actions ({
@@ -26,7 +30,11 @@ const actions = new Actions ({
 
 const mutations = new Mutations ({
 	menuSet: (state, payload) => state.menu = payload,
-	menuSetChilds: (state, { index, data }) => state.menu.childs[index].setChilds(data)
+	menuSetChilds: (state, { index, data }) => state.menu.childs[index].setChilds(data),
+	titleSet: (state, payload) => (
+		state.title = { title: state.title.title, subtitle: '', ...payload },
+		document.title = `ООО "ЦИТАДЕЛЬ" | ${payload.title}${payload.subtitle ? ` | ${payload.subtitle}` : ''}`
+	)
 })
 
 const getters = new Getters ({

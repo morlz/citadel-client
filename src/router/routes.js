@@ -22,9 +22,13 @@ export default [
 				{ path: '', component: () => import('pages/Category')  },
 				{ path: 'edit', component: () => import('pages/CategoryEdit')  },
 			] },
-			{ path: 'center/:id/:new?', component: () => import ('layouts/Center'), children: [
+			{ path: 'center/:id', component: () => import ('layouts/Center'), children: [
 				{ path: '', component: () => import('pages/Center')  },
 				{ path: 'edit', component: () => import('pages/CenterEdit')  },
+			] },
+			{ path: 'new/:id', component: () => import ('layouts/New'), children: [
+				{ path: '', component: () => import('pages/New')  },
+				{ path: 'edit', component: () => import('pages/NewEdit')  },
 			] },
 			{ path: 'user/:id', component: () => import ('layouts/Profile'), children: [
 				{ path: '', component: () => import('pages/Profile')  },

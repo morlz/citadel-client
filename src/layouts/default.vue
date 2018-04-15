@@ -2,15 +2,15 @@
 <q-layout view="lHh Lpr lFf">
 	<q-ajax-bar :delay="200"/>
 
-	<q-layout-header>
+	<q-layout-header reveal>
 		<q-toolbar color="primary">
 			<q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
 				<q-icon name="menu" />
 			</q-btn>
 
 			<q-toolbar-title>
-				Quasar App
-				<div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
+				{{ title.title }}
+				<div slot="subtitle">{{ title.subtitle }}</div>
 			</q-toolbar-title>
 		</q-toolbar>
 	</q-layout-header>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import AppMenu from '@/components/AppMenu'
 import AppMenuProfile from '@/components/AppMenuProfile'
@@ -56,6 +56,11 @@ export default {
 		return {
 			leftDrawerOpen: this.$q.platform.is.desktop
 		}
+	},
+	computed: {
+		...mapState('menu', {
+			title: state => state.title
+		})
 	}
 }
 </script>

@@ -13,11 +13,14 @@ const state = new State ({
 })
 
 const actions = new Actions ({
-	async getFull ({ commit }, id) {
+	async getFull ({ commit, dispatch }, id) {
 		commit('loadingSet', { one: true })
 		let one = await Category.getFull(id)
 		commit('loadingSet', { one: false })
+		if (!one) return
 		commit('cacheSet', { one })
+		commit('menu/titleSet', { title: one.title, subtitle: 'Направление' }, { root: true })
+		await dispatch('cource/getByCategory', id, { root: true })
 	},
 	async getMenuCategories ({ commit }) {
 		commit('loadingSet', { menu: true })
@@ -39,7 +42,7 @@ const getters = new Getters ({
 		path: `/category/${cat.id}`,
 		[cat.logo ? 'avatar' : 'icon']: cat.logo ? cat.logo : 'fa-image',
 	})),
-	cources: (state, getters, rootState) => rootState.cource.cached.list.map(cource => cource.category_id == state.cached.one.id)
+	cources: (state, getters, rootState) => rootState.cource.cached.list.filter(cource => cource.category == state.cached.one.id)
 })
 
 const modules = new Modules ({

@@ -42,6 +42,11 @@ module.exports = function(ctx) {
 			proxy: {
 				'/public': {
 					target: 'http://edu.it-citadel.ru/',
+					//target: 'http://localhost/citadel-server/',
+					changeOrigin: true
+				},
+				'/resources': {
+					target: 'http://edu.it-citadel.ru/',
 					changeOrigin: true
 				}
 			}

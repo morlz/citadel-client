@@ -13,9 +13,11 @@ const state = new State ({
 const actions = new Actions ({
 	async getFull ({ commit, dispatch }, id) {
 		commit('loadingSet', { one: true })
-		let page = await Page.getFull(id)
+		let one = await Page.getFull(id)
 		commit('loadingSet', { one: false })
-		commit('cacheSet', { one: page })
+		if (!one) return
+		commit('cacheSet', { one })
+		commit('menu/titleSet', { title: one.title }, { root: true })
 	},
 	async updatePage () {}
 })

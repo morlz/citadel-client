@@ -33,7 +33,7 @@ class UserFactory extends BaseFactory {
 		return await core.get('users').map(el => new this(el))
 	}
 
-	static async getOne (id) {
+	static async getFull (id) {
 		return new this( await core.get('user', { id }) )
 	}
 
@@ -46,6 +46,12 @@ class UserFactory extends BaseFactory {
 		let res = await core.get('getUserData')
 		return res.id ? new this(res) : res
 	}
+
+	static async getByCenter (id) {
+		let res = await core.get('getCenterPrepods', { id })
+		if (!Array.isArray(res)) return []
+		return res.map(el => new this({ ...el, center_id: +id })) || []
+	}
 }
 
 export default class User extends UserFactory {
@@ -54,15 +60,14 @@ export default class User extends UserFactory {
 	}
 
 	get avatar () {
-		console.log(this);
-		if (process.env.NODE_ENV == 'development')
-			return 'https://forums.roku.com/styles/canvas/theme/images/no_avatar.jpg'
+		//if (process.env.NODE_ENV == 'development')
+			//return 'https://forums.roku.com/styles/canvas/theme/images/no_avatar.jpg'
 
 		if (!this.photo)
 			return 'https://forums.roku.com/styles/canvas/theme/images/no_avatar.jpg'
 
-		if (this.photo.substr(0, 4) === 'src="')
-			return this.photo.substr(4, this.photo.length - 1)
+		if (this.photo.substr(0, 5) === 'src="')
+			return this.photo.substr(5, this.photo.length - 6)
 
 		return this.photo
 	}
@@ -76,5 +81,15 @@ export default class User extends UserFactory {
 			return new Role(this.id_role)
 
 		return { name: 'loading...' }
+	}
+
+	get shortDescription () {
+		if (!this.description) return
+
+		let defaultLn = 140
+		if (this.name.length > 25)
+			defaultLn = 60
+
+		return this.description.replace(/<(?:.|\n)*?>/gm, '').substr(0, defaultLn) + '...'
 	}
 }

@@ -7,8 +7,9 @@ class CenterFactory extends BaseFactory {
 	}
 
 	static async getAll () {
-		let data = await core.get('center')
-		return data.map(el => new this(el)) || []
+		let res = await core.get('center')
+		if (!Array.isArray(res)) return []
+		return res.map(el => new this(el)) || []
 	}
 
 	static async getOne (id) {
@@ -28,7 +29,7 @@ export default class Center extends CenterFactory {
 			res = JSON.parse(this.images)
 
 		if (this.logo)
-			res.unshift(logo)
+			res.unshift(this.logo)
 
 		return res
 	}

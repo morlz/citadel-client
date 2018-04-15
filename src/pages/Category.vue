@@ -6,6 +6,8 @@
 
 		<h2>Курсы</h2>
 
+		<cource-preview-list :content="cources"/>
+
 		<q-page-sticky position="bottom-left" :offset="[18, 18]">
 			<q-fab icon="add" color="primary" direction="up">
 				<q-fab-action icon="fa-sitemap" color="primary">
@@ -29,6 +31,10 @@
 				</q-tooltip>
 			</q-btn>
 		</q-page-sticky>
+
+		<q-inner-loading :visible="loading">
+			<q-spinner size="50px" color="primary"/>
+		</q-inner-loading>
 	</div>
 </template>
 
@@ -39,11 +45,11 @@ import {
 	MapMutations,
 	mapState
 } from 'vuex'
-import {} from 'quasar'
+import CourcePreviewList from '@/components/CourcePreviewList'
 
 export default {
 	components: {
-
+		CourcePreviewList
 	},
 	props: {
 
@@ -53,8 +59,12 @@ export default {
 	},
 	computed: {
 		...mapState('category', {
-			content: state => state.cached.one
-		})
+			content: state => state.cached.one,
+			loading: state => state.loading.one
+		}),
+		...mapGetters('category', [
+			'cources'
+		])
 	},
 	methods: {
 

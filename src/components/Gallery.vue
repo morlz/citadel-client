@@ -21,6 +21,9 @@ export default {
 
 <style lang="stylus">
 .Gallery
+	&__slide
+		display grid
+		align-items center
 	&__image
 		width 100%
 </style>

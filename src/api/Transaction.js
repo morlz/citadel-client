@@ -6,8 +6,10 @@ class TransactionFactory extends BaseFactory {
 		super(...args)
 	}
 
-	static async getAll () {
-		return await core.get('transactions').map(el => new this(el))
+	static async getByUser (id) {
+		let res = await core.get('userCash', { id })
+		if (!Array.isArray(res)) return []
+		return res.map(el => new this(el)) || []
 	}
 
 	static async getOne (id) {
