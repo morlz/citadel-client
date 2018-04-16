@@ -28,17 +28,7 @@
 
 		<h2>Транзакции</h2>
 
-		<q-list inset-separator>
-			<q-item v-for="transaction, index in transactions" :key="transaction.id">
-				<q-item-main>
-					{{ transaction.description }}
-				</q-item-main>
-
-				<q-item-side>
-					{{ transaction.amount }}
-				</q-item-side>
-			</q-item>
-		</q-list>
+		<transaction-list :content="transactions"/>
 	</div>
 </template>
 
@@ -51,11 +41,13 @@ import {
 } from 'vuex'
 import Gallery from '@/components/Gallery'
 import RecordList from '@/components/RecordList'
+import TransactionList from '@/components/TransactionList'
 
 export default {
 	components: {
 		Gallery,
-		RecordList
+		RecordList,
+		TransactionList
 	},
 	computed: {
 		...mapState('user', {
