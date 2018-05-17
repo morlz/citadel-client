@@ -7,7 +7,7 @@
 
 		<q-card-title class="AppMenuProfile__title">
 			{{ user.name }}
-			<q-btn icon="account_box" color="primary" round class="AppMenuProfile__button" @click="$router.push(`/user/${user.id}`)" wait-for-ripple/>
+			<q-btn icon="account_box" color="primary" round class="AppMenuProfile__button" @click="$router.push(`/user/${user.id}`)"/>
 
 			<div slot="subtitle" class="AppMenuProfile__email">
 				<div>
@@ -26,7 +26,7 @@
 		</q-card-title>
 
 		<q-card-actions class="row reverse">
-			<q-btn flat color="secondary">
+			<q-btn flat color="secondary" @click="logout">
 				Выйти
 			</q-btn>
 		</q-card-actions>
@@ -226,7 +226,8 @@ export default {
 		...mapActions({
 			signIn: 'auth/signin',
 			signUp: 'auth/signup',
-			authInit: 'auth/init'
+			authInit: 'auth/init',
+			logout: 'auth/logout'
 		}),
 		validateForm () {
 			return this.currentTab == 'in' ?

@@ -18,6 +18,8 @@
 		<q-inner-loading :visible="loading">
 			<q-spinner size="50px" color="primary"/>
 		</q-inner-loading>
+
+		<record-form v-model="regFormOpen"/>
 	</div>
 </template>
 
@@ -32,18 +34,14 @@ import {} from 'quasar'
 import Gallery from '@/components/Gallery'
 import LessonList from '@/components/LessonList'
 import UserPreviewList from '@/components/UserPreviewList'
+import RecordForm from '@/components/RecordForm'
 
 export default {
 	components: {
 		Gallery,
 		LessonList,
-		UserPreviewList
-	},
-	props: {
-
-	},
-	watch: {
-
+		UserPreviewList,
+		RecordForm
 	},
 	computed: {
 		...mapState('cource', {
@@ -53,20 +51,16 @@ export default {
 		...mapGetters('cource', [
 			'lessonsFiltred',
 			'workers'
-		])
+		]),
+		regFormOpen: {
+			get () {
+				return this.$store.state.user.record.form.open
+			},
+			set (open) {
+				this.$store.commit('user/record/formSet', { open })
+			}
+		}
 	},
-	methods: {
-
-	},
-	async mounted () {
-
-	},
-	created () {
-
-	},
-	destroyed () {
-
-	}
 }
 </script>
 

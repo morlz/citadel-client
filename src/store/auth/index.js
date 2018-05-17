@@ -26,6 +26,7 @@ const actions = new Actions ({
 		}
 
 		commit('userSet', user)
+		dispatch('menu/refresh', null, { root: true })
 	},
 	async signin ({ commit, dispatch }, payload) {
 		commit('loadingSet', { user: true })
@@ -35,11 +36,17 @@ const actions = new Actions ({
 		commit('userSet', user)
 		localStorage.setItem('api_token', user.api_token)
 		localStorage.setItem('uid', user.id)
+		dispatch('menu/refresh', null, { root: true })
 	},
 	async signup ({ commit, dispatch }, payload) {
 		console.log('signup', payload)
 	},
-	logout () {},
+	async logout ({ commit, dispatch }) {
+		commit('userSet', {})
+		localStorage.removeItem('api_token')
+		localStorage.removeItem('uid')
+		dispatch('menu/refresh', null, { root: true })
+	},
 })
 
 const mutations = new Mutations ({

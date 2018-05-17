@@ -7,6 +7,10 @@ const state = new State ({
 	},
 	loading: {
 		list: false
+	},
+	form: {
+		open: false,
+		bufferLesson: {}
 	}
 })
 
@@ -15,7 +19,6 @@ const actions = new Actions ({
 		commit('loadingSet', { list: true })
 		let list = await Record.getByUser(user_id)
 		commit('loadingSet', { list: false })
-		console.log(list)
 		commit('cachedAppendNoDuplicate', { list })
 	},
 	async getByLesson () {},
@@ -25,7 +28,7 @@ const actions = new Actions ({
 })
 
 const mutations = new Mutations ({
-
+	formSet: (state, payload) => state.form = { ...state.form, ...payload }
 })
 
 const getters = new Getters ({

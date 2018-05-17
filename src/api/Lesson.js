@@ -12,6 +12,13 @@ class LessonFactory extends BaseFactory {
 		if (!Array.isArray(res)) return []
 		return res.map(el => new this(el)) || []
 	}
+
+	static async getAll () {
+		let res = await core.get('lesson')
+		console.log(res);
+		if (!Array.isArray(res)) return []
+		return res.map(el => new this(el)) || []
+	}
 }
 
 export default class Lesson extends LessonFactory {

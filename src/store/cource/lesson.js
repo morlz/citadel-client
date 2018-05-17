@@ -17,7 +17,13 @@ const actions = new Actions ({
 		commit('loadingSet', { list: false })
 		commit('cachedAppendNoDuplicate', { list })
 	},
-	async getAll () {},
+	async getAll ({ commit, dispatch }) {
+		commit('loadingSet', { list: true })
+		let list = await Lesson.getAll()
+		commit('loadingSet', { list: false })
+		commit('cachedAppendNoDuplicate', { list })
+		commit('menu/titleSet', { title: 'Список занятий' }, { root: true })
+	},
 	async updateLesson () {},
 	async deleteLesson () {}
 })

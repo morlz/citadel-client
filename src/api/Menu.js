@@ -26,6 +26,7 @@ const menu = [
 		name: "Режим бога",
 		hide: !this.isAdmin,
 		icon: 'grade',
+		role: 1,
 		childs: [
 			{
 				name: "Пользователи",
@@ -34,7 +35,7 @@ const menu = [
 			},
 			{
 				name: "Занятия",
-				path: "/allLessons/",
+				path: "/lessons/",
 				icon: 'fa-list-ul'
 			}
 		]
@@ -72,7 +73,8 @@ class Menu extends MenuItem {
 		super({
 			name: 'Меню'
 		})
-		this.childs = menu.map(el => new MenuItem(el))
+
+		this.childs = menu.map(el => el.role === undefined || el.role <= role ? new MenuItem(el) : null).filter(el => el)
 	}
 }
 

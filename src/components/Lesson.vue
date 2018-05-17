@@ -25,9 +25,15 @@
 			</div>
 		</div>
 
-		<q-btn class="Lesson__reg" color="primary" round icon="add">
+		<q-btn class="Lesson__reg" color="primary" round icon="add" v-if="!content.registred || !isUser" @click="reg">
 			<q-tooltip :offset="[0, 10]">
 				Записаться
+			</q-tooltip>
+		</q-btn>
+
+		<q-btn class="Lesson__reg" :color="buttonHover ? 'negative' : 'primary'" round :icon="buttonHover ? 'fa-ban' : 'done'" v-if="content.registred" @mouseenter.native="buttonHover = true" @mouseleave.native="buttonHover = false">
+			<q-tooltip :offset="[0, 10]">
+				Вы записаны. Отменить регистрацию?
 			</q-tooltip>
 		</q-btn>
 	</q-card-title>
@@ -67,14 +73,39 @@ import {
 } from 'vuex'
 
 import { QCardSeparator } from 'quasar'
+import { AuthMixin } from '@/mixins'
 
 export default {
 	components: {
 		QCardSeparator
 	},
+	mixins: [AuthMixin],
 	props: {
 		content: Object
 	},
+	data () {
+		return {
+			buttonHover: false
+		}
+	},
+	computed: {
+		regFormOpen: {
+			get () {
+				return this.$store.state.user.record.form.open
+			},
+			set (open) {
+				this.$store.commit('user/record/formSet', { open, bufferLesson: this.content })
+			}
+		}
+	},
+	methods: {
+		reg () {
+			if (!this.logined)
+				return this.$store.dispatch('notify/alert', 'Войдите в аккаунт для того чтобы записаться!')
+
+			this.regFormOpen = !this.regFormOpen
+		}
+	}
 }
 </script>
 
@@ -86,8 +117,6 @@ export default {
 	overflow hidden
 	min-height 240px
 	position relative
-	cursor pointer
-	user-select none
 
 	&__title
 		position relative

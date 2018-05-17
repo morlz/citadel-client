@@ -33,7 +33,9 @@ export default [
 			{ path: 'user/:id', component: () => import ('layouts/Profile'), children: [
 				{ path: '', component: () => import('pages/Profile')  },
 				{ path: 'edit', component: () => import('pages/Profile')  },
-			] }
+			] },
+			{ path: 'lessons', component: () => import ('pages/AllLessons') },
+			{ path: 'users', component: () => import ('pages/AllUsers') },
 		]
 	},
 	// Always leave this as last one

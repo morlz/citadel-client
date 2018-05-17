@@ -2,17 +2,17 @@
 <q-item class="Transaction">
 	<q-item-side class="Transaction__time">
 		<q-item-tile>
-			{{ content.created_at }}
+			{{ content.dateText }}
 		</q-item-tile>
 		<q-item-tile>
-			{{ content.created_at }}
+			{{ content.timeText }}
 		</q-item-tile>
 
 	</q-item-side>
 
-	<q-item-main class="Transaction__description" :label="content.description"/>
+	<q-item-main class="Transaction__description" :label="content.description" :sublabel="content.textFromNow"/>
 
-	<q-item-side class="Transaction__amount" right icon="add">
+	<q-item-side class="Transaction__amount" right>
 		{{ content.amount }}
 	</q-item-side>
 </q-item>
@@ -39,5 +39,7 @@ export default {
 </script>
 
 <style lang="stylus">
-
+.Transaction
+	&__amount
+		font-size 24px
 </style>

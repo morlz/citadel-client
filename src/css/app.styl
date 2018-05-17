@@ -1,6 +1,17 @@
 // app global css
-.q-field
-	margin-top 5px
+
+*::-webkit-scrollbar
+	height 10px
+	width 10px
+
+*::-webkit-scrollbar-thumb
+	background-color rgba(0, 0, 0, .3)
+
+.q
+	&-field
+		margin-top 5px
+		&-content > div::before
+			transform scaleY(1.5)
 
 h1
 	font-size 2em

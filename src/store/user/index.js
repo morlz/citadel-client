@@ -38,6 +38,13 @@ const actions = new Actions ({
 		commit('loadingSet', { list: false })
 		commit('cachedAppendNoDuplicate', { list })
 	},
+	async getAll ({ commit, dispatch }) {
+		commit('loadingSet', { list: true })
+		let list = await User.getAll()
+		commit('loadingSet', { list: false })
+		commit('cachedAppendNoDuplicate', { list })
+		commit('menu/titleSet', { title: 'Список пользователей' }, { root: true })
+	},
 	async getPreview () {},
 	async getAllPreview () {},
 	async creteTransacion () {},

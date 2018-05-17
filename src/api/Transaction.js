@@ -24,10 +24,14 @@ export default class Transaction extends TransactionFactory {
 	}
 
 	get dateText () {
-		return moment(this.date).format('YYYY-MM-DD') + ' ' + moment(this.date).fromNow()
+		return moment(this.updated_at).format('YYYY-MM-DD') + ' ' + moment(this.updated_at).format('dddd')
 	}
 
 	get timeText () {
- 		return moment(this.date).format('hh:mm:ss') + ' ' + moment(this.date).fromNow()
+ 		return moment(this.updated_at).format('hh:mm:ss')
+	}
+
+	get textFromNow () {
+		return moment(this.updated_at).fromNow()
 	}
 }

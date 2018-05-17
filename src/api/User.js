@@ -30,7 +30,8 @@ class UserFactory extends BaseFactory {
 	}
 
 	static async getAll () {
-		return await core.get('users').map(el => new this(el))
+		let res = await core.get('user')
+		return res.map(el => new this(el)) || []
 	}
 
 	static async getFull (id) {

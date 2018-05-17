@@ -10,7 +10,8 @@ import cource from './cource'
 import category from './category'
 import user from './user'
 import page from './page'
-import news from './new'
+import nw from './new'
+import notify from './notify'
 
 Vue.use(Vuex)
 
@@ -22,7 +23,8 @@ const modules = new Modules ({
 	category,
 	user,
 	page,
-	'new': news
+	'new': nw,
+	notify
 })
 
 console.log(modules);
