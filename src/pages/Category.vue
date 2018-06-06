@@ -8,7 +8,7 @@
 
 		<cource-preview-list :content="cources"/>
 
-		<q-page-sticky position="bottom-left" :offset="[18, 18]">
+		<q-page-sticky position="bottom-left" :offset="[18, 18]" v-if="false">
 			<q-fab icon="add" color="primary" direction="up">
 				<q-fab-action icon="fa-sitemap" color="primary">
 					<q-tooltip anchor="center right" self="center left" :offset="[10, 0]">
@@ -16,7 +16,7 @@
 					</q-tooltip>
 				</q-fab-action>
 
-				<q-fab-action icon="fa-graduation-cap" color="primary">
+				<q-fab-action icon="fa-graduation-cap" color="primary" v-if="false">
 					<q-tooltip anchor="center right" self="center left" :offset="[10, 0]">
 						Добавить курс
 					</q-tooltip>
@@ -24,7 +24,7 @@
 			</q-fab>
 		</q-page-sticky>
 
-		<q-page-sticky position="bottom-right" :offset="[18, 18]">
+		<q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="false">
 			<q-btn round color="primary" icon="edit" @click="$router.push(`${$route.path}/edit`)" wait-for-ripple>
 				<q-tooltip self="bottom left">
 					Редактировать

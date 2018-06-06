@@ -61,7 +61,7 @@
 				</q-field>
 
 				<q-field :error="!!errorPass" :error-label="errorPass" helper="6-255 символов">
-					<q-input v-model.trim="signup.password" float-label="Пароль" type="password"/>
+					<q-input v-model.trim="signup.pass" float-label="Пароль" type="password"/>
 				</q-field>
 
 				<q-field :error="!!errorPass2" :error-label="errorPass2">
@@ -72,7 +72,7 @@
 
 		<q-card-actions class="AppMenuProfile__actions">
 			<q-btn color="primary" @click="validateForm">
-				<q-popover :disable="!formValid" ref="rePopover">
+				<q-popover :disable="!formValid" ref="rePopover" v-if="false">
 					<vue-recaptcha
 						class="q-ma-sm"
 						ref="re"
@@ -125,7 +125,7 @@ export default {
 				fio: "",
 				login: "",
 				email: "",
-				password: "",
+				pass: "",
 				password2: ""
 			},
 			tryToIn: 0,
@@ -140,7 +140,7 @@ export default {
 		},
 		formValid (n) {
 			if (n) return
-			this.$refs.rePopover.hide()
+			//this.$refs.rePopover.hide()
 		}
 	},
 	computed: {
@@ -230,15 +230,17 @@ export default {
 			logout: 'auth/logout'
 		}),
 		validateForm () {
-			return this.currentTab == 'in' ?
+			this.currentTab == 'in' ?
 				this.tryToIn++
 			:	this.tryToUp++
+
+			return this.onVerify()
 		},
 		validateEmail(email) {
 			return validateEmailRegEx.test(String(email).toLowerCase())
 		},
 		async onVerify (e) {
-			this.$refs.rePopover.hide()
+			//this.$refs.rePopover.hide()
 
 			if (this.currentTab == 'in') {
 				this.signIn({

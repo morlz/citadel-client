@@ -6,6 +6,8 @@
 		Список пуст
 	</div>
 
+	<record-form v-model="regFormOpen"/>
+
 	<q-inner-loading :visible="loading">
 		<q-spinner size="50px" color="primary"/>
 	</q-inner-loading>
@@ -21,10 +23,12 @@ import {
 } from 'vuex'
 
 import Lesson from '@/components/Lesson'
+import RecordForm from '@/components/RecordForm'
 
 export default {
 	components: {
-		Lesson
+		Lesson,
+		RecordForm
 	},
 	props: {
 		content: Array
@@ -32,7 +36,15 @@ export default {
 	computed: {
 		...mapState('cource/lesson', {
 			loading: state => state.loading.list
-		})
+		}),
+		regFormOpen: {
+			get () {
+				return this.$store.state.user.record.form.open
+			},
+			set (open) {
+				this.$store.commit('user/record/formSet', { open })
+			}
+		}
 	}
 }
 </script>

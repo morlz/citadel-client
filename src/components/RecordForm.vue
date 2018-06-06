@@ -24,11 +24,11 @@
 			</q-field>
 
 			<q-field>
-				<q-input value="" type="textarea" float-label="Комментарий"/>
+				<q-input v-model="comment" type="textarea" float-label="Комментарий"/>
 			</q-field>
 
 			<div class="RegForm__buttons">
-				<q-btn color="primary" v-close-overlay label="Записаться" />
+				<q-btn color="primary" v-close-overlay label="Записаться" @click="register(comment)"/>
 			</div>
 		</div>
 	</q-modal-layout>
@@ -65,11 +65,8 @@ export default {
 	},
 	data() {
 		return {
-			search: ''
+			comment: ''
 		}
-	},
-	watch: {
-
 	},
 	computed: {
 		...mapState('user/record', {
@@ -77,17 +74,10 @@ export default {
 		})
 	},
 	methods: {
-
+		...mapActions('user/record', [
+			'register'
+		])
 	},
-	async mounted() {
-
-	},
-	created() {
-
-	},
-	destroyed() {
-
-	}
 }
 </script>
 

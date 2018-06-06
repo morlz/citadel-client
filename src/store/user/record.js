@@ -22,9 +22,15 @@ const actions = new Actions ({
 		commit('cachedAppendNoDuplicate', { list })
 	},
 	async getByLesson () {},
-	async createRecord () {},
-	async updateRecord () {},
-	async deleteRecord () {}
+	async register ({ commit, dispatch, state }, comment) {
+		let res = await Record.register({
+			comment,
+			lesson: state.form.bufferLesson
+		})
+		if (!res) return
+
+		dispatch('notify/notify', 'Вы успешно зарегистрировались', { root: true })
+	},
 })
 
 const mutations = new Mutations ({

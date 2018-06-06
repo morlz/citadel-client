@@ -14,6 +14,14 @@ class RecordFactory extends BaseFactory {
 		if (!Array.isArray(res)) return []
 		return res.map(el => new this(el)) || []
 	}
+
+	static async register (data) {
+		let res = await core.post('register', data)
+		if (!Array.isArray(res))
+			return []
+
+		return res.map(el => new this(el)) || []
+	}
 }
 
 export default class Record extends RecordFactory {

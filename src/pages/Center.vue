@@ -38,7 +38,7 @@
 
 		<new-preview-list :content="news"/>
 
-		<q-page-sticky position="bottom-left" :offset="[18, 18]">
+		<q-page-sticky position="bottom-left" :offset="[18, 18]" v-if="false">
 			<q-fab icon="add" color="primary" direction="up">
 				<q-fab-action icon="fa-home" color="primary">
 					<q-tooltip anchor="center right" self="center left" :offset="[10, 0]">
@@ -54,7 +54,7 @@
 			</q-fab>
 		</q-page-sticky>
 
-		<q-page-sticky position="bottom-right" :offset="[18, 18]">
+		<q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="false">
 			<q-btn round color="primary" icon="edit" @click="$router.push(`${$route.path}/edit`)" wait-for-ripple>
 				<q-tooltip self="bottom left">
 					Редактировать

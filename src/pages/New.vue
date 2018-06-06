@@ -6,7 +6,7 @@
 
 		<gallery :images="content.gallery"/>
 
-		<q-page-sticky position="bottom-right" :offset="[18, 18]">
+		<q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="false">
 			<q-btn round color="primary" icon="edit" @click="$router.push(`${$route.path}/edit`)" wait-for-ripple/>
 		</q-page-sticky>
 

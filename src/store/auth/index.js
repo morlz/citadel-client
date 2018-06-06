@@ -39,7 +39,7 @@ const actions = new Actions ({
 		dispatch('menu/refresh', null, { root: true })
 	},
 	async signup ({ commit, dispatch }, payload) {
-		console.log('signup', payload)
+		await User.signup(payload)
 	},
 	async logout ({ commit, dispatch }) {
 		commit('userSet', {})

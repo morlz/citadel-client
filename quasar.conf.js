@@ -42,8 +42,9 @@ module.exports = function(ctx) {
 			open: true, // opens browser window automatically
 			proxy: {
 				'/public': {
-					target: 'http://edu.it-citadel.ru/',
+					//target: 'http://edu.it-citadel.ru/',
 					//target: 'http://localhost/citadel-server/',
+					target: 'http://localhost/citadel-server/',
 					changeOrigin: true
 				},
 				'/resources': {
@@ -92,7 +93,8 @@ module.exports = function(ctx) {
 			],
 			// Quasar plugins
 			plugins: [
-				'Notify'
+				'Notify',
+				'Dialog'
 			]
 		},
 		// animations: 'all' --- includes all animations

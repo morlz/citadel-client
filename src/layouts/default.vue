@@ -23,15 +23,6 @@
 	</q-layout-drawer>
 
 	<q-page-container>
-		<!--
-		<transition
-			mode="out-in"
-			appear
-			enter-active-class="animated zoomInDown"
-			leave-active-class="animated zoomOutDown">
-
-		</transition>
-		-->
 		<router-view :key="$route.fullPath"/>
 	</q-page-container>
 </q-layout>

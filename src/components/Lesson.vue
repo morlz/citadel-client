@@ -31,7 +31,9 @@
 			</q-tooltip>
 		</q-btn>
 
-		<q-btn class="Lesson__reg" :color="buttonHover ? 'negative' : 'primary'" round :icon="buttonHover ? 'fa-ban' : 'done'" v-if="content.registred" @mouseenter.native="buttonHover = true" @mouseleave.native="buttonHover = false">
+		<q-btn class="Lesson__reg" color="primary" round icon="done" v-if="content.registred"/>
+
+		<q-btn class="Lesson__reg" :color="buttonHover ? 'negative' : 'primary'" round :icon="buttonHover ? 'fa-ban' : 'done'" v-if="content.registred && false" @mouseenter.native="buttonHover = true" @mouseleave.native="buttonHover = false">
 			<q-tooltip :offset="[0, 10]">
 				Вы записаны. Отменить регистрацию?
 			</q-tooltip>
@@ -89,6 +91,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters('auth', [
+			'logined'
+		]),
 		regFormOpen: {
 			get () {
 				return this.$store.state.user.record.form.open
