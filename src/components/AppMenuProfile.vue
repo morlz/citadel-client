@@ -185,14 +185,14 @@ export default {
 		},
 		errorPass () {
 			if (!this.tryToUp) return
-			if (!this.signup.password)
+			if (!this.signup.pass)
 				return 'Введите пароль'
-			if (this.signup.password.length < 6)
+			if (this.signup.pass.length < 6)
 				return 'Минимальная длинна пароля 6 символов'
 		},
 		errorPass2 () {
 			if (!this.tryToUp) return
-			if (this.signup.password2 && this.signup.password2 != this.signup.password)
+			if (this.signup.password2 && this.signup.password2 != this.signup.pass)
 				return 'Пароли не совпадают'
 		},
 		signInFormValid () {
