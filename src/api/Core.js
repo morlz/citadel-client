@@ -2,11 +2,12 @@ import axios from 'axios'
 import EventEmitter from 'events'
 import path from 'path'
 
-const domain = '/public'
+const protocol = 'http'
+const domain = 'edu.it-citadel.ru/public/'
+
 
 class ApiCore extends EventEmitter {
 	async invoke (to, options = {}, method = 'get', i = 0) {
-		const req = { [method === 'get' ? 'params' : 'data']: options }
 		let args = [...Array.from(arguments)]
 		//await this._wait(1000)
 
@@ -16,12 +17,16 @@ class ApiCore extends EventEmitter {
 			uid: localStorage.getItem('uid')
 		}
 
-		req.params = { ...req.params, ...auth }
-
 		if (options.id !== undefined) {
 			url = path.join(url, '/' + options.id)
 			delete options.id
 		}
+
+		const req = { [method === 'get' ? 'params' : 'data']: options }
+
+		req.params = { ...req.params, ...auth }
+
+		url = protocol + '://' + url
 
 		let res = {}
 		try {
