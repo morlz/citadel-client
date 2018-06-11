@@ -55,8 +55,8 @@ class UserFactory extends BaseFactory {
 		return res.map(el => new this({ ...el, center_id: +id })) || []
 	}
 
-	static async signup (data) {
-		let res = await core.get('signup', data)
+	static async signup (params) {
+		let res = await core.get('signup', { params })
 		if (!res) return
 
 		await Dialog.create({
