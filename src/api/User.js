@@ -1,6 +1,6 @@
 import core from './core'
 import BaseFactory from './BaseFactory'
-import { Dialog } from 'quasar'
+
 
 class Role {
 	constructor (role_id) {
@@ -55,16 +55,8 @@ class UserFactory extends BaseFactory {
 		return res.map(el => new this({ ...el, center_id: +id })) || []
 	}
 
-	static async signup (params) {
-		let res = await core.get('signup', { params })
-		if (!res) return
-
-		await Dialog.create({
-			title: 'Успешная регистрация',
-			message: 'Вы успешно зарегистрированы'//<a href="${window.location.origin}/${data.confirm_url}">ссылке</a>
-		})
-
-		window.location.href = `http://${window.location.origin}/${res.confirm_url}`
+	static async signup (data) {
+		return await core.get('signup', data)
 	}
 }
 

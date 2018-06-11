@@ -1,7 +1,8 @@
 import { State, Actions, Mutations, Getters, Modules } from '@/store/Base'
 import { User } from '@/api'
 import recaptcha from './recaptcha'
-
+import { Dialog } from 'quasar'
+import axios from 'axios'
 
 
 const state = new State ({
@@ -39,7 +40,16 @@ const actions = new Actions ({
 		dispatch('menu/refresh', null, { root: true })
 	},
 	async signup ({ commit, dispatch }, payload) {
-		await User.signup(payload)
+		try {
+			let res = await User.signup(payload)
+			await axios.get(`http://edu.it-citadel.ru/${res.confirm_url}`)
+			await Dialog.create({
+				title: 'Успешная регистрация',
+				message: 'Вы успешно зарегистрированы'//<a href="${window.location.origin}/${data.confirm_url}">ссылке</a>
+			})
+		} catch (err) {
+			return dispatch('notify/alert', 'Вы не зарегистрированы!', { root: true })
+		}
 	},
 	async logout ({ commit, dispatch }) {
 		commit('userSet', {})

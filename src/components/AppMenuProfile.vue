@@ -49,7 +49,7 @@
 
 			<q-tab-pane name="up">
 				<q-field :error="!!errorFio" :error-label="errorFio">
-					<q-input v-model.trim="signup.fio" float-label="Ваше имя"/>
+					<q-input v-model.trim="signup.name" float-label="Ваше имя"/>
 				</q-field>
 
 				<q-field :error="!!errorLogin" :error-label="errorLogin">
@@ -122,7 +122,7 @@ export default {
 				pass: ""
 			},
 			signup: {
-				fio: "",
+				name: "",
 				login: "",
 				email: "",
 				pass: "",
@@ -168,7 +168,7 @@ export default {
 		},
 		errorFio () {
 			if (!this.tryToUp) return
-			if (!this.signup.fio)
+			if (!this.signup.name)
 				return 'Введите ФИО'
 		},
 		errorLogin () {
