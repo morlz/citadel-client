@@ -8,6 +8,11 @@
             <a v-for="(childItem, index) in item.childs" class="childItem" v-if="childItem.url" :class="childItem.class" :href="childItem.url">{{childItem.name}}</a>
         </div>
     </div>
+
+	<a class="FooterMobileApp" href="/Citadel.apk">
+		<div class="FooterMobileApp__image"/> <div>Мобильное приложение</div>
+	</a>
+
     <div class="copyright">Copyright © 2017 ООО "ЦИТАДЕЛЬ"</div>
 </footer>
 </template>
@@ -104,6 +109,9 @@ export default {
 }
 </script>
 
+
+
+
 <style lang="less">
 footer {
     box-sizing: border-box;
@@ -145,7 +153,7 @@ footer {
         grid-auto-flow: column;
     }
     .copyright {
-        margin: 120px auto 0;
+        margin: 10px auto 0;
         font-size: 12px;
         text-align: center;
     }
@@ -164,5 +172,29 @@ footer {
             }
         }
     }
+}
+
+.FooterMobileApp {
+	display: grid;
+	margin: 120px auto 20px auto;
+	grid-auto-flow: column;
+	transition: all 0.2s ease-in-out;
+	border-radius: 60px;
+	padding: 5px 10px;
+	width: 150px;
+	grid-gap: 10px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: rgba(255,255,255,0.1);
+	}
+
+	&__image {
+		width: 36px;
+		height: 36px;
+		background-size: 100%;
+		background-position: center;
+		background-image: url('../assets/images/android-logo.svg');
+	}
 }
 </style>
