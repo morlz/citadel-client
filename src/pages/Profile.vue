@@ -22,13 +22,15 @@
 			</div>
 		</div>
 
-		<h2>Запись на занятия</h2>
+		<template v-if="isAdmin">
+			<h2>Запись на занятия</h2>
 
-		<record-list :content="records"/>
+			<record-list :content="records"/>
 
-		<h2>Транзакции</h2>
+			<h2>Транзакции</h2>
 
-		<transaction-list :content="transactions"/>
+			<transaction-list :content="transactions"/>
+		</template>
 	</div>
 </template>
 
@@ -56,6 +58,9 @@ export default {
 		...mapGetters('user', [
 			'transactions',
 			'records'
+		]),
+		...mapGetters('auth', [
+			'isAdmin'
 		])
 	},
 }

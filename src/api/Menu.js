@@ -74,7 +74,7 @@ class Menu extends MenuItem {
 			name: 'Меню'
 		})
 
-		this.childs = menu.map(el => el.role === undefined || el.role <= role ? new MenuItem(el) : null).filter(el => el)
+		this.childs = menu.map(el => el.role === undefined || el.role >= role ? new MenuItem(el) : null).filter(el => el)
 	}
 }
 
